@@ -1,16 +1,16 @@
 {
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
-    "module": "esnext",
+    "module": "nodenext",
     "target": "es2020",
     "types": [],
     "outDir": "./dist",
     "rootDir": "./src",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    
+    "moduleResolution": "nodenext",
 
-    // Other Outputs
+    // Other Outputs  
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
