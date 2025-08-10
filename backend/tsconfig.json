@@ -9,7 +9,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "nodenext",
-
+    
     // Other Outputs  
     "sourceMap": true,
     "declaration": true,
