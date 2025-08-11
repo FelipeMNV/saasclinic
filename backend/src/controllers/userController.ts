@@ -24,6 +24,7 @@ export async function createUser(req: Request, res: Response, next: NextFunction
                 username: true,
                 email: true,
                 createdAt: true,
+                clinicas: { select:{ id: true, name: true}}
             },
         });
 
@@ -87,7 +88,7 @@ export async function getUserById(req: Request, res: Response) {
 
   const user = await p.user.findUnique({
     where: { id },
-    select: { id: true, username: true, email: true, createdAt: true}
+    select: { id: true, username: true, email: true, createdAt: true, clinicas: { select:{ id: true, name: true}}}
   });
 
   if (!user) {

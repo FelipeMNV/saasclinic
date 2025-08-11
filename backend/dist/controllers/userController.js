@@ -17,6 +17,7 @@ export async function createUser(req, res, next) {
             username: true,
             email: true,
             createdAt: true,
+            clinicas: { select: { id: true, name: true } }
         },
     });
     return res.status(201).json(newUser);
@@ -70,7 +71,7 @@ export async function getUserById(req, res) {
         return res.status(400).json({ message: 'ID are required' });
     const user = await p.user.findUnique({
         where: { id },
-        select: { id: true, username: true, email: true, createdAt: true }
+        select: { id: true, username: true, email: true, createdAt: true, clinicas: { select: { id: true, name: true } } }
     });
     if (!user) {
         return res.status(404).json({ message: "user not found" });
