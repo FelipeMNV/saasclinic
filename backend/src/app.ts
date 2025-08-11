@@ -3,7 +3,7 @@ import clinicRouter from './routes/clinicRouter.ts';
 import { errorHandling } from './middleware/errorHandling.ts';
 import { unknownEndpoint } from './middleware/unknownEndpoint.ts';
 import userRouter from './routes/userRouter.ts';
-import { PORT } from './config/env.ts'
+
 const app = express();
 
 app.use(express.json());
