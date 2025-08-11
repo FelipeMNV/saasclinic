@@ -24,7 +24,7 @@ describe('Testando rota POST /', async () => {
             address: 'rua 1',
         }
         api
-          .post('/clinic/create')
+          .post('/clinic/login')
           .set('Authorization', `Bearer `)
           .send(clinic)
           .expect(201)
