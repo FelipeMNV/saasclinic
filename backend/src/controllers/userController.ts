@@ -1,22 +1,24 @@
 import type { Request, Response, NextFunction } from "express";
-import { prisma as p } from "../models/prisma.js";
+import { prisma as p } from "../models/prisma.ts";
 import bcrypt from 'bcryptjs';
+import { userSchema } from "../validators/user.validator.ts";
+import { userParamsSchema } from "../validators/user.validator.ts";
 
 
 export async function createUser(req: Request, res: Response, next: NextFunction) {
-    const { username, email, password } = req.body;
+    const result = userSchema.safeParse(req.body)
 
 
-    if (!username || !email || !password){
-        return res.status(400).json({message: "Username, email, and password are required"})
+    if (!result.success){
+        return res.status(400).json({message: result.error.issues})
     }
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(result.data.password, 10);
 
 
         const newUser = await p.user.create({
             data: {
-                username,
-                email,
+                email: result.data.email,
+                username: result.data.username,
                 password: hashedPassword,
             },
             select: {
@@ -31,17 +33,19 @@ export async function createUser(req: Request, res: Response, next: NextFunction
         return res.status(201).json(newUser)    
 }
 export async function updateUser(req: Request, res: Response) {
-  const { id } = req.params;
-  const { username, email, password } = req.body;
+  const paramsResult = userParamsSchema.safeParse(req.params);
+  const result = userSchema.safeParse(req.body)
 
-  if (!id){
+  if (!paramsResult.success){
     return res.status(400).json({message: "User ID is Required"});
   }
 
-  if (!username && !email && !password) {
-    return res.send(400).json({message: "At least one field must be provided for update"});
-  }
+  const { id } = paramsResult.data;
 
+  if (!result.success) {
+    return res.status(400).json({message: "At least one field must be provided for update"});
+  }
+    const { username, email, password } = result.data;
     const dataToUpdate: any = {};
   
     if (username) dataToUpdate.username = username;

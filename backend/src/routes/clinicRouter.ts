@@ -9,8 +9,8 @@ import {
     updateClinicName,
     updateClinicSlug,
 
-} from '../controllers/clinicController.js'
-import { authenticationToken } from '../middleware/authMiddleware.js'
+} from '../controllers/clinicController.ts'
+import { authenticationToken } from '../middleware/authMiddleware.ts'
 
 const clinicRouter = express.Router()
 

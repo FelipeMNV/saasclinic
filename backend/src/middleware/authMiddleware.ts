@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken"
 import type { JwtPayload } from "jsonwebtoken";
-import { JWT_SECRET } from "../config/env.js";
+import { JWT_SECRET } from "../config/env.ts";
 import type { Request, Response, NextFunction } from "express";
 
 interface TokenPayload extends JwtPayload {

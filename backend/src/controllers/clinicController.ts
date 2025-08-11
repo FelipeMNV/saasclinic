@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
-import { prisma as p } from "../models/prisma.js";
-import { clinicRegisterSchema } from "../validators/clinic.validators.js";
-import type { AuthenticatedRequest } from "../middleware/authMiddleware.js";
+import { prisma as p } from "../models/prisma.ts";
+import { clinicRegisterSchema } from "../validators/clinic.validators.ts";
+import type { AuthenticatedRequest } from "../middleware/authMiddleware.ts";
 
 export async function createClinic(req: AuthenticatedRequest, res: Response){
     const result = clinicRegisterSchema.safeParse(req.body)
