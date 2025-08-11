@@ -12,6 +12,9 @@ export const errorHandling = (error, req, res, next) => {
                 }
             }
         }
+        if (error.name === 'PrismaClientValidationError') {
+            return res.status(400).json({ message: 'Invalid data provided.' });
+        }
     }
     return res.status(500).json({ message: "Internal server error" });
 };
