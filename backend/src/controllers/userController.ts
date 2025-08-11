@@ -82,6 +82,9 @@ export async function getUsers(req: Request, res: Response) {
 
 export async function getUserById(req: Request, res: Response) {
   const { id } = req.params;
+
+  if(!id) return res.status(400).json({message: 'ID are required'})
+
   const user = await p.user.findUnique({
     where: { id },
     select: { id: true, username: true, email: true, createdAt: true}

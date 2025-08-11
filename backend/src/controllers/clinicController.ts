@@ -5,6 +5,10 @@ import type { AuthenticatedRequest } from "../middleware/authMiddleware.js";
 
 export async function createClinic(req: AuthenticatedRequest, res: Response){
     const result = clinicRegisterSchema.safeParse(req.body)
+    
+    if (!req.user?.id) {
+        return res.status(400).json({ message: "Usuário não autenticado" });
+    }
 
     if(!result.success){
         return res.status(400).json({ message: result.error.issues })
@@ -95,6 +99,11 @@ export async function updateClinicAddress(req: Request, res: Response){
 }
 export async function getClinicBySlug(req: Request, res: Response){
     const { slug } = req.params
+
+    if (!slug) {
+        return res.status(400).json({ message: "Slug are required" });
+    }
+
     const clinic = await p.clinica.findUnique({
         where: { slug},
         select:{
@@ -133,9 +142,9 @@ export async function deleteClinic(req: Request, res: Response){
     const { id } = req.body
     if(!id) return res.status(404).json({message: 'ID are required'})
     
-    await p.prisma.delete({
+    await p.clinica.delete({
         where: {id}
     })
-    
+
     res.status(204).end()
 }
