@@ -1,5 +1,5 @@
 import supertest from 'supertest'
-import app from '../index.ts'
+import app from '../app.ts'
 import {prisma as p} from '../models/prisma.ts'
 import jwt from 'jsonwebtoken'
 import { JWT_SECRET } from '../config/env.ts'
@@ -11,6 +11,9 @@ let token: string;
 let user_id: string;
 
 beforeEach(async () => {
+    await p.clinica.deleteMany({})
+    await p.user.deleteMany({})
+
     const user = await p.user.create({
        data:{
             username: 'Gustavo',
@@ -28,7 +31,7 @@ beforeEach(async () => {
 })
 
 
-describe('Route ', async () => {
+describe('Route to create a clinic ', () => {
     test('Create new clinic', async () => {
         const clinic = {
             name: 'Clinica',
@@ -38,15 +41,47 @@ describe('Route ', async () => {
             user_id: user_id
         }
         
-        api
+        await api
           .post('/clinic/create')
           .set('Authorization', `Bearer ${token}`)
           .send(clinic)
           .expect(201)
           .expect('Content-Type', /application\/json/)
     })
+    test('Error to create new clinic', async () => {
+        const clinic = {
+            name: 1,
+            slug: 'clinica',
+            contact: '85992833870',
+            address: 'rua 1',
+            user_id: user_id
+        }
+        
+        await api
+          .post('/clinic/create')
+          .set('Authorization', `Bearer ${token}`)
+          .send(clinic)
+          .expect(400)
+          .expect('Content-Type', /application\/json/)
+    })
+    test('Error to create new clinic cause user have invalid token', async () => {
+        const clinic = {
+            name: 1,
+            slug: 'clinica',
+            contact: '85992833870',
+            address: 'rua 1',
+            user_id: user_id
+        }
+        
+        await api
+          .post('/clinic/create')
+          .set('Authorization', `Bearer ${token}a`)
+          .send(clinic)
+          .expect(403)
+          .expect('Content-Type', /application\/json/)
+    })
 })
 
 afterAll(async () => {
-    p.clinica.deleteMany({})
-})
+  await p.$disconnect();
+});

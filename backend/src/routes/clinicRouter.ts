@@ -14,7 +14,7 @@ import { authenticationToken } from '../middleware/authMiddleware.ts'
 
 const clinicRouter = express.Router()
 
-clinicRouter.post('/clinic/create', createClinic, authenticationToken)
+clinicRouter.post('/clinic/create',authenticationToken, createClinic)
 clinicRouter.patch('/clinic/update/name', updateClinicName)
 clinicRouter.patch('/clinic/update/slug', updateClinicSlug)
 clinicRouter.patch('/clinic/update/contact', updateClinicContact)

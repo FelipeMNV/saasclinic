@@ -34,7 +34,7 @@ export async function createClinic(req: AuthenticatedRequest, res: Response){
             employees: true
         }
     })
-    return res.send(newClinic)
+    return res.status(201).json(newClinic)
 };
 
 export async function updateClinicName(req: Request, res: Response){
