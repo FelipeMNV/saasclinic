@@ -125,7 +125,8 @@ exports.Prisma.UserScalarFieldEnum = {
   username: 'username',
   email: 'email',
   password: 'password',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updateAt: 'updateAt'
 };
 
 exports.Prisma.ClinicaScalarFieldEnum = {
@@ -142,7 +143,10 @@ exports.Prisma.ClinicaScalarFieldEnum = {
 exports.Prisma.EmployeeScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  clinica_id: 'clinica_id'
+  speciality: 'speciality',
+  clinica_id: 'clinica_id',
+  createdAt: 'createdAt',
+  updateAt: 'updateAt'
 };
 
 exports.Prisma.ServicesScalarFieldEnum = {
@@ -151,7 +155,8 @@ exports.Prisma.ServicesScalarFieldEnum = {
   description: 'description',
   price: 'price',
   employee_id: 'employee_id',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updateAt: 'updateAt'
 };
 
 exports.Prisma.SortOrder = {

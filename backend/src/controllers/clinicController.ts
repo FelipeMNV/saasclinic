@@ -52,6 +52,7 @@ export async function updateClinicName(req: Request, res: Response){
 
     return res.send(updatedClinic)
 }
+
 export async function updateClinicSlug(req: Request, res: Response){
     const {id , slug} = req.body
     if(!id && !slug){
@@ -105,7 +106,7 @@ export async function getClinicBySlug(req: Request, res: Response){
     }
 
     const clinic = await p.clinica.findUnique({
-        where: { slug},
+        where: { slug },
         select:{
             id: true,
             name: true,

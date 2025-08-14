@@ -15,7 +15,7 @@ datasource db {
 }
 
 // FALTA CRIAR O MODEL DE CONSULTA, E TAMBÉM FALTA PENSAR NUM JEITO PROS HORÁRIOS
-// FALTA RODAR OS COMANDOS TAMBEM
+
 
 
 model User {
@@ -24,6 +24,7 @@ model User {
   email String @unique
   password String 
   createdAt DateTime @default(now())
+  updateAt DateTime @updatedAt
   clinicas      Clinica[]
 }
 
@@ -43,9 +44,12 @@ model Clinica {
 model Employee {
   id String @id @default(uuid())
   name String
+  speciality String
   services Services[]
   clinica_id String
   clinica Clinica @relation(fields: [clinica_id], references: [id])
+  createdAt DateTime @default(now())
+  updateAt DateTime @updatedAt
 }
 
 model Services {
@@ -54,6 +58,7 @@ model Services {
   description String?
   price Decimal
   employee_id String
-  createdAt DateTime @default(now())
   employee Employee @relation(fields: [employee_id], references: [id])
+  createdAt DateTime @default(now())
+  updateAt DateTime @updatedAt
 }

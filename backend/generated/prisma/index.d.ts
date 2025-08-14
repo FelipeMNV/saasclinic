@@ -1263,6 +1263,7 @@ export namespace Prisma {
     email: string | null
     password: string | null
     createdAt: Date | null
+    updateAt: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1271,6 +1272,7 @@ export namespace Prisma {
     email: string | null
     password: string | null
     createdAt: Date | null
+    updateAt: Date | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1279,6 +1281,7 @@ export namespace Prisma {
     email: number
     password: number
     createdAt: number
+    updateAt: number
     _all: number
   }
 
@@ -1289,6 +1292,7 @@ export namespace Prisma {
     email?: true
     password?: true
     createdAt?: true
+    updateAt?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1297,6 +1301,7 @@ export namespace Prisma {
     email?: true
     password?: true
     createdAt?: true
+    updateAt?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1305,6 +1310,7 @@ export namespace Prisma {
     email?: true
     password?: true
     createdAt?: true
+    updateAt?: true
     _all?: true
   }
 
@@ -1386,6 +1392,7 @@ export namespace Prisma {
     email: string
     password: string
     createdAt: Date
+    updateAt: Date
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1411,6 +1418,7 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     createdAt?: boolean
+    updateAt?: boolean
     clinicas?: boolean | User$clinicasArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -1421,6 +1429,7 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     createdAt?: boolean
+    updateAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1429,6 +1438,7 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     createdAt?: boolean
+    updateAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1437,9 +1447,10 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     createdAt?: boolean
+    updateAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "email" | "password" | "createdAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "email" | "password" | "createdAt" | "updateAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     clinicas?: boolean | User$clinicasArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1458,6 +1469,7 @@ export namespace Prisma {
       email: string
       password: string
       createdAt: Date
+      updateAt: Date
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1887,6 +1899,7 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
+    readonly updateAt: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -3457,19 +3470,28 @@ export namespace Prisma {
   export type EmployeeMinAggregateOutputType = {
     id: string | null
     name: string | null
+    speciality: string | null
     clinica_id: string | null
+    createdAt: Date | null
+    updateAt: Date | null
   }
 
   export type EmployeeMaxAggregateOutputType = {
     id: string | null
     name: string | null
+    speciality: string | null
     clinica_id: string | null
+    createdAt: Date | null
+    updateAt: Date | null
   }
 
   export type EmployeeCountAggregateOutputType = {
     id: number
     name: number
+    speciality: number
     clinica_id: number
+    createdAt: number
+    updateAt: number
     _all: number
   }
 
@@ -3477,19 +3499,28 @@ export namespace Prisma {
   export type EmployeeMinAggregateInputType = {
     id?: true
     name?: true
+    speciality?: true
     clinica_id?: true
+    createdAt?: true
+    updateAt?: true
   }
 
   export type EmployeeMaxAggregateInputType = {
     id?: true
     name?: true
+    speciality?: true
     clinica_id?: true
+    createdAt?: true
+    updateAt?: true
   }
 
   export type EmployeeCountAggregateInputType = {
     id?: true
     name?: true
+    speciality?: true
     clinica_id?: true
+    createdAt?: true
+    updateAt?: true
     _all?: true
   }
 
@@ -3568,7 +3599,10 @@ export namespace Prisma {
   export type EmployeeGroupByOutputType = {
     id: string
     name: string
+    speciality: string
     clinica_id: string
+    createdAt: Date
+    updateAt: Date
     _count: EmployeeCountAggregateOutputType | null
     _min: EmployeeMinAggregateOutputType | null
     _max: EmployeeMaxAggregateOutputType | null
@@ -3591,7 +3625,10 @@ export namespace Prisma {
   export type EmployeeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    speciality?: boolean
     clinica_id?: boolean
+    createdAt?: boolean
+    updateAt?: boolean
     services?: boolean | Employee$servicesArgs<ExtArgs>
     clinica?: boolean | ClinicaDefaultArgs<ExtArgs>
     _count?: boolean | EmployeeCountOutputTypeDefaultArgs<ExtArgs>
@@ -3600,24 +3637,33 @@ export namespace Prisma {
   export type EmployeeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    speciality?: boolean
     clinica_id?: boolean
+    createdAt?: boolean
+    updateAt?: boolean
     clinica?: boolean | ClinicaDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["employee"]>
 
   export type EmployeeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    speciality?: boolean
     clinica_id?: boolean
+    createdAt?: boolean
+    updateAt?: boolean
     clinica?: boolean | ClinicaDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["employee"]>
 
   export type EmployeeSelectScalar = {
     id?: boolean
     name?: boolean
+    speciality?: boolean
     clinica_id?: boolean
+    createdAt?: boolean
+    updateAt?: boolean
   }
 
-  export type EmployeeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "clinica_id", ExtArgs["result"]["employee"]>
+  export type EmployeeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "speciality" | "clinica_id" | "createdAt" | "updateAt", ExtArgs["result"]["employee"]>
   export type EmployeeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     services?: boolean | Employee$servicesArgs<ExtArgs>
     clinica?: boolean | ClinicaDefaultArgs<ExtArgs>
@@ -3639,7 +3685,10 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
+      speciality: string
       clinica_id: string
+      createdAt: Date
+      updateAt: Date
     }, ExtArgs["result"]["employee"]>
     composites: {}
   }
@@ -4067,7 +4116,10 @@ export namespace Prisma {
   interface EmployeeFieldRefs {
     readonly id: FieldRef<"Employee", 'String'>
     readonly name: FieldRef<"Employee", 'String'>
+    readonly speciality: FieldRef<"Employee", 'String'>
     readonly clinica_id: FieldRef<"Employee", 'String'>
+    readonly createdAt: FieldRef<"Employee", 'DateTime'>
+    readonly updateAt: FieldRef<"Employee", 'DateTime'>
   }
     
 
@@ -4533,6 +4585,7 @@ export namespace Prisma {
     price: Decimal | null
     employee_id: string | null
     createdAt: Date | null
+    updateAt: Date | null
   }
 
   export type ServicesMaxAggregateOutputType = {
@@ -4542,6 +4595,7 @@ export namespace Prisma {
     price: Decimal | null
     employee_id: string | null
     createdAt: Date | null
+    updateAt: Date | null
   }
 
   export type ServicesCountAggregateOutputType = {
@@ -4551,6 +4605,7 @@ export namespace Prisma {
     price: number
     employee_id: number
     createdAt: number
+    updateAt: number
     _all: number
   }
 
@@ -4570,6 +4625,7 @@ export namespace Prisma {
     price?: true
     employee_id?: true
     createdAt?: true
+    updateAt?: true
   }
 
   export type ServicesMaxAggregateInputType = {
@@ -4579,6 +4635,7 @@ export namespace Prisma {
     price?: true
     employee_id?: true
     createdAt?: true
+    updateAt?: true
   }
 
   export type ServicesCountAggregateInputType = {
@@ -4588,6 +4645,7 @@ export namespace Prisma {
     price?: true
     employee_id?: true
     createdAt?: true
+    updateAt?: true
     _all?: true
   }
 
@@ -4684,6 +4742,7 @@ export namespace Prisma {
     price: Decimal
     employee_id: string
     createdAt: Date
+    updateAt: Date
     _count: ServicesCountAggregateOutputType | null
     _avg: ServicesAvgAggregateOutputType | null
     _sum: ServicesSumAggregateOutputType | null
@@ -4712,6 +4771,7 @@ export namespace Prisma {
     price?: boolean
     employee_id?: boolean
     createdAt?: boolean
+    updateAt?: boolean
     employee?: boolean | EmployeeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["services"]>
 
@@ -4722,6 +4782,7 @@ export namespace Prisma {
     price?: boolean
     employee_id?: boolean
     createdAt?: boolean
+    updateAt?: boolean
     employee?: boolean | EmployeeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["services"]>
 
@@ -4732,6 +4793,7 @@ export namespace Prisma {
     price?: boolean
     employee_id?: boolean
     createdAt?: boolean
+    updateAt?: boolean
     employee?: boolean | EmployeeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["services"]>
 
@@ -4742,9 +4804,10 @@ export namespace Prisma {
     price?: boolean
     employee_id?: boolean
     createdAt?: boolean
+    updateAt?: boolean
   }
 
-  export type ServicesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "price" | "employee_id" | "createdAt", ExtArgs["result"]["services"]>
+  export type ServicesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "price" | "employee_id" | "createdAt" | "updateAt", ExtArgs["result"]["services"]>
   export type ServicesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     employee?: boolean | EmployeeDefaultArgs<ExtArgs>
   }
@@ -4767,6 +4830,7 @@ export namespace Prisma {
       price: Prisma.Decimal
       employee_id: string
       createdAt: Date
+      updateAt: Date
     }, ExtArgs["result"]["services"]>
     composites: {}
   }
@@ -5197,6 +5261,7 @@ export namespace Prisma {
     readonly price: FieldRef<"Services", 'Decimal'>
     readonly employee_id: FieldRef<"Services", 'String'>
     readonly createdAt: FieldRef<"Services", 'DateTime'>
+    readonly updateAt: FieldRef<"Services", 'DateTime'>
   }
     
 
@@ -5630,7 +5695,8 @@ export namespace Prisma {
     username: 'username',
     email: 'email',
     password: 'password',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    updateAt: 'updateAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -5653,7 +5719,10 @@ export namespace Prisma {
   export const EmployeeScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    clinica_id: 'clinica_id'
+    speciality: 'speciality',
+    clinica_id: 'clinica_id',
+    createdAt: 'createdAt',
+    updateAt: 'updateAt'
   };
 
   export type EmployeeScalarFieldEnum = (typeof EmployeeScalarFieldEnum)[keyof typeof EmployeeScalarFieldEnum]
@@ -5665,7 +5734,8 @@ export namespace Prisma {
     description: 'description',
     price: 'price',
     employee_id: 'employee_id',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    updateAt: 'updateAt'
   };
 
   export type ServicesScalarFieldEnum = (typeof ServicesScalarFieldEnum)[keyof typeof ServicesScalarFieldEnum]
@@ -5768,6 +5838,7 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
+    updateAt?: DateTimeFilter<"User"> | Date | string
     clinicas?: ClinicaListRelationFilter
   }
 
@@ -5777,6 +5848,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
+    updateAt?: SortOrder
     clinicas?: ClinicaOrderByRelationAggregateInput
   }
 
@@ -5789,6 +5861,7 @@ export namespace Prisma {
     username?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
+    updateAt?: DateTimeFilter<"User"> | Date | string
     clinicas?: ClinicaListRelationFilter
   }, "id" | "email">
 
@@ -5798,6 +5871,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
+    updateAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -5812,6 +5886,7 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    updateAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
   export type ClinicaWhereInput = {
@@ -5893,7 +5968,10 @@ export namespace Prisma {
     NOT?: EmployeeWhereInput | EmployeeWhereInput[]
     id?: StringFilter<"Employee"> | string
     name?: StringFilter<"Employee"> | string
+    speciality?: StringFilter<"Employee"> | string
     clinica_id?: StringFilter<"Employee"> | string
+    createdAt?: DateTimeFilter<"Employee"> | Date | string
+    updateAt?: DateTimeFilter<"Employee"> | Date | string
     services?: ServicesListRelationFilter
     clinica?: XOR<ClinicaScalarRelationFilter, ClinicaWhereInput>
   }
@@ -5901,7 +5979,10 @@ export namespace Prisma {
   export type EmployeeOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    speciality?: SortOrder
     clinica_id?: SortOrder
+    createdAt?: SortOrder
+    updateAt?: SortOrder
     services?: ServicesOrderByRelationAggregateInput
     clinica?: ClinicaOrderByWithRelationInput
   }
@@ -5912,7 +5993,10 @@ export namespace Prisma {
     OR?: EmployeeWhereInput[]
     NOT?: EmployeeWhereInput | EmployeeWhereInput[]
     name?: StringFilter<"Employee"> | string
+    speciality?: StringFilter<"Employee"> | string
     clinica_id?: StringFilter<"Employee"> | string
+    createdAt?: DateTimeFilter<"Employee"> | Date | string
+    updateAt?: DateTimeFilter<"Employee"> | Date | string
     services?: ServicesListRelationFilter
     clinica?: XOR<ClinicaScalarRelationFilter, ClinicaWhereInput>
   }, "id">
@@ -5920,7 +6004,10 @@ export namespace Prisma {
   export type EmployeeOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    speciality?: SortOrder
     clinica_id?: SortOrder
+    createdAt?: SortOrder
+    updateAt?: SortOrder
     _count?: EmployeeCountOrderByAggregateInput
     _max?: EmployeeMaxOrderByAggregateInput
     _min?: EmployeeMinOrderByAggregateInput
@@ -5932,7 +6019,10 @@ export namespace Prisma {
     NOT?: EmployeeScalarWhereWithAggregatesInput | EmployeeScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Employee"> | string
     name?: StringWithAggregatesFilter<"Employee"> | string
+    speciality?: StringWithAggregatesFilter<"Employee"> | string
     clinica_id?: StringWithAggregatesFilter<"Employee"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Employee"> | Date | string
+    updateAt?: DateTimeWithAggregatesFilter<"Employee"> | Date | string
   }
 
   export type ServicesWhereInput = {
@@ -5945,6 +6035,7 @@ export namespace Prisma {
     price?: DecimalFilter<"Services"> | Decimal | DecimalJsLike | number | string
     employee_id?: StringFilter<"Services"> | string
     createdAt?: DateTimeFilter<"Services"> | Date | string
+    updateAt?: DateTimeFilter<"Services"> | Date | string
     employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
   }
 
@@ -5955,6 +6046,7 @@ export namespace Prisma {
     price?: SortOrder
     employee_id?: SortOrder
     createdAt?: SortOrder
+    updateAt?: SortOrder
     employee?: EmployeeOrderByWithRelationInput
   }
 
@@ -5968,6 +6060,7 @@ export namespace Prisma {
     price?: DecimalFilter<"Services"> | Decimal | DecimalJsLike | number | string
     employee_id?: StringFilter<"Services"> | string
     createdAt?: DateTimeFilter<"Services"> | Date | string
+    updateAt?: DateTimeFilter<"Services"> | Date | string
     employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
   }, "id">
 
@@ -5978,6 +6071,7 @@ export namespace Prisma {
     price?: SortOrder
     employee_id?: SortOrder
     createdAt?: SortOrder
+    updateAt?: SortOrder
     _count?: ServicesCountOrderByAggregateInput
     _avg?: ServicesAvgOrderByAggregateInput
     _max?: ServicesMaxOrderByAggregateInput
@@ -5995,6 +6089,7 @@ export namespace Prisma {
     price?: DecimalWithAggregatesFilter<"Services"> | Decimal | DecimalJsLike | number | string
     employee_id?: StringWithAggregatesFilter<"Services"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Services"> | Date | string
+    updateAt?: DateTimeWithAggregatesFilter<"Services"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -6003,6 +6098,7 @@ export namespace Prisma {
     email: string
     password: string
     createdAt?: Date | string
+    updateAt?: Date | string
     clinicas?: ClinicaCreateNestedManyWithoutUserInput
   }
 
@@ -6012,6 +6108,7 @@ export namespace Prisma {
     email: string
     password: string
     createdAt?: Date | string
+    updateAt?: Date | string
     clinicas?: ClinicaUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -6021,6 +6118,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clinicas?: ClinicaUpdateManyWithoutUserNestedInput
   }
 
@@ -6030,6 +6128,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clinicas?: ClinicaUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -6039,6 +6138,7 @@ export namespace Prisma {
     email: string
     password: string
     createdAt?: Date | string
+    updateAt?: Date | string
   }
 
   export type UserUpdateManyMutationInput = {
@@ -6047,6 +6147,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -6055,6 +6156,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ClinicaCreateInput = {
@@ -6140,6 +6242,9 @@ export namespace Prisma {
   export type EmployeeCreateInput = {
     id?: string
     name: string
+    speciality: string
+    createdAt?: Date | string
+    updateAt?: Date | string
     services?: ServicesCreateNestedManyWithoutEmployeeInput
     clinica: ClinicaCreateNestedOneWithoutEmployeesInput
   }
@@ -6147,13 +6252,19 @@ export namespace Prisma {
   export type EmployeeUncheckedCreateInput = {
     id?: string
     name: string
+    speciality: string
     clinica_id: string
+    createdAt?: Date | string
+    updateAt?: Date | string
     services?: ServicesUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    speciality?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     services?: ServicesUpdateManyWithoutEmployeeNestedInput
     clinica?: ClinicaUpdateOneRequiredWithoutEmployeesNestedInput
   }
@@ -6161,25 +6272,37 @@ export namespace Prisma {
   export type EmployeeUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    speciality?: StringFieldUpdateOperationsInput | string
     clinica_id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     services?: ServicesUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeCreateManyInput = {
     id?: string
     name: string
+    speciality: string
     clinica_id: string
+    createdAt?: Date | string
+    updateAt?: Date | string
   }
 
   export type EmployeeUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    speciality?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type EmployeeUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    speciality?: StringFieldUpdateOperationsInput | string
     clinica_id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ServicesCreateInput = {
@@ -6188,6 +6311,7 @@ export namespace Prisma {
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
+    updateAt?: Date | string
     employee: EmployeeCreateNestedOneWithoutServicesInput
   }
 
@@ -6198,6 +6322,7 @@ export namespace Prisma {
     price: Decimal | DecimalJsLike | number | string
     employee_id: string
     createdAt?: Date | string
+    updateAt?: Date | string
   }
 
   export type ServicesUpdateInput = {
@@ -6206,6 +6331,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employee?: EmployeeUpdateOneRequiredWithoutServicesNestedInput
   }
 
@@ -6216,6 +6342,7 @@ export namespace Prisma {
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     employee_id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ServicesCreateManyInput = {
@@ -6225,6 +6352,7 @@ export namespace Prisma {
     price: Decimal | DecimalJsLike | number | string
     employee_id: string
     createdAt?: Date | string
+    updateAt?: Date | string
   }
 
   export type ServicesUpdateManyMutationInput = {
@@ -6233,6 +6361,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ServicesUncheckedUpdateManyInput = {
@@ -6242,6 +6371,7 @@ export namespace Prisma {
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     employee_id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -6306,6 +6436,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
+    updateAt?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -6314,6 +6445,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
+    updateAt?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -6322,6 +6454,7 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     createdAt?: SortOrder
+    updateAt?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -6440,19 +6573,28 @@ export namespace Prisma {
   export type EmployeeCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    speciality?: SortOrder
     clinica_id?: SortOrder
+    createdAt?: SortOrder
+    updateAt?: SortOrder
   }
 
   export type EmployeeMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    speciality?: SortOrder
     clinica_id?: SortOrder
+    createdAt?: SortOrder
+    updateAt?: SortOrder
   }
 
   export type EmployeeMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    speciality?: SortOrder
     clinica_id?: SortOrder
+    createdAt?: SortOrder
+    updateAt?: SortOrder
   }
 
   export type DecimalFilter<$PrismaModel = never> = {
@@ -6478,6 +6620,7 @@ export namespace Prisma {
     price?: SortOrder
     employee_id?: SortOrder
     createdAt?: SortOrder
+    updateAt?: SortOrder
   }
 
   export type ServicesAvgOrderByAggregateInput = {
@@ -6491,6 +6634,7 @@ export namespace Prisma {
     price?: SortOrder
     employee_id?: SortOrder
     createdAt?: SortOrder
+    updateAt?: SortOrder
   }
 
   export type ServicesMinOrderByAggregateInput = {
@@ -6500,6 +6644,7 @@ export namespace Prisma {
     price?: SortOrder
     employee_id?: SortOrder
     createdAt?: SortOrder
+    updateAt?: SortOrder
   }
 
   export type ServicesSumOrderByAggregateInput = {
@@ -6914,6 +7059,7 @@ export namespace Prisma {
     email: string
     password: string
     createdAt?: Date | string
+    updateAt?: Date | string
   }
 
   export type UserUncheckedCreateWithoutClinicasInput = {
@@ -6922,6 +7068,7 @@ export namespace Prisma {
     email: string
     password: string
     createdAt?: Date | string
+    updateAt?: Date | string
   }
 
   export type UserCreateOrConnectWithoutClinicasInput = {
@@ -6932,12 +7079,18 @@ export namespace Prisma {
   export type EmployeeCreateWithoutClinicaInput = {
     id?: string
     name: string
+    speciality: string
+    createdAt?: Date | string
+    updateAt?: Date | string
     services?: ServicesCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutClinicaInput = {
     id?: string
     name: string
+    speciality: string
+    createdAt?: Date | string
+    updateAt?: Date | string
     services?: ServicesUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
@@ -6968,6 +7121,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateWithoutClinicasInput = {
@@ -6976,6 +7130,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type EmployeeUpsertWithWhereUniqueWithoutClinicaInput = {
@@ -7000,7 +7155,10 @@ export namespace Prisma {
     NOT?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
     id?: StringFilter<"Employee"> | string
     name?: StringFilter<"Employee"> | string
+    speciality?: StringFilter<"Employee"> | string
     clinica_id?: StringFilter<"Employee"> | string
+    createdAt?: DateTimeFilter<"Employee"> | Date | string
+    updateAt?: DateTimeFilter<"Employee"> | Date | string
   }
 
   export type ServicesCreateWithoutEmployeeInput = {
@@ -7009,6 +7167,7 @@ export namespace Prisma {
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
+    updateAt?: Date | string
   }
 
   export type ServicesUncheckedCreateWithoutEmployeeInput = {
@@ -7017,6 +7176,7 @@ export namespace Prisma {
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
+    updateAt?: Date | string
   }
 
   export type ServicesCreateOrConnectWithoutEmployeeInput = {
@@ -7082,6 +7242,7 @@ export namespace Prisma {
     price?: DecimalFilter<"Services"> | Decimal | DecimalJsLike | number | string
     employee_id?: StringFilter<"Services"> | string
     createdAt?: DateTimeFilter<"Services"> | Date | string
+    updateAt?: DateTimeFilter<"Services"> | Date | string
   }
 
   export type ClinicaUpsertWithoutEmployeesInput = {
@@ -7120,13 +7281,19 @@ export namespace Prisma {
   export type EmployeeCreateWithoutServicesInput = {
     id?: string
     name: string
+    speciality: string
+    createdAt?: Date | string
+    updateAt?: Date | string
     clinica: ClinicaCreateNestedOneWithoutEmployeesInput
   }
 
   export type EmployeeUncheckedCreateWithoutServicesInput = {
     id?: string
     name: string
+    speciality: string
     clinica_id: string
+    createdAt?: Date | string
+    updateAt?: Date | string
   }
 
   export type EmployeeCreateOrConnectWithoutServicesInput = {
@@ -7148,13 +7315,19 @@ export namespace Prisma {
   export type EmployeeUpdateWithoutServicesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    speciality?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clinica?: ClinicaUpdateOneRequiredWithoutEmployeesNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutServicesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    speciality?: StringFieldUpdateOperationsInput | string
     clinica_id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ClinicaCreateManyUserInput = {
@@ -7202,23 +7375,35 @@ export namespace Prisma {
   export type EmployeeCreateManyClinicaInput = {
     id?: string
     name: string
+    speciality: string
+    createdAt?: Date | string
+    updateAt?: Date | string
   }
 
   export type EmployeeUpdateWithoutClinicaInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    speciality?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     services?: ServicesUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutClinicaInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    speciality?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     services?: ServicesUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateManyWithoutClinicaInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    speciality?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ServicesCreateManyEmployeeInput = {
@@ -7227,6 +7412,7 @@ export namespace Prisma {
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
+    updateAt?: Date | string
   }
 
   export type ServicesUpdateWithoutEmployeeInput = {
@@ -7235,6 +7421,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ServicesUncheckedUpdateWithoutEmployeeInput = {
@@ -7243,6 +7430,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ServicesUncheckedUpdateManyWithoutEmployeeInput = {
@@ -7251,6 +7439,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

@@ -5,7 +5,7 @@ import { userSchema } from "../validators/user.validator.ts";
 import { userParamsSchema } from "../validators/user.validator.ts";
 
 
-export async function createUser(req: Request, res: Response, next: NextFunction) {
+export async function createUser(req: Request, res: Response) {
     const result = userSchema.safeParse(req.body)
 
 
@@ -32,6 +32,39 @@ export async function createUser(req: Request, res: Response, next: NextFunction
 
         return res.status(201).json(newUser)    
 }
+
+export async function updateEmployeeName(req: Request, res: Response){
+    const {id , name} = req.body
+    if(!id && !name){
+        return res.status(400).json({message: 'Name are required'})
+    }
+
+    const updatedEmployee = await p.employee.update({
+        where: { id },
+        data:{
+            name
+        }
+    })
+
+    return res.send(updatedEmployee)
+}
+
+export async function updateEmployeeSpeciality(req: Request, res: Response){
+    const {id , speciality} = req.body
+    if(!id && !speciality){
+        return res.status(400).json({message: 'Speciality are required'})
+    }
+
+    const updatedEmployee = await p.employee.update({
+        where: { id },
+        data:{
+            speciality
+        }
+    })
+
+    return res.send(updatedEmployee)
+}
+
 export async function updateUser(req: Request, res: Response) {
   const paramsResult = userParamsSchema.safeParse(req.params);
   const result = userSchema.safeParse(req.body)
