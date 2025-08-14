@@ -29,8 +29,6 @@ export async function createEmployee(req: Request, res: Response) {
         return res.status(201).json(newEmployee)    
 }
 
-
-
 export async function getEmployees(req: Request, res: Response) {
     const result = employeeParamsSchema.safeParse(req.body)
 
@@ -85,4 +83,26 @@ export async function deleteEmployee(req: Request, res: Response) {
   await p.employee.delete({where: { id } });
 
   return res.status(204).send();
+}
+
+export async function updateEmployee(req: Request, res: Response){
+    const {id , name, speciality} = req.body
+    if(!id){
+        return res.status(400).json({ message: 'ID is required' })
+    }
+
+    if(!name && !speciality){
+        return res.status(400).json({message: 'At least name or speciality is required'})
+    }
+
+    const dataToUpdate: any = {}
+    dataToUpdate.name = name
+    dataToUpdate.speciality = speciality
+
+    const updatedEmployee = await p.employee.update({
+        where: { id },
+        data: dataToUpdate
+    })
+
+    return res.send(updatedEmployee)
 }

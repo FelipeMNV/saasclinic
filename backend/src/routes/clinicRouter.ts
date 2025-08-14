@@ -4,10 +4,7 @@ import {
     deleteClinic,
     getClinicBySlug,
     getClinics,
-    updateClinicAddress,
-    updateClinicContact,
-    updateClinicName,
-    updateClinicSlug,
+    updateClinic
 
 } from '../controllers/clinicController.ts'
 import { authenticationToken } from '../middleware/authMiddleware.ts'
@@ -15,10 +12,7 @@ import { authenticationToken } from '../middleware/authMiddleware.ts'
 const clinicRouter = express.Router()
 
 clinicRouter.post('/clinic/create',authenticationToken, createClinic)
-clinicRouter.patch('/clinic/update/name', updateClinicName)
-clinicRouter.patch('/clinic/update/slug', updateClinicSlug)
-clinicRouter.patch('/clinic/update/contact', updateClinicContact)
-clinicRouter.patch('/clinic/update/address', updateClinicAddress)
+clinicRouter.put('/clinic/update/address', updateClinic)
 clinicRouter.get('/clinic/get', getClinics)
 clinicRouter.get('/clinic/get/:slug', getClinicBySlug)
 clinicRouter.delete('/clinic/delete', deleteClinic)

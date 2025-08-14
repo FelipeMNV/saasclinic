@@ -82,6 +82,12 @@ describe('Route to create a clinic ', () => {
     })
 })
 
+describe('Route to update a clinic', ()=> {
+    test('Update new clinic', async ()=>{
+        
+    })
+})
+
 afterAll(async () => {
   await p.$disconnect();
 });
