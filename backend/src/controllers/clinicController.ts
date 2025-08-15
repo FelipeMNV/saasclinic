@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import { prisma as p } from "../models/prisma.ts";
-import { clinicRegisterSchema } from "../validators/clinic.validators.ts";
+import { clinicSlug, clinicRegisterSchema, clinicId,clinicUserId } from "../validators/clinic.validators.ts";
 import type { AuthenticatedRequest } from "../middleware/authMiddleware.ts";
 
 export async function createClinic(req: AuthenticatedRequest, res: Response){
@@ -31,82 +31,30 @@ export async function createClinic(req: AuthenticatedRequest, res: Response){
             address: true,
             user_id: true,
             createdAt:true,
-            employees: true
+            employees: { select: {id: true, name: true}} 
         }
     })
     return res.status(201).json(newClinic)
 };
 
-export async function updateClinicName(req: Request, res: Response){
-    const {id , name} = req.body
-    if(!id && !name){
-        return res.status(400).json({message: 'Name are required'})
+export async function updateClinic(req: Request, res: Response){
+    const result = clinicRegisterSchema.safeParse(req.body)
+    const params = clinicId.safeParse(req.params.clinica_id)
+    if(!result.success){
+        return res.status(400).json({message: result.error.issues})
     }
 
+    if(!params.success){
+        return res.status(400).json({message: params.error.issues})
+    }
     const updatedClinic = await p.clinica.update({
-        where: { id },
+        where: { id: params.data.clinica_id },
         data:{
-            name
-        }
-    })
-
-    return res.send(updatedClinic)
-}
-
-export async function updateClinicSlug(req: Request, res: Response){
-    const {id , slug} = req.body
-    if(!id && !slug){
-        return res.status(400).json({message: 'Contact are required'})
-    }
-
-    const updatedClinic = await p.clinica.update({
-        where: { id },
-        data:{
-            slug
-        }
-    })
-
-    return res.send(updatedClinic)
-}
-export async function updateClinicContact(req: Request, res: Response){
-    const {id , contact} = req.body
-    if(!id && !contact){
-        return res.status(400).json({message: 'Contact are required'})
-    }
-
-    const updatedClinic = await p.clinica.update({
-        where: { id },
-        data:{
-            contact
-        }
-    })
-
-    return res.send(updatedClinic)
-}
-export async function updateClinicAddress(req: Request, res: Response){
-    const {id , address} = req.body
-    if(!id && !address){
-        return res.status(400).json({message: 'Contact are required'})
-    }
-
-    const updatedClinic = await p.clinica.update({
-        where: { id },
-        data:{
-            address
-        }
-    })
-
-    return res.send(updatedClinic)
-}
-export async function getClinicBySlug(req: Request, res: Response){
-    const { slug } = req.params
-
-    if (!slug) {
-        return res.status(400).json({ message: "Slug are required" });
-    }
-
-    const clinic = await p.clinica.findUnique({
-        where: { slug },
+            name: result.data.name,
+            slug: result.data.slug,
+            contact: result.data.contact,
+            address: result.data.address
+        },
         select:{
             id: true,
             name: true,
@@ -115,7 +63,29 @@ export async function getClinicBySlug(req: Request, res: Response){
             address: true,
             user_id: true,
             createdAt:true,
-            employees: true
+            employees: { select: {id: true, name: true}}
+        }
+    })
+
+    return res.send(updatedClinic)
+}
+
+export async function getClinicBySlug(req: Request, res: Response){
+    const result = clinicSlug.safeParse(req.params.slug)
+
+    if(!result.success) return res.status(400).json({message: result.error.issues})
+
+    const clinic = await p.clinica.findUnique({
+        where: { slug: result.data.slug },
+        select:{
+            id: true,
+            name: true,
+            slug: true,
+            contact: true,
+            address: true,
+            user_id: true,
+            createdAt:true,
+            employees: { select: {id: true, name: true}}
         }
     })
 
@@ -125,7 +95,10 @@ export async function getClinicBySlug(req: Request, res: Response){
     return res.json(clinic);
 }
 export async function getClinics(req: Request, res: Response){
+    const result = clinicUserId.safeParse(req.body)
+    if(!result.success) return res.status(400).json({message: result.error.issues})
     const clinic = await p.clinica.findMany({
+        where: {user_id: result.data.user_id },
         select:{
             id: true,
             name: true,
@@ -134,18 +107,19 @@ export async function getClinics(req: Request, res: Response){
             address: true,
             user_id: true,
             createdAt:true,
-            employees: true
+            employees: { select: {id: true, name: true}}
         }
     })
     return res.json(clinic)
 }
 export async function deleteClinic(req: Request, res: Response){
-    const { id } = req.body
-    if(!id) return res.status(404).json({message: 'ID are required'})
+    const result = clinicSlug.safeParse(req.body)
+    if(!result.success) return res.status(400).json({message: result.error.issues})
+    
     
     await p.clinica.delete({
-        where: {id}
+        where: {slug: result.data.slug}
     })
 
-    res.status(204).end()
+    return res.status(204).end()
 }

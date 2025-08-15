@@ -7,22 +7,14 @@ export const clinicRegisterSchema = z.object({
     address: z.string().trim()
 })
 
-export const clinicIdAndName = z.object({
-    id: z.uuid(),
-    name: z.string().max(64).trim()
+export const clinicSlug = z.object({
+    slug: z.string().max(64).trim(),
 })
 
-export const clinicIdAndSlug = z.object({
-    id: z.uuid(),
-    slug: z.string().max(64).trim()
+export const clinicUserId = z.object({
+    user_id: z.uuid(),
 })
-
-export const clinicIdAndContact = z.object({
-    id: z.uuid(),
-    contact: z.string().regex(/^\(?\d{2}\)?\s?9?\d{4}-?\d{4}$/).trim()
-})
-
-export const clinicIdAndAddress = z.object({
-    
+export const clinicId = z.object({
+    clinica_id: z.uuid(),
 })
 
