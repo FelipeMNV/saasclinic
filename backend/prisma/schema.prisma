@@ -16,49 +16,54 @@ datasource db {
 
 // FALTA CRIAR O MODEL DE CONSULTA, E TAMBÉM FALTA PENSAR NUM JEITO PROS HORÁRIOS
 
-
-
 model User {
-  id String @id @default(uuid())
-  username String?
-  email String @unique
-  password String 
-  createdAt DateTime @default(now())
-  updateAt DateTime @updatedAt
-  clinicas      Clinica[]
+  id        String    @id @default(uuid())
+  username  String?
+  email     String    @unique
+  password  String
+  createdAt DateTime  @default(now())
+  updateAt  DateTime  @updatedAt
+  clinicas  Clinica[]
+  role      Role      @default(USER)
+}
+
+enum Role {
+  ADMIN
+  USER
+  GERENTE
 }
 
 model Clinica {
-  id String @id @default(uuid())
-  name String
-  slug String @unique
-  contact String
-  address String
-  user_id String
-  user User @relation(fields: [user_id], references: [id])
-  createdAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+  id        String     @id @default(uuid())
+  name      String
+  slug      String     @unique
+  contact   String
+  address   String
+  user_id   String
+  user      User       @relation(fields: [user_id], references: [id])
+  createdAt DateTime   @default(now())
+  updateAt  DateTime   @updatedAt
   employees Employee[]
 }
 
 model Employee {
-  id String @id @default(uuid())
-  name String
+  id         String     @id @default(uuid())
+  name       String
   speciality String
-  services Services[]
+  services   Services[]
   clinica_id String
-  clinica Clinica @relation(fields: [clinica_id], references: [id])
-  createdAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+  clinica    Clinica    @relation(fields: [clinica_id], references: [id])
+  createdAt  DateTime   @default(now())
+  updateAt   DateTime   @updatedAt
 }
 
 model Services {
-  id String @id @default(uuid())
-  name String
+  id          String   @id @default(uuid())
+  name        String
   description String?
-  price Decimal
+  price       Decimal
   employee_id String
-  employee Employee @relation(fields: [employee_id], references: [id])
-  createdAt DateTime @default(now())
-  updateAt DateTime @updatedAt
+  employee    Employee @relation(fields: [employee_id], references: [id])
+  createdAt   DateTime @default(now())
+  updateAt    DateTime @updatedAt
 }

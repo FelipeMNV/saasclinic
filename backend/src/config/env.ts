@@ -1,17 +1,16 @@
 import dotenv from "dotenv";
+import { envSchema } from "../validators/env.validator"
+import { error } from "console";
 
-if (process.env.NODE_ENV === 'test') {
-  dotenv.config({ path: '.env.test' });
-} else {
-  dotenv.config();
+dotenv.config({path: process.env.NODE_ENV === 'test' ?  '.env.test' : '.env'});
+
+
+const env = envSchema.safeParse(process.env)
+
+if (!env.success){
+  console.error('❌ Invalid environment variables:', env.error.format());
+  throw new Error("Environment validation failed. ")
 }
 
-const jwtSecret = process.env.JWT_SECRET;
-
-if (!jwtSecret) {
-    throw new Error(" JWT_SECRET Not defined in .env")
-}
-
-export const PORT = process.env.PORT 
-
-export const JWT_SECRET: string = jwtSecret;
+export const JWT_SECRET = env.data.JWT_SECRET;
+export const PORT = env.data.PORT ?? '3000';

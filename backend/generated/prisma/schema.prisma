@@ -24,6 +24,13 @@ model User {
   createdAt DateTime  @default(now())
   updateAt  DateTime  @updatedAt
   clinicas  Clinica[]
+  role      Role      @default(USER)
+}
+
+enum Role {
+  ADMIN
+  USER
+  GERENTE
 }
 
 model Clinica {

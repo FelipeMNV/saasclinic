@@ -85,23 +85,32 @@ export async function deleteEmployee(req: Request, res: Response) {
   return res.status(204).send();
 }
 
-export async function updateEmployee(req: Request, res: Response){
-    const {id , name, speciality} = req.body
-    if(!id){
-        return res.status(400).json({ message: 'ID is required' })
+export async function updateEmployeeSpeciality(req: Request, res: Response){
+    const {id , speciality} = req.body
+    if(!id && !speciality){
+        return res.status(400).json({message: 'Speciality are required'})
     }
-
-    if(!name && !speciality){
-        return res.status(400).json({message: 'At least name or speciality is required'})
-    }
-
-    const dataToUpdate: any = {}
-    dataToUpdate.name = name
-    dataToUpdate.speciality = speciality
 
     const updatedEmployee = await p.employee.update({
         where: { id },
-        data: dataToUpdate
+        data:{
+            speciality
+        }
+    })
+
+    return res.send(updatedEmployee)}
+
+export async function updateEmployeeName(req: Request, res: Response){
+    const {id , name} = req.body
+    if(!id && !name){
+        return res.status(400).json({message: 'Name are required'})
+    }
+
+    const updatedEmployee = await p.employee.update({
+        where: { id },
+        data:{
+            name
+        }
     })
 
     return res.send(updatedEmployee)
