@@ -5,7 +5,7 @@ import type { AuthenticatedRequest } from "../middleware/authMiddleware.ts";
 
 export async function createClinic(req: AuthenticatedRequest, res: Response){
     if(!req.user) return res.status(401).json({ message: "Unauthenticated user" });
-    if (req.user.plan === '') return res.status(403).json({ message: "You need an active plan to create a clinic" });
+    if (req.user.plan === 'FREE') return res.status(403).json({ message: "You need an active plan to create a clinic" });
     if(req.user.role !== 'USER') return res.status(403).json({message: "Dont't have permission"})
 
     const result = clinicRegisterSchema.safeParse(req.body)
@@ -94,7 +94,7 @@ export async function getClinicBySlug(req: AuthenticatedRequest, res: Response){
             address: true,
             user_id:true,
             createdAt:true,
-            updateAt: true,
+            updatedAt: true,
             employees: { select: {id: true, name: true}}
         }
     })
@@ -122,7 +122,7 @@ export async function getClinics(req: AuthenticatedRequest, res: Response){
             contact: true,
             address: true,
             createdAt:true,
-            updateAt:true,
+            updatedAt:true,
             _count:{
                 select: {employees:true}
             }

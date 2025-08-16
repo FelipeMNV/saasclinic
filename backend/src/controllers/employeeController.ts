@@ -62,7 +62,7 @@ export async function getEmployees(req: AuthenticatedRequest, res: Response) {
         speciality: true,
         email: true,
         createdAt:true,
-        updateAt:true,
+        updatedAt:true,
         services:{ select:{ id: true , name : true}}
       },
     });
@@ -85,7 +85,7 @@ export async function getEmployeeById(req: AuthenticatedRequest, res: Response) 
             speciality: true,
             email: true,
             createdAt: true,
-            updateAt: true,
+            updatedAt: true,
             clinica: { select: { id: true, name: true } },
             services: { select: { id: true, name: true } }
         }

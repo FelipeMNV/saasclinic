@@ -128,7 +128,7 @@ exports.Prisma.UserScalarFieldEnum = {
   plan: 'plan',
   role: 'role',
   createdAt: 'createdAt',
-  updateAt: 'updateAt'
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.ClinicaScalarFieldEnum = {
@@ -137,9 +137,10 @@ exports.Prisma.ClinicaScalarFieldEnum = {
   slug: 'slug',
   contact: 'contact',
   address: 'address',
+  isActive: 'isActive',
   user_id: 'user_id',
   createdAt: 'createdAt',
-  updateAt: 'updateAt'
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.EmployeeScalarFieldEnum = {
@@ -151,17 +152,17 @@ exports.Prisma.EmployeeScalarFieldEnum = {
   role: 'role',
   clinica_id: 'clinica_id',
   createdAt: 'createdAt',
-  updateAt: 'updateAt'
+  updatedAt: 'updatedAt'
 };
 
-exports.Prisma.ServicesScalarFieldEnum = {
+exports.Prisma.ServiceScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
   price: 'price',
   employee_id: 'employee_id',
   createdAt: 'createdAt',
-  updateAt: 'updateAt'
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -189,7 +190,7 @@ exports.Prisma.ModelName = {
   User: 'User',
   Clinica: 'Clinica',
   Employee: 'Employee',
-  Services: 'Services'
+  Service: 'Service'
 };
 
 /**

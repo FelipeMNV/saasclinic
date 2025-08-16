@@ -21,11 +21,11 @@ model User {
   name      String
   email     String    @unique
   password  String
-  plan      String
+  plan      String    @default("FREE")
   role      Role      @default(USER)
   clinicas  Clinica[]
   createdAt DateTime  @default(now())
-  updateAt  DateTime  @updatedAt
+  updatedAt DateTime  @updatedAt
 }
 
 enum Role {
@@ -41,34 +41,35 @@ model Clinica {
   slug      String     @unique
   contact   String
   address   String
-  user_id   String
-  user      User       @relation(fields: [user_id], references: [id])
+  isActive  Boolean    @default(true)
+  user_id   String?
+  user      User?      @relation(fields: [user_id], references: [id])
   employees Employee[]
   createdAt DateTime   @default(now())
-  updateAt  DateTime   @updatedAt
+  updatedAt DateTime   @updatedAt
 }
 
 model Employee {
-  id         String     @id @default(uuid())
+  id         String    @id @default(uuid())
   name       String
   speciality String
-  email      String     @unique
+  email      String    @unique
   password   String
-  role       Role       @default(EMPLOYEE)
-  services   Services[]
-  clinica_id String
-  clinica    Clinica    @relation(fields: [clinica_id], references: [id])
-  createdAt  DateTime   @default(now())
-  updateAt   DateTime   @updatedAt
+  role       Role      @default(EMPLOYEE)
+  services   Service[]
+  clinica_id String?
+  clinica    Clinica?  @relation(fields: [clinica_id], references: [id])
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 }
 
-model Services {
-  id          String   @id @default(uuid())
+model Service {
+  id          String    @id @default(uuid())
   name        String
   description String?
   price       Decimal
-  employee_id String
-  employee    Employee @relation(fields: [employee_id], references: [id])
-  createdAt   DateTime @default(now())
-  updateAt    DateTime @updatedAt
+  employee_id String?
+  employee    Employee? @relation(fields: [employee_id], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }

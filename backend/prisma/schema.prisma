@@ -21,12 +21,14 @@ model User {
   name  String
   email     String    @unique
   password  String
-  plan      String?
+  plan      String    @default("FREE")
   role      Role      @default(USER)
   clinicas  Clinica[]
   createdAt DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
 }
+
+
 
 enum Role {
   USER
@@ -35,12 +37,15 @@ enum Role {
   EMPLOYEE
 }
 
+
+
 model Clinica {
   id        String     @id @default(uuid())
   name      String
   slug      String     @unique
   contact   String
   address   String
+  isActive  Boolean    @default(true)
   user_id   String?     
   user      User?       @relation(fields: [user_id], references: [id])
   employees Employee[]

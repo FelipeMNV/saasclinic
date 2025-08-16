@@ -29,10 +29,10 @@ export type Clinica = $Result.DefaultSelection<Prisma.$ClinicaPayload>
  */
 export type Employee = $Result.DefaultSelection<Prisma.$EmployeePayload>
 /**
- * Model Services
+ * Model Service
  * 
  */
-export type Services = $Result.DefaultSelection<Prisma.$ServicesPayload>
+export type Service = $Result.DefaultSelection<Prisma.$ServicePayload>
 
 /**
  * Enums
@@ -209,14 +209,14 @@ export class PrismaClient<
   get employee(): Prisma.EmployeeDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.services`: Exposes CRUD operations for the **Services** model.
+   * `prisma.service`: Exposes CRUD operations for the **Service** model.
     * Example usage:
     * ```ts
     * // Fetch zero or more Services
-    * const services = await prisma.services.findMany()
+    * const services = await prisma.service.findMany()
     * ```
     */
-  get services(): Prisma.ServicesDelegate<ExtArgs, ClientOptions>;
+  get service(): Prisma.ServiceDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -660,7 +660,7 @@ export namespace Prisma {
     User: 'User',
     Clinica: 'Clinica',
     Employee: 'Employee',
-    Services: 'Services'
+    Service: 'Service'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -679,7 +679,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "clinica" | "employee" | "services"
+      modelProps: "user" | "clinica" | "employee" | "service"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -905,77 +905,77 @@ export namespace Prisma {
           }
         }
       }
-      Services: {
-        payload: Prisma.$ServicesPayload<ExtArgs>
-        fields: Prisma.ServicesFieldRefs
+      Service: {
+        payload: Prisma.$ServicePayload<ExtArgs>
+        fields: Prisma.ServiceFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.ServicesFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicesPayload> | null
+            args: Prisma.ServiceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicePayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.ServicesFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicesPayload>
+            args: Prisma.ServiceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicePayload>
           }
           findFirst: {
-            args: Prisma.ServicesFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicesPayload> | null
+            args: Prisma.ServiceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicePayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.ServicesFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicesPayload>
+            args: Prisma.ServiceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicePayload>
           }
           findMany: {
-            args: Prisma.ServicesFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicesPayload>[]
+            args: Prisma.ServiceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicePayload>[]
           }
           create: {
-            args: Prisma.ServicesCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicesPayload>
+            args: Prisma.ServiceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicePayload>
           }
           createMany: {
-            args: Prisma.ServicesCreateManyArgs<ExtArgs>
+            args: Prisma.ServiceCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.ServicesCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicesPayload>[]
+            args: Prisma.ServiceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicePayload>[]
           }
           delete: {
-            args: Prisma.ServicesDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicesPayload>
+            args: Prisma.ServiceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicePayload>
           }
           update: {
-            args: Prisma.ServicesUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicesPayload>
+            args: Prisma.ServiceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicePayload>
           }
           deleteMany: {
-            args: Prisma.ServicesDeleteManyArgs<ExtArgs>
+            args: Prisma.ServiceDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.ServicesUpdateManyArgs<ExtArgs>
+            args: Prisma.ServiceUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.ServicesUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicesPayload>[]
+            args: Prisma.ServiceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicePayload>[]
           }
           upsert: {
-            args: Prisma.ServicesUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServicesPayload>
+            args: Prisma.ServiceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ServicePayload>
           }
           aggregate: {
-            args: Prisma.ServicesAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateServices>
+            args: Prisma.ServiceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateService>
           }
           groupBy: {
-            args: Prisma.ServicesGroupByArgs<ExtArgs>
-            result: $Utils.Optional<ServicesGroupByOutputType>[]
+            args: Prisma.ServiceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ServiceGroupByOutputType>[]
           }
           count: {
-            args: Prisma.ServicesCountArgs<ExtArgs>
-            result: $Utils.Optional<ServicesCountAggregateOutputType> | number
+            args: Prisma.ServiceCountArgs<ExtArgs>
+            result: $Utils.Optional<ServiceCountAggregateOutputType> | number
           }
         }
       }
@@ -1074,7 +1074,7 @@ export namespace Prisma {
     user?: UserOmit
     clinica?: ClinicaOmit
     employee?: EmployeeOmit
-    services?: ServicesOmit
+    service?: ServiceOmit
   }
 
   /* Types for Logging */
@@ -1258,7 +1258,7 @@ export namespace Prisma {
    * EmployeeCountOutputType without action
    */
   export type EmployeeCountOutputTypeCountServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ServicesWhereInput
+    where?: ServiceWhereInput
   }
 
 
@@ -1284,7 +1284,7 @@ export namespace Prisma {
     plan: string | null
     role: $Enums.Role | null
     createdAt: Date | null
-    updateAt: Date | null
+    updatedAt: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1295,7 +1295,7 @@ export namespace Prisma {
     plan: string | null
     role: $Enums.Role | null
     createdAt: Date | null
-    updateAt: Date | null
+    updatedAt: Date | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1306,7 +1306,7 @@ export namespace Prisma {
     plan: number
     role: number
     createdAt: number
-    updateAt: number
+    updatedAt: number
     _all: number
   }
 
@@ -1319,7 +1319,7 @@ export namespace Prisma {
     plan?: true
     role?: true
     createdAt?: true
-    updateAt?: true
+    updatedAt?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1330,7 +1330,7 @@ export namespace Prisma {
     plan?: true
     role?: true
     createdAt?: true
-    updateAt?: true
+    updatedAt?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1341,7 +1341,7 @@ export namespace Prisma {
     plan?: true
     role?: true
     createdAt?: true
-    updateAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -1425,7 +1425,7 @@ export namespace Prisma {
     plan: string
     role: $Enums.Role
     createdAt: Date
-    updateAt: Date
+    updatedAt: Date
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1453,7 +1453,7 @@ export namespace Prisma {
     plan?: boolean
     role?: boolean
     createdAt?: boolean
-    updateAt?: boolean
+    updatedAt?: boolean
     clinicas?: boolean | User$clinicasArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -1466,7 +1466,7 @@ export namespace Prisma {
     plan?: boolean
     role?: boolean
     createdAt?: boolean
-    updateAt?: boolean
+    updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1477,7 +1477,7 @@ export namespace Prisma {
     plan?: boolean
     role?: boolean
     createdAt?: boolean
-    updateAt?: boolean
+    updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1488,10 +1488,10 @@ export namespace Prisma {
     plan?: boolean
     role?: boolean
     createdAt?: boolean
-    updateAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "plan" | "role" | "createdAt" | "updateAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "plan" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     clinicas?: boolean | User$clinicasArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1512,7 +1512,7 @@ export namespace Prisma {
       plan: string
       role: $Enums.Role
       createdAt: Date
-      updateAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1944,7 +1944,7 @@ export namespace Prisma {
     readonly plan: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'Role'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
-    readonly updateAt: FieldRef<"User", 'DateTime'>
+    readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -2391,9 +2391,10 @@ export namespace Prisma {
     slug: string | null
     contact: string | null
     address: string | null
+    isActive: boolean | null
     user_id: string | null
     createdAt: Date | null
-    updateAt: Date | null
+    updatedAt: Date | null
   }
 
   export type ClinicaMaxAggregateOutputType = {
@@ -2402,9 +2403,10 @@ export namespace Prisma {
     slug: string | null
     contact: string | null
     address: string | null
+    isActive: boolean | null
     user_id: string | null
     createdAt: Date | null
-    updateAt: Date | null
+    updatedAt: Date | null
   }
 
   export type ClinicaCountAggregateOutputType = {
@@ -2413,9 +2415,10 @@ export namespace Prisma {
     slug: number
     contact: number
     address: number
+    isActive: number
     user_id: number
     createdAt: number
-    updateAt: number
+    updatedAt: number
     _all: number
   }
 
@@ -2426,9 +2429,10 @@ export namespace Prisma {
     slug?: true
     contact?: true
     address?: true
+    isActive?: true
     user_id?: true
     createdAt?: true
-    updateAt?: true
+    updatedAt?: true
   }
 
   export type ClinicaMaxAggregateInputType = {
@@ -2437,9 +2441,10 @@ export namespace Prisma {
     slug?: true
     contact?: true
     address?: true
+    isActive?: true
     user_id?: true
     createdAt?: true
-    updateAt?: true
+    updatedAt?: true
   }
 
   export type ClinicaCountAggregateInputType = {
@@ -2448,9 +2453,10 @@ export namespace Prisma {
     slug?: true
     contact?: true
     address?: true
+    isActive?: true
     user_id?: true
     createdAt?: true
-    updateAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -2532,9 +2538,10 @@ export namespace Prisma {
     slug: string
     contact: string
     address: string
-    user_id: string
+    isActive: boolean
+    user_id: string | null
     createdAt: Date
-    updateAt: Date
+    updatedAt: Date
     _count: ClinicaCountAggregateOutputType | null
     _min: ClinicaMinAggregateOutputType | null
     _max: ClinicaMaxAggregateOutputType | null
@@ -2560,10 +2567,11 @@ export namespace Prisma {
     slug?: boolean
     contact?: boolean
     address?: boolean
+    isActive?: boolean
     user_id?: boolean
     createdAt?: boolean
-    updateAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    updatedAt?: boolean
+    user?: boolean | Clinica$userArgs<ExtArgs>
     employees?: boolean | Clinica$employeesArgs<ExtArgs>
     _count?: boolean | ClinicaCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["clinica"]>
@@ -2574,10 +2582,11 @@ export namespace Prisma {
     slug?: boolean
     contact?: boolean
     address?: boolean
+    isActive?: boolean
     user_id?: boolean
     createdAt?: boolean
-    updateAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    updatedAt?: boolean
+    user?: boolean | Clinica$userArgs<ExtArgs>
   }, ExtArgs["result"]["clinica"]>
 
   export type ClinicaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2586,10 +2595,11 @@ export namespace Prisma {
     slug?: boolean
     contact?: boolean
     address?: boolean
+    isActive?: boolean
     user_id?: boolean
     createdAt?: boolean
-    updateAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    updatedAt?: boolean
+    user?: boolean | Clinica$userArgs<ExtArgs>
   }, ExtArgs["result"]["clinica"]>
 
   export type ClinicaSelectScalar = {
@@ -2598,28 +2608,29 @@ export namespace Prisma {
     slug?: boolean
     contact?: boolean
     address?: boolean
+    isActive?: boolean
     user_id?: boolean
     createdAt?: boolean
-    updateAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type ClinicaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "contact" | "address" | "user_id" | "createdAt" | "updateAt", ExtArgs["result"]["clinica"]>
+  export type ClinicaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "contact" | "address" | "isActive" | "user_id" | "createdAt" | "updatedAt", ExtArgs["result"]["clinica"]>
   export type ClinicaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Clinica$userArgs<ExtArgs>
     employees?: boolean | Clinica$employeesArgs<ExtArgs>
     _count?: boolean | ClinicaCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ClinicaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Clinica$userArgs<ExtArgs>
   }
   export type ClinicaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    user?: boolean | Clinica$userArgs<ExtArgs>
   }
 
   export type $ClinicaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Clinica"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs> | null
       employees: Prisma.$EmployeePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -2628,9 +2639,10 @@ export namespace Prisma {
       slug: string
       contact: string
       address: string
-      user_id: string
+      isActive: boolean
+      user_id: string | null
       createdAt: Date
-      updateAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["clinica"]>
     composites: {}
   }
@@ -3025,7 +3037,7 @@ export namespace Prisma {
    */
   export interface Prisma__ClinicaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends Clinica$userArgs<ExtArgs> = {}>(args?: Subset<T, Clinica$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     employees<T extends Clinica$employeesArgs<ExtArgs> = {}>(args?: Subset<T, Clinica$employeesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -3061,9 +3073,10 @@ export namespace Prisma {
     readonly slug: FieldRef<"Clinica", 'String'>
     readonly contact: FieldRef<"Clinica", 'String'>
     readonly address: FieldRef<"Clinica", 'String'>
+    readonly isActive: FieldRef<"Clinica", 'Boolean'>
     readonly user_id: FieldRef<"Clinica", 'String'>
     readonly createdAt: FieldRef<"Clinica", 'DateTime'>
-    readonly updateAt: FieldRef<"Clinica", 'DateTime'>
+    readonly updatedAt: FieldRef<"Clinica", 'DateTime'>
   }
     
 
@@ -3460,6 +3473,25 @@ export namespace Prisma {
   }
 
   /**
+   * Clinica.user
+   */
+  export type Clinica$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
    * Clinica.employees
    */
   export type Clinica$employeesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3521,7 +3553,7 @@ export namespace Prisma {
     role: $Enums.Role | null
     clinica_id: string | null
     createdAt: Date | null
-    updateAt: Date | null
+    updatedAt: Date | null
   }
 
   export type EmployeeMaxAggregateOutputType = {
@@ -3533,7 +3565,7 @@ export namespace Prisma {
     role: $Enums.Role | null
     clinica_id: string | null
     createdAt: Date | null
-    updateAt: Date | null
+    updatedAt: Date | null
   }
 
   export type EmployeeCountAggregateOutputType = {
@@ -3545,7 +3577,7 @@ export namespace Prisma {
     role: number
     clinica_id: number
     createdAt: number
-    updateAt: number
+    updatedAt: number
     _all: number
   }
 
@@ -3559,7 +3591,7 @@ export namespace Prisma {
     role?: true
     clinica_id?: true
     createdAt?: true
-    updateAt?: true
+    updatedAt?: true
   }
 
   export type EmployeeMaxAggregateInputType = {
@@ -3571,7 +3603,7 @@ export namespace Prisma {
     role?: true
     clinica_id?: true
     createdAt?: true
-    updateAt?: true
+    updatedAt?: true
   }
 
   export type EmployeeCountAggregateInputType = {
@@ -3583,7 +3615,7 @@ export namespace Prisma {
     role?: true
     clinica_id?: true
     createdAt?: true
-    updateAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -3666,9 +3698,9 @@ export namespace Prisma {
     email: string
     password: string
     role: $Enums.Role
-    clinica_id: string
+    clinica_id: string | null
     createdAt: Date
-    updateAt: Date
+    updatedAt: Date
     _count: EmployeeCountAggregateOutputType | null
     _min: EmployeeMinAggregateOutputType | null
     _max: EmployeeMaxAggregateOutputType | null
@@ -3697,9 +3729,9 @@ export namespace Prisma {
     role?: boolean
     clinica_id?: boolean
     createdAt?: boolean
-    updateAt?: boolean
+    updatedAt?: boolean
     services?: boolean | Employee$servicesArgs<ExtArgs>
-    clinica?: boolean | ClinicaDefaultArgs<ExtArgs>
+    clinica?: boolean | Employee$clinicaArgs<ExtArgs>
     _count?: boolean | EmployeeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["employee"]>
 
@@ -3712,8 +3744,8 @@ export namespace Prisma {
     role?: boolean
     clinica_id?: boolean
     createdAt?: boolean
-    updateAt?: boolean
-    clinica?: boolean | ClinicaDefaultArgs<ExtArgs>
+    updatedAt?: boolean
+    clinica?: boolean | Employee$clinicaArgs<ExtArgs>
   }, ExtArgs["result"]["employee"]>
 
   export type EmployeeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3725,8 +3757,8 @@ export namespace Prisma {
     role?: boolean
     clinica_id?: boolean
     createdAt?: boolean
-    updateAt?: boolean
-    clinica?: boolean | ClinicaDefaultArgs<ExtArgs>
+    updatedAt?: boolean
+    clinica?: boolean | Employee$clinicaArgs<ExtArgs>
   }, ExtArgs["result"]["employee"]>
 
   export type EmployeeSelectScalar = {
@@ -3738,27 +3770,27 @@ export namespace Prisma {
     role?: boolean
     clinica_id?: boolean
     createdAt?: boolean
-    updateAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type EmployeeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "speciality" | "email" | "password" | "role" | "clinica_id" | "createdAt" | "updateAt", ExtArgs["result"]["employee"]>
+  export type EmployeeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "speciality" | "email" | "password" | "role" | "clinica_id" | "createdAt" | "updatedAt", ExtArgs["result"]["employee"]>
   export type EmployeeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     services?: boolean | Employee$servicesArgs<ExtArgs>
-    clinica?: boolean | ClinicaDefaultArgs<ExtArgs>
+    clinica?: boolean | Employee$clinicaArgs<ExtArgs>
     _count?: boolean | EmployeeCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type EmployeeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    clinica?: boolean | ClinicaDefaultArgs<ExtArgs>
+    clinica?: boolean | Employee$clinicaArgs<ExtArgs>
   }
   export type EmployeeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    clinica?: boolean | ClinicaDefaultArgs<ExtArgs>
+    clinica?: boolean | Employee$clinicaArgs<ExtArgs>
   }
 
   export type $EmployeePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Employee"
     objects: {
-      services: Prisma.$ServicesPayload<ExtArgs>[]
-      clinica: Prisma.$ClinicaPayload<ExtArgs>
+      services: Prisma.$ServicePayload<ExtArgs>[]
+      clinica: Prisma.$ClinicaPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3767,9 +3799,9 @@ export namespace Prisma {
       email: string
       password: string
       role: $Enums.Role
-      clinica_id: string
+      clinica_id: string | null
       createdAt: Date
-      updateAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["employee"]>
     composites: {}
   }
@@ -4164,8 +4196,8 @@ export namespace Prisma {
    */
   export interface Prisma__EmployeeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    services<T extends Employee$servicesArgs<ExtArgs> = {}>(args?: Subset<T, Employee$servicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    clinica<T extends ClinicaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClinicaDefaultArgs<ExtArgs>>): Prisma__ClinicaClient<$Result.GetResult<Prisma.$ClinicaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    services<T extends Employee$servicesArgs<ExtArgs> = {}>(args?: Subset<T, Employee$servicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    clinica<T extends Employee$clinicaArgs<ExtArgs> = {}>(args?: Subset<T, Employee$clinicaArgs<ExtArgs>>): Prisma__ClinicaClient<$Result.GetResult<Prisma.$ClinicaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4203,7 +4235,7 @@ export namespace Prisma {
     readonly role: FieldRef<"Employee", 'Role'>
     readonly clinica_id: FieldRef<"Employee", 'String'>
     readonly createdAt: FieldRef<"Employee", 'DateTime'>
-    readonly updateAt: FieldRef<"Employee", 'DateTime'>
+    readonly updatedAt: FieldRef<"Employee", 'DateTime'>
   }
     
 
@@ -4604,23 +4636,42 @@ export namespace Prisma {
    */
   export type Employee$servicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Service
      */
-    select?: ServicesSelect<ExtArgs> | null
+    select?: ServiceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Service
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: ServiceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesInclude<ExtArgs> | null
-    where?: ServicesWhereInput
-    orderBy?: ServicesOrderByWithRelationInput | ServicesOrderByWithRelationInput[]
-    cursor?: ServicesWhereUniqueInput
+    include?: ServiceInclude<ExtArgs> | null
+    where?: ServiceWhereInput
+    orderBy?: ServiceOrderByWithRelationInput | ServiceOrderByWithRelationInput[]
+    cursor?: ServiceWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: ServicesScalarFieldEnum | ServicesScalarFieldEnum[]
+    distinct?: ServiceScalarFieldEnum | ServiceScalarFieldEnum[]
+  }
+
+  /**
+   * Employee.clinica
+   */
+  export type Employee$clinicaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Clinica
+     */
+    select?: ClinicaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Clinica
+     */
+    omit?: ClinicaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClinicaInclude<ExtArgs> | null
+    where?: ClinicaWhereInput
   }
 
   /**
@@ -4643,113 +4694,113 @@ export namespace Prisma {
 
 
   /**
-   * Model Services
+   * Model Service
    */
 
-  export type AggregateServices = {
-    _count: ServicesCountAggregateOutputType | null
-    _avg: ServicesAvgAggregateOutputType | null
-    _sum: ServicesSumAggregateOutputType | null
-    _min: ServicesMinAggregateOutputType | null
-    _max: ServicesMaxAggregateOutputType | null
+  export type AggregateService = {
+    _count: ServiceCountAggregateOutputType | null
+    _avg: ServiceAvgAggregateOutputType | null
+    _sum: ServiceSumAggregateOutputType | null
+    _min: ServiceMinAggregateOutputType | null
+    _max: ServiceMaxAggregateOutputType | null
   }
 
-  export type ServicesAvgAggregateOutputType = {
+  export type ServiceAvgAggregateOutputType = {
     price: Decimal | null
   }
 
-  export type ServicesSumAggregateOutputType = {
+  export type ServiceSumAggregateOutputType = {
     price: Decimal | null
   }
 
-  export type ServicesMinAggregateOutputType = {
+  export type ServiceMinAggregateOutputType = {
     id: string | null
     name: string | null
     description: string | null
     price: Decimal | null
     employee_id: string | null
     createdAt: Date | null
-    updateAt: Date | null
+    updatedAt: Date | null
   }
 
-  export type ServicesMaxAggregateOutputType = {
+  export type ServiceMaxAggregateOutputType = {
     id: string | null
     name: string | null
     description: string | null
     price: Decimal | null
     employee_id: string | null
     createdAt: Date | null
-    updateAt: Date | null
+    updatedAt: Date | null
   }
 
-  export type ServicesCountAggregateOutputType = {
+  export type ServiceCountAggregateOutputType = {
     id: number
     name: number
     description: number
     price: number
     employee_id: number
     createdAt: number
-    updateAt: number
+    updatedAt: number
     _all: number
   }
 
 
-  export type ServicesAvgAggregateInputType = {
+  export type ServiceAvgAggregateInputType = {
     price?: true
   }
 
-  export type ServicesSumAggregateInputType = {
+  export type ServiceSumAggregateInputType = {
     price?: true
   }
 
-  export type ServicesMinAggregateInputType = {
+  export type ServiceMinAggregateInputType = {
     id?: true
     name?: true
     description?: true
     price?: true
     employee_id?: true
     createdAt?: true
-    updateAt?: true
+    updatedAt?: true
   }
 
-  export type ServicesMaxAggregateInputType = {
+  export type ServiceMaxAggregateInputType = {
     id?: true
     name?: true
     description?: true
     price?: true
     employee_id?: true
     createdAt?: true
-    updateAt?: true
+    updatedAt?: true
   }
 
-  export type ServicesCountAggregateInputType = {
+  export type ServiceCountAggregateInputType = {
     id?: true
     name?: true
     description?: true
     price?: true
     employee_id?: true
     createdAt?: true
-    updateAt?: true
+    updatedAt?: true
     _all?: true
   }
 
-  export type ServicesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServiceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which Services to aggregate.
+     * Filter which Service to aggregate.
      */
-    where?: ServicesWhereInput
+    where?: ServiceWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
      * Determine the order of Services to fetch.
      */
-    orderBy?: ServicesOrderByWithRelationInput | ServicesOrderByWithRelationInput[]
+    orderBy?: ServiceOrderByWithRelationInput | ServiceOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: ServicesWhereUniqueInput
+    cursor?: ServiceWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
@@ -4767,284 +4818,284 @@ export namespace Prisma {
      * 
      * Count returned Services
     **/
-    _count?: true | ServicesCountAggregateInputType
+    _count?: true | ServiceCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: ServicesAvgAggregateInputType
+    _avg?: ServiceAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: ServicesSumAggregateInputType
+    _sum?: ServiceSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: ServicesMinAggregateInputType
+    _min?: ServiceMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: ServicesMaxAggregateInputType
+    _max?: ServiceMaxAggregateInputType
   }
 
-  export type GetServicesAggregateType<T extends ServicesAggregateArgs> = {
-        [P in keyof T & keyof AggregateServices]: P extends '_count' | 'count'
+  export type GetServiceAggregateType<T extends ServiceAggregateArgs> = {
+        [P in keyof T & keyof AggregateService]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateServices[P]>
-      : GetScalarType<T[P], AggregateServices[P]>
+        : GetScalarType<T[P], AggregateService[P]>
+      : GetScalarType<T[P], AggregateService[P]>
   }
 
 
 
 
-  export type ServicesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ServicesWhereInput
-    orderBy?: ServicesOrderByWithAggregationInput | ServicesOrderByWithAggregationInput[]
-    by: ServicesScalarFieldEnum[] | ServicesScalarFieldEnum
-    having?: ServicesScalarWhereWithAggregatesInput
+  export type ServiceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ServiceWhereInput
+    orderBy?: ServiceOrderByWithAggregationInput | ServiceOrderByWithAggregationInput[]
+    by: ServiceScalarFieldEnum[] | ServiceScalarFieldEnum
+    having?: ServiceScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: ServicesCountAggregateInputType | true
-    _avg?: ServicesAvgAggregateInputType
-    _sum?: ServicesSumAggregateInputType
-    _min?: ServicesMinAggregateInputType
-    _max?: ServicesMaxAggregateInputType
+    _count?: ServiceCountAggregateInputType | true
+    _avg?: ServiceAvgAggregateInputType
+    _sum?: ServiceSumAggregateInputType
+    _min?: ServiceMinAggregateInputType
+    _max?: ServiceMaxAggregateInputType
   }
 
-  export type ServicesGroupByOutputType = {
+  export type ServiceGroupByOutputType = {
     id: string
     name: string
     description: string | null
     price: Decimal
-    employee_id: string
+    employee_id: string | null
     createdAt: Date
-    updateAt: Date
-    _count: ServicesCountAggregateOutputType | null
-    _avg: ServicesAvgAggregateOutputType | null
-    _sum: ServicesSumAggregateOutputType | null
-    _min: ServicesMinAggregateOutputType | null
-    _max: ServicesMaxAggregateOutputType | null
+    updatedAt: Date
+    _count: ServiceCountAggregateOutputType | null
+    _avg: ServiceAvgAggregateOutputType | null
+    _sum: ServiceSumAggregateOutputType | null
+    _min: ServiceMinAggregateOutputType | null
+    _max: ServiceMaxAggregateOutputType | null
   }
 
-  type GetServicesGroupByPayload<T extends ServicesGroupByArgs> = Prisma.PrismaPromise<
+  type GetServiceGroupByPayload<T extends ServiceGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<ServicesGroupByOutputType, T['by']> &
+      PickEnumerable<ServiceGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof ServicesGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof ServiceGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], ServicesGroupByOutputType[P]>
-            : GetScalarType<T[P], ServicesGroupByOutputType[P]>
+              : GetScalarType<T[P], ServiceGroupByOutputType[P]>
+            : GetScalarType<T[P], ServiceGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type ServicesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type ServiceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     description?: boolean
     price?: boolean
     employee_id?: boolean
     createdAt?: boolean
-    updateAt?: boolean
-    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["services"]>
+    updatedAt?: boolean
+    employee?: boolean | Service$employeeArgs<ExtArgs>
+  }, ExtArgs["result"]["service"]>
 
-  export type ServicesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type ServiceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     description?: boolean
     price?: boolean
     employee_id?: boolean
     createdAt?: boolean
-    updateAt?: boolean
-    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["services"]>
+    updatedAt?: boolean
+    employee?: boolean | Service$employeeArgs<ExtArgs>
+  }, ExtArgs["result"]["service"]>
 
-  export type ServicesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type ServiceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     description?: boolean
     price?: boolean
     employee_id?: boolean
     createdAt?: boolean
-    updateAt?: boolean
-    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["services"]>
+    updatedAt?: boolean
+    employee?: boolean | Service$employeeArgs<ExtArgs>
+  }, ExtArgs["result"]["service"]>
 
-  export type ServicesSelectScalar = {
+  export type ServiceSelectScalar = {
     id?: boolean
     name?: boolean
     description?: boolean
     price?: boolean
     employee_id?: boolean
     createdAt?: boolean
-    updateAt?: boolean
+    updatedAt?: boolean
   }
 
-  export type ServicesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "price" | "employee_id" | "createdAt" | "updateAt", ExtArgs["result"]["services"]>
-  export type ServicesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+  export type ServiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "price" | "employee_id" | "createdAt" | "updatedAt", ExtArgs["result"]["service"]>
+  export type ServiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employee?: boolean | Service$employeeArgs<ExtArgs>
   }
-  export type ServicesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+  export type ServiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employee?: boolean | Service$employeeArgs<ExtArgs>
   }
-  export type ServicesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
+  export type ServiceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employee?: boolean | Service$employeeArgs<ExtArgs>
   }
 
-  export type $ServicesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Services"
+  export type $ServicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Service"
     objects: {
-      employee: Prisma.$EmployeePayload<ExtArgs>
+      employee: Prisma.$EmployeePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
       description: string | null
       price: Prisma.Decimal
-      employee_id: string
+      employee_id: string | null
       createdAt: Date
-      updateAt: Date
-    }, ExtArgs["result"]["services"]>
+      updatedAt: Date
+    }, ExtArgs["result"]["service"]>
     composites: {}
   }
 
-  type ServicesGetPayload<S extends boolean | null | undefined | ServicesDefaultArgs> = $Result.GetResult<Prisma.$ServicesPayload, S>
+  type ServiceGetPayload<S extends boolean | null | undefined | ServiceDefaultArgs> = $Result.GetResult<Prisma.$ServicePayload, S>
 
-  type ServicesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<ServicesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: ServicesCountAggregateInputType | true
+  type ServiceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ServiceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ServiceCountAggregateInputType | true
     }
 
-  export interface ServicesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Services'], meta: { name: 'Services' } }
+  export interface ServiceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Service'], meta: { name: 'Service' } }
     /**
-     * Find zero or one Services that matches the filter.
-     * @param {ServicesFindUniqueArgs} args - Arguments to find a Services
+     * Find zero or one Service that matches the filter.
+     * @param {ServiceFindUniqueArgs} args - Arguments to find a Service
      * @example
-     * // Get one Services
-     * const services = await prisma.services.findUnique({
+     * // Get one Service
+     * const service = await prisma.service.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends ServicesFindUniqueArgs>(args: SelectSubset<T, ServicesFindUniqueArgs<ExtArgs>>): Prisma__ServicesClient<$Result.GetResult<Prisma.$ServicesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends ServiceFindUniqueArgs>(args: SelectSubset<T, ServiceFindUniqueArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one Services that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Service that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {ServicesFindUniqueOrThrowArgs} args - Arguments to find a Services
+     * @param {ServiceFindUniqueOrThrowArgs} args - Arguments to find a Service
      * @example
-     * // Get one Services
-     * const services = await prisma.services.findUniqueOrThrow({
+     * // Get one Service
+     * const service = await prisma.service.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends ServicesFindUniqueOrThrowArgs>(args: SelectSubset<T, ServicesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ServicesClient<$Result.GetResult<Prisma.$ServicesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends ServiceFindUniqueOrThrowArgs>(args: SelectSubset<T, ServiceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Services that matches the filter.
+     * Find the first Service that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServicesFindFirstArgs} args - Arguments to find a Services
+     * @param {ServiceFindFirstArgs} args - Arguments to find a Service
      * @example
-     * // Get one Services
-     * const services = await prisma.services.findFirst({
+     * // Get one Service
+     * const service = await prisma.service.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends ServicesFindFirstArgs>(args?: SelectSubset<T, ServicesFindFirstArgs<ExtArgs>>): Prisma__ServicesClient<$Result.GetResult<Prisma.$ServicesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends ServiceFindFirstArgs>(args?: SelectSubset<T, ServiceFindFirstArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Services that matches the filter or
+     * Find the first Service that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServicesFindFirstOrThrowArgs} args - Arguments to find a Services
+     * @param {ServiceFindFirstOrThrowArgs} args - Arguments to find a Service
      * @example
-     * // Get one Services
-     * const services = await prisma.services.findFirstOrThrow({
+     * // Get one Service
+     * const service = await prisma.service.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends ServicesFindFirstOrThrowArgs>(args?: SelectSubset<T, ServicesFindFirstOrThrowArgs<ExtArgs>>): Prisma__ServicesClient<$Result.GetResult<Prisma.$ServicesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends ServiceFindFirstOrThrowArgs>(args?: SelectSubset<T, ServiceFindFirstOrThrowArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find zero or more Services that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServicesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {ServiceFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all Services
-     * const services = await prisma.services.findMany()
+     * const services = await prisma.service.findMany()
      * 
      * // Get first 10 Services
-     * const services = await prisma.services.findMany({ take: 10 })
+     * const services = await prisma.service.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const servicesWithIdOnly = await prisma.services.findMany({ select: { id: true } })
+     * const serviceWithIdOnly = await prisma.service.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends ServicesFindManyArgs>(args?: SelectSubset<T, ServicesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends ServiceFindManyArgs>(args?: SelectSubset<T, ServiceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a Services.
-     * @param {ServicesCreateArgs} args - Arguments to create a Services.
+     * Create a Service.
+     * @param {ServiceCreateArgs} args - Arguments to create a Service.
      * @example
-     * // Create one Services
-     * const Services = await prisma.services.create({
+     * // Create one Service
+     * const Service = await prisma.service.create({
      *   data: {
-     *     // ... data to create a Services
+     *     // ... data to create a Service
      *   }
      * })
      * 
      */
-    create<T extends ServicesCreateArgs>(args: SelectSubset<T, ServicesCreateArgs<ExtArgs>>): Prisma__ServicesClient<$Result.GetResult<Prisma.$ServicesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends ServiceCreateArgs>(args: SelectSubset<T, ServiceCreateArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Create many Services.
-     * @param {ServicesCreateManyArgs} args - Arguments to create many Services.
+     * @param {ServiceCreateManyArgs} args - Arguments to create many Services.
      * @example
      * // Create many Services
-     * const services = await prisma.services.createMany({
+     * const service = await prisma.service.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends ServicesCreateManyArgs>(args?: SelectSubset<T, ServicesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends ServiceCreateManyArgs>(args?: SelectSubset<T, ServiceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Create many Services and returns the data saved in the database.
-     * @param {ServicesCreateManyAndReturnArgs} args - Arguments to create many Services.
+     * @param {ServiceCreateManyAndReturnArgs} args - Arguments to create many Services.
      * @example
      * // Create many Services
-     * const services = await prisma.services.createManyAndReturn({
+     * const service = await prisma.service.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
      * // Create many Services and only return the `id`
-     * const servicesWithIdOnly = await prisma.services.createManyAndReturn({
+     * const serviceWithIdOnly = await prisma.service.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -5054,28 +5105,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends ServicesCreateManyAndReturnArgs>(args?: SelectSubset<T, ServicesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends ServiceCreateManyAndReturnArgs>(args?: SelectSubset<T, ServiceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a Services.
-     * @param {ServicesDeleteArgs} args - Arguments to delete one Services.
+     * Delete a Service.
+     * @param {ServiceDeleteArgs} args - Arguments to delete one Service.
      * @example
-     * // Delete one Services
-     * const Services = await prisma.services.delete({
+     * // Delete one Service
+     * const Service = await prisma.service.delete({
      *   where: {
-     *     // ... filter to delete one Services
+     *     // ... filter to delete one Service
      *   }
      * })
      * 
      */
-    delete<T extends ServicesDeleteArgs>(args: SelectSubset<T, ServicesDeleteArgs<ExtArgs>>): Prisma__ServicesClient<$Result.GetResult<Prisma.$ServicesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends ServiceDeleteArgs>(args: SelectSubset<T, ServiceDeleteArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one Services.
-     * @param {ServicesUpdateArgs} args - Arguments to update one Services.
+     * Update one Service.
+     * @param {ServiceUpdateArgs} args - Arguments to update one Service.
      * @example
-     * // Update one Services
-     * const services = await prisma.services.update({
+     * // Update one Service
+     * const service = await prisma.service.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -5085,30 +5136,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends ServicesUpdateArgs>(args: SelectSubset<T, ServicesUpdateArgs<ExtArgs>>): Prisma__ServicesClient<$Result.GetResult<Prisma.$ServicesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends ServiceUpdateArgs>(args: SelectSubset<T, ServiceUpdateArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Delete zero or more Services.
-     * @param {ServicesDeleteManyArgs} args - Arguments to filter Services to delete.
+     * @param {ServiceDeleteManyArgs} args - Arguments to filter Services to delete.
      * @example
      * // Delete a few Services
-     * const { count } = await prisma.services.deleteMany({
+     * const { count } = await prisma.service.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends ServicesDeleteManyArgs>(args?: SelectSubset<T, ServicesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends ServiceDeleteManyArgs>(args?: SelectSubset<T, ServiceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Update zero or more Services.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServicesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {ServiceUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
      * // Update many Services
-     * const services = await prisma.services.updateMany({
+     * const service = await prisma.service.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -5118,14 +5169,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends ServicesUpdateManyArgs>(args: SelectSubset<T, ServicesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends ServiceUpdateManyArgs>(args: SelectSubset<T, ServiceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Update zero or more Services and returns the data updated in the database.
-     * @param {ServicesUpdateManyAndReturnArgs} args - Arguments to update many Services.
+     * @param {ServiceUpdateManyAndReturnArgs} args - Arguments to update many Services.
      * @example
      * // Update many Services
-     * const services = await prisma.services.updateManyAndReturn({
+     * const service = await prisma.service.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -5135,7 +5186,7 @@ export namespace Prisma {
      * })
      * 
      * // Update zero or more Services and only return the `id`
-     * const servicesWithIdOnly = await prisma.services.updateManyAndReturn({
+     * const serviceWithIdOnly = await prisma.service.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -5148,56 +5199,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends ServicesUpdateManyAndReturnArgs>(args: SelectSubset<T, ServicesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends ServiceUpdateManyAndReturnArgs>(args: SelectSubset<T, ServiceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one Services.
-     * @param {ServicesUpsertArgs} args - Arguments to update or create a Services.
+     * Create or update one Service.
+     * @param {ServiceUpsertArgs} args - Arguments to update or create a Service.
      * @example
-     * // Update or create a Services
-     * const services = await prisma.services.upsert({
+     * // Update or create a Service
+     * const service = await prisma.service.upsert({
      *   create: {
-     *     // ... data to create a Services
+     *     // ... data to create a Service
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Services we want to update
+     *     // ... the filter for the Service we want to update
      *   }
      * })
      */
-    upsert<T extends ServicesUpsertArgs>(args: SelectSubset<T, ServicesUpsertArgs<ExtArgs>>): Prisma__ServicesClient<$Result.GetResult<Prisma.$ServicesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends ServiceUpsertArgs>(args: SelectSubset<T, ServiceUpsertArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
      * Count the number of Services.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServicesCountArgs} args - Arguments to filter Services to count.
+     * @param {ServiceCountArgs} args - Arguments to filter Services to count.
      * @example
      * // Count the number of Services
-     * const count = await prisma.services.count({
+     * const count = await prisma.service.count({
      *   where: {
      *     // ... the filter for the Services we want to count
      *   }
      * })
     **/
-    count<T extends ServicesCountArgs>(
-      args?: Subset<T, ServicesCountArgs>,
+    count<T extends ServiceCountArgs>(
+      args?: Subset<T, ServiceCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], ServicesCountAggregateOutputType>
+          : GetScalarType<T['select'], ServiceCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Services.
+     * Allows you to perform aggregations operations on a Service.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServicesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {ServiceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -5217,13 +5268,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends ServicesAggregateArgs>(args: Subset<T, ServicesAggregateArgs>): Prisma.PrismaPromise<GetServicesAggregateType<T>>
+    aggregate<T extends ServiceAggregateArgs>(args: Subset<T, ServiceAggregateArgs>): Prisma.PrismaPromise<GetServiceAggregateType<T>>
 
     /**
-     * Group by Services.
+     * Group by Service.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServicesGroupByArgs} args - Group by arguments.
+     * @param {ServiceGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -5238,14 +5289,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends ServicesGroupByArgs,
+      T extends ServiceGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ServicesGroupByArgs['orderBy'] }
-        : { orderBy?: ServicesGroupByArgs['orderBy'] },
+        ? { orderBy: ServiceGroupByArgs['orderBy'] }
+        : { orderBy?: ServiceGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -5294,22 +5345,22 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, ServicesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetServicesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, ServiceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetServiceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the Services model
+   * Fields of the Service model
    */
-  readonly fields: ServicesFieldRefs;
+  readonly fields: ServiceFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for Services.
+   * The delegate class that acts as a "Promise-like" for Service.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__ServicesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__ServiceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    employee<T extends EmployeeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EmployeeDefaultArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    employee<T extends Service$employeeArgs<ExtArgs> = {}>(args?: Subset<T, Service$employeeArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5336,96 +5387,96 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the Services model
+   * Fields of the Service model
    */
-  interface ServicesFieldRefs {
-    readonly id: FieldRef<"Services", 'String'>
-    readonly name: FieldRef<"Services", 'String'>
-    readonly description: FieldRef<"Services", 'String'>
-    readonly price: FieldRef<"Services", 'Decimal'>
-    readonly employee_id: FieldRef<"Services", 'String'>
-    readonly createdAt: FieldRef<"Services", 'DateTime'>
-    readonly updateAt: FieldRef<"Services", 'DateTime'>
+  interface ServiceFieldRefs {
+    readonly id: FieldRef<"Service", 'String'>
+    readonly name: FieldRef<"Service", 'String'>
+    readonly description: FieldRef<"Service", 'String'>
+    readonly price: FieldRef<"Service", 'Decimal'>
+    readonly employee_id: FieldRef<"Service", 'String'>
+    readonly createdAt: FieldRef<"Service", 'DateTime'>
+    readonly updatedAt: FieldRef<"Service", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * Services findUnique
+   * Service findUnique
    */
-  export type ServicesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServiceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Service
      */
-    select?: ServicesSelect<ExtArgs> | null
+    select?: ServiceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Service
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: ServiceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesInclude<ExtArgs> | null
+    include?: ServiceInclude<ExtArgs> | null
     /**
-     * Filter, which Services to fetch.
+     * Filter, which Service to fetch.
      */
-    where: ServicesWhereUniqueInput
+    where: ServiceWhereUniqueInput
   }
 
   /**
-   * Services findUniqueOrThrow
+   * Service findUniqueOrThrow
    */
-  export type ServicesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServiceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Service
      */
-    select?: ServicesSelect<ExtArgs> | null
+    select?: ServiceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Service
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: ServiceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesInclude<ExtArgs> | null
+    include?: ServiceInclude<ExtArgs> | null
     /**
-     * Filter, which Services to fetch.
+     * Filter, which Service to fetch.
      */
-    where: ServicesWhereUniqueInput
+    where: ServiceWhereUniqueInput
   }
 
   /**
-   * Services findFirst
+   * Service findFirst
    */
-  export type ServicesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServiceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Service
      */
-    select?: ServicesSelect<ExtArgs> | null
+    select?: ServiceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Service
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: ServiceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesInclude<ExtArgs> | null
+    include?: ServiceInclude<ExtArgs> | null
     /**
-     * Filter, which Services to fetch.
+     * Filter, which Service to fetch.
      */
-    where?: ServicesWhereInput
+    where?: ServiceWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
      * Determine the order of Services to fetch.
      */
-    orderBy?: ServicesOrderByWithRelationInput | ServicesOrderByWithRelationInput[]
+    orderBy?: ServiceOrderByWithRelationInput | ServiceOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the position for searching for Services.
      */
-    cursor?: ServicesWhereUniqueInput
+    cursor?: ServiceWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
@@ -5443,41 +5494,41 @@ export namespace Prisma {
      * 
      * Filter by unique combinations of Services.
      */
-    distinct?: ServicesScalarFieldEnum | ServicesScalarFieldEnum[]
+    distinct?: ServiceScalarFieldEnum | ServiceScalarFieldEnum[]
   }
 
   /**
-   * Services findFirstOrThrow
+   * Service findFirstOrThrow
    */
-  export type ServicesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServiceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Service
      */
-    select?: ServicesSelect<ExtArgs> | null
+    select?: ServiceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Service
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: ServiceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesInclude<ExtArgs> | null
+    include?: ServiceInclude<ExtArgs> | null
     /**
-     * Filter, which Services to fetch.
+     * Filter, which Service to fetch.
      */
-    where?: ServicesWhereInput
+    where?: ServiceWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
      * Determine the order of Services to fetch.
      */
-    orderBy?: ServicesOrderByWithRelationInput | ServicesOrderByWithRelationInput[]
+    orderBy?: ServiceOrderByWithRelationInput | ServiceOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the position for searching for Services.
      */
-    cursor?: ServicesWhereUniqueInput
+    cursor?: ServiceWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
@@ -5495,41 +5546,41 @@ export namespace Prisma {
      * 
      * Filter by unique combinations of Services.
      */
-    distinct?: ServicesScalarFieldEnum | ServicesScalarFieldEnum[]
+    distinct?: ServiceScalarFieldEnum | ServiceScalarFieldEnum[]
   }
 
   /**
-   * Services findMany
+   * Service findMany
    */
-  export type ServicesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServiceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Service
      */
-    select?: ServicesSelect<ExtArgs> | null
+    select?: ServiceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Service
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: ServiceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesInclude<ExtArgs> | null
+    include?: ServiceInclude<ExtArgs> | null
     /**
      * Filter, which Services to fetch.
      */
-    where?: ServicesWhereInput
+    where?: ServiceWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
      * Determine the order of Services to fetch.
      */
-    orderBy?: ServicesOrderByWithRelationInput | ServicesOrderByWithRelationInput[]
+    orderBy?: ServiceOrderByWithRelationInput | ServiceOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the position for listing Services.
      */
-    cursor?: ServicesWhereUniqueInput
+    cursor?: ServiceWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
@@ -5542,103 +5593,103 @@ export namespace Prisma {
      * Skip the first `n` Services.
      */
     skip?: number
-    distinct?: ServicesScalarFieldEnum | ServicesScalarFieldEnum[]
+    distinct?: ServiceScalarFieldEnum | ServiceScalarFieldEnum[]
   }
 
   /**
-   * Services create
+   * Service create
    */
-  export type ServicesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServiceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Service
      */
-    select?: ServicesSelect<ExtArgs> | null
+    select?: ServiceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Service
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: ServiceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesInclude<ExtArgs> | null
+    include?: ServiceInclude<ExtArgs> | null
     /**
-     * The data needed to create a Services.
+     * The data needed to create a Service.
      */
-    data: XOR<ServicesCreateInput, ServicesUncheckedCreateInput>
+    data: XOR<ServiceCreateInput, ServiceUncheckedCreateInput>
   }
 
   /**
-   * Services createMany
+   * Service createMany
    */
-  export type ServicesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServiceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * The data used to create many Services.
      */
-    data: ServicesCreateManyInput | ServicesCreateManyInput[]
+    data: ServiceCreateManyInput | ServiceCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * Services createManyAndReturn
+   * Service createManyAndReturn
    */
-  export type ServicesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServiceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Service
      */
-    select?: ServicesSelectCreateManyAndReturn<ExtArgs> | null
+    select?: ServiceSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Service
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: ServiceOmit<ExtArgs> | null
     /**
      * The data used to create many Services.
      */
-    data: ServicesCreateManyInput | ServicesCreateManyInput[]
+    data: ServiceCreateManyInput | ServiceCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: ServiceIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Services update
+   * Service update
    */
-  export type ServicesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServiceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Service
      */
-    select?: ServicesSelect<ExtArgs> | null
+    select?: ServiceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Service
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: ServiceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesInclude<ExtArgs> | null
+    include?: ServiceInclude<ExtArgs> | null
     /**
-     * The data needed to update a Services.
+     * The data needed to update a Service.
      */
-    data: XOR<ServicesUpdateInput, ServicesUncheckedUpdateInput>
+    data: XOR<ServiceUpdateInput, ServiceUncheckedUpdateInput>
     /**
-     * Choose, which Services to update.
+     * Choose, which Service to update.
      */
-    where: ServicesWhereUniqueInput
+    where: ServiceWhereUniqueInput
   }
 
   /**
-   * Services updateMany
+   * Service updateMany
    */
-  export type ServicesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServiceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * The data used to update Services.
      */
-    data: XOR<ServicesUpdateManyMutationInput, ServicesUncheckedUpdateManyInput>
+    data: XOR<ServiceUpdateManyMutationInput, ServiceUncheckedUpdateManyInput>
     /**
      * Filter which Services to update
      */
-    where?: ServicesWhereInput
+    where?: ServiceWhereInput
     /**
      * Limit how many Services to update.
      */
@@ -5646,25 +5697,25 @@ export namespace Prisma {
   }
 
   /**
-   * Services updateManyAndReturn
+   * Service updateManyAndReturn
    */
-  export type ServicesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServiceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Service
      */
-    select?: ServicesSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: ServiceSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Service
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: ServiceOmit<ExtArgs> | null
     /**
      * The data used to update Services.
      */
-    data: XOR<ServicesUpdateManyMutationInput, ServicesUncheckedUpdateManyInput>
+    data: XOR<ServiceUpdateManyMutationInput, ServiceUncheckedUpdateManyInput>
     /**
      * Filter which Services to update
      */
-    where?: ServicesWhereInput
+    where?: ServiceWhereInput
     /**
      * Limit how many Services to update.
      */
@@ -5672,69 +5723,69 @@ export namespace Prisma {
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: ServiceIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * Services upsert
+   * Service upsert
    */
-  export type ServicesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServiceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Service
      */
-    select?: ServicesSelect<ExtArgs> | null
+    select?: ServiceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Service
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: ServiceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesInclude<ExtArgs> | null
+    include?: ServiceInclude<ExtArgs> | null
     /**
-     * The filter to search for the Services to update in case it exists.
+     * The filter to search for the Service to update in case it exists.
      */
-    where: ServicesWhereUniqueInput
+    where: ServiceWhereUniqueInput
     /**
-     * In case the Services found by the `where` argument doesn't exist, create a new Services with this data.
+     * In case the Service found by the `where` argument doesn't exist, create a new Service with this data.
      */
-    create: XOR<ServicesCreateInput, ServicesUncheckedCreateInput>
+    create: XOR<ServiceCreateInput, ServiceUncheckedCreateInput>
     /**
-     * In case the Services was found with the provided `where` argument, update it with this data.
+     * In case the Service was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<ServicesUpdateInput, ServicesUncheckedUpdateInput>
+    update: XOR<ServiceUpdateInput, ServiceUncheckedUpdateInput>
   }
 
   /**
-   * Services delete
+   * Service delete
    */
-  export type ServicesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServiceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Service
      */
-    select?: ServicesSelect<ExtArgs> | null
+    select?: ServiceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Service
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: ServiceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesInclude<ExtArgs> | null
+    include?: ServiceInclude<ExtArgs> | null
     /**
-     * Filter which Services to delete.
+     * Filter which Service to delete.
      */
-    where: ServicesWhereUniqueInput
+    where: ServiceWhereUniqueInput
   }
 
   /**
-   * Services deleteMany
+   * Service deleteMany
    */
-  export type ServicesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServiceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Filter which Services to delete
      */
-    where?: ServicesWhereInput
+    where?: ServiceWhereInput
     /**
      * Limit how many Services to delete.
      */
@@ -5742,21 +5793,40 @@ export namespace Prisma {
   }
 
   /**
-   * Services without action
+   * Service.employee
    */
-  export type ServicesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Service$employeeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Services
+     * Select specific fields to fetch from the Employee
      */
-    select?: ServicesSelect<ExtArgs> | null
+    select?: EmployeeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Services
+     * Omit specific fields from the Employee
      */
-    omit?: ServicesOmit<ExtArgs> | null
+    omit?: EmployeeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServicesInclude<ExtArgs> | null
+    include?: EmployeeInclude<ExtArgs> | null
+    where?: EmployeeWhereInput
+  }
+
+  /**
+   * Service without action
+   */
+  export type ServiceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Service
+     */
+    select?: ServiceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Service
+     */
+    omit?: ServiceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ServiceInclude<ExtArgs> | null
   }
 
 
@@ -5782,7 +5852,7 @@ export namespace Prisma {
     plan: 'plan',
     role: 'role',
     createdAt: 'createdAt',
-    updateAt: 'updateAt'
+    updatedAt: 'updatedAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -5794,9 +5864,10 @@ export namespace Prisma {
     slug: 'slug',
     contact: 'contact',
     address: 'address',
+    isActive: 'isActive',
     user_id: 'user_id',
     createdAt: 'createdAt',
-    updateAt: 'updateAt'
+    updatedAt: 'updatedAt'
   };
 
   export type ClinicaScalarFieldEnum = (typeof ClinicaScalarFieldEnum)[keyof typeof ClinicaScalarFieldEnum]
@@ -5811,23 +5882,23 @@ export namespace Prisma {
     role: 'role',
     clinica_id: 'clinica_id',
     createdAt: 'createdAt',
-    updateAt: 'updateAt'
+    updatedAt: 'updatedAt'
   };
 
   export type EmployeeScalarFieldEnum = (typeof EmployeeScalarFieldEnum)[keyof typeof EmployeeScalarFieldEnum]
 
 
-  export const ServicesScalarFieldEnum: {
+  export const ServiceScalarFieldEnum: {
     id: 'id',
     name: 'name',
     description: 'description',
     price: 'price',
     employee_id: 'employee_id',
     createdAt: 'createdAt',
-    updateAt: 'updateAt'
+    updatedAt: 'updatedAt'
   };
 
-  export type ServicesScalarFieldEnum = (typeof ServicesScalarFieldEnum)[keyof typeof ServicesScalarFieldEnum]
+  export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -5902,6 +5973,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Decimal'
    */
   export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
@@ -5943,7 +6021,7 @@ export namespace Prisma {
     plan?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     createdAt?: DateTimeFilter<"User"> | Date | string
-    updateAt?: DateTimeFilter<"User"> | Date | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
     clinicas?: ClinicaListRelationFilter
   }
 
@@ -5955,7 +6033,7 @@ export namespace Prisma {
     plan?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
-    updateAt?: SortOrder
+    updatedAt?: SortOrder
     clinicas?: ClinicaOrderByRelationAggregateInput
   }
 
@@ -5970,7 +6048,7 @@ export namespace Prisma {
     plan?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     createdAt?: DateTimeFilter<"User"> | Date | string
-    updateAt?: DateTimeFilter<"User"> | Date | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
     clinicas?: ClinicaListRelationFilter
   }, "id" | "email">
 
@@ -5982,7 +6060,7 @@ export namespace Prisma {
     plan?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
-    updateAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -5999,7 +6077,7 @@ export namespace Prisma {
     plan?: StringWithAggregatesFilter<"User"> | string
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
-    updateAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
   export type ClinicaWhereInput = {
@@ -6011,10 +6089,11 @@ export namespace Prisma {
     slug?: StringFilter<"Clinica"> | string
     contact?: StringFilter<"Clinica"> | string
     address?: StringFilter<"Clinica"> | string
-    user_id?: StringFilter<"Clinica"> | string
+    isActive?: BoolFilter<"Clinica"> | boolean
+    user_id?: StringNullableFilter<"Clinica"> | string | null
     createdAt?: DateTimeFilter<"Clinica"> | Date | string
-    updateAt?: DateTimeFilter<"Clinica"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    updatedAt?: DateTimeFilter<"Clinica"> | Date | string
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     employees?: EmployeeListRelationFilter
   }
 
@@ -6024,9 +6103,10 @@ export namespace Prisma {
     slug?: SortOrder
     contact?: SortOrder
     address?: SortOrder
-    user_id?: SortOrder
+    isActive?: SortOrder
+    user_id?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    updateAt?: SortOrder
+    updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
     employees?: EmployeeOrderByRelationAggregateInput
   }
@@ -6040,10 +6120,11 @@ export namespace Prisma {
     name?: StringFilter<"Clinica"> | string
     contact?: StringFilter<"Clinica"> | string
     address?: StringFilter<"Clinica"> | string
-    user_id?: StringFilter<"Clinica"> | string
+    isActive?: BoolFilter<"Clinica"> | boolean
+    user_id?: StringNullableFilter<"Clinica"> | string | null
     createdAt?: DateTimeFilter<"Clinica"> | Date | string
-    updateAt?: DateTimeFilter<"Clinica"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    updatedAt?: DateTimeFilter<"Clinica"> | Date | string
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     employees?: EmployeeListRelationFilter
   }, "id" | "slug">
 
@@ -6053,9 +6134,10 @@ export namespace Prisma {
     slug?: SortOrder
     contact?: SortOrder
     address?: SortOrder
-    user_id?: SortOrder
+    isActive?: SortOrder
+    user_id?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    updateAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: ClinicaCountOrderByAggregateInput
     _max?: ClinicaMaxOrderByAggregateInput
     _min?: ClinicaMinOrderByAggregateInput
@@ -6070,9 +6152,10 @@ export namespace Prisma {
     slug?: StringWithAggregatesFilter<"Clinica"> | string
     contact?: StringWithAggregatesFilter<"Clinica"> | string
     address?: StringWithAggregatesFilter<"Clinica"> | string
-    user_id?: StringWithAggregatesFilter<"Clinica"> | string
+    isActive?: BoolWithAggregatesFilter<"Clinica"> | boolean
+    user_id?: StringNullableWithAggregatesFilter<"Clinica"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Clinica"> | Date | string
-    updateAt?: DateTimeWithAggregatesFilter<"Clinica"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Clinica"> | Date | string
   }
 
   export type EmployeeWhereInput = {
@@ -6085,11 +6168,11 @@ export namespace Prisma {
     email?: StringFilter<"Employee"> | string
     password?: StringFilter<"Employee"> | string
     role?: EnumRoleFilter<"Employee"> | $Enums.Role
-    clinica_id?: StringFilter<"Employee"> | string
+    clinica_id?: StringNullableFilter<"Employee"> | string | null
     createdAt?: DateTimeFilter<"Employee"> | Date | string
-    updateAt?: DateTimeFilter<"Employee"> | Date | string
-    services?: ServicesListRelationFilter
-    clinica?: XOR<ClinicaScalarRelationFilter, ClinicaWhereInput>
+    updatedAt?: DateTimeFilter<"Employee"> | Date | string
+    services?: ServiceListRelationFilter
+    clinica?: XOR<ClinicaNullableScalarRelationFilter, ClinicaWhereInput> | null
   }
 
   export type EmployeeOrderByWithRelationInput = {
@@ -6099,10 +6182,10 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     role?: SortOrder
-    clinica_id?: SortOrder
+    clinica_id?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    updateAt?: SortOrder
-    services?: ServicesOrderByRelationAggregateInput
+    updatedAt?: SortOrder
+    services?: ServiceOrderByRelationAggregateInput
     clinica?: ClinicaOrderByWithRelationInput
   }
 
@@ -6116,11 +6199,11 @@ export namespace Prisma {
     speciality?: StringFilter<"Employee"> | string
     password?: StringFilter<"Employee"> | string
     role?: EnumRoleFilter<"Employee"> | $Enums.Role
-    clinica_id?: StringFilter<"Employee"> | string
+    clinica_id?: StringNullableFilter<"Employee"> | string | null
     createdAt?: DateTimeFilter<"Employee"> | Date | string
-    updateAt?: DateTimeFilter<"Employee"> | Date | string
-    services?: ServicesListRelationFilter
-    clinica?: XOR<ClinicaScalarRelationFilter, ClinicaWhereInput>
+    updatedAt?: DateTimeFilter<"Employee"> | Date | string
+    services?: ServiceListRelationFilter
+    clinica?: XOR<ClinicaNullableScalarRelationFilter, ClinicaWhereInput> | null
   }, "id" | "email">
 
   export type EmployeeOrderByWithAggregationInput = {
@@ -6130,9 +6213,9 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     role?: SortOrder
-    clinica_id?: SortOrder
+    clinica_id?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    updateAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: EmployeeCountOrderByAggregateInput
     _max?: EmployeeMaxOrderByAggregateInput
     _min?: EmployeeMinOrderByAggregateInput
@@ -6148,76 +6231,76 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"Employee"> | string
     password?: StringWithAggregatesFilter<"Employee"> | string
     role?: EnumRoleWithAggregatesFilter<"Employee"> | $Enums.Role
-    clinica_id?: StringWithAggregatesFilter<"Employee"> | string
+    clinica_id?: StringNullableWithAggregatesFilter<"Employee"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Employee"> | Date | string
-    updateAt?: DateTimeWithAggregatesFilter<"Employee"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Employee"> | Date | string
   }
 
-  export type ServicesWhereInput = {
-    AND?: ServicesWhereInput | ServicesWhereInput[]
-    OR?: ServicesWhereInput[]
-    NOT?: ServicesWhereInput | ServicesWhereInput[]
-    id?: StringFilter<"Services"> | string
-    name?: StringFilter<"Services"> | string
-    description?: StringNullableFilter<"Services"> | string | null
-    price?: DecimalFilter<"Services"> | Decimal | DecimalJsLike | number | string
-    employee_id?: StringFilter<"Services"> | string
-    createdAt?: DateTimeFilter<"Services"> | Date | string
-    updateAt?: DateTimeFilter<"Services"> | Date | string
-    employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
+  export type ServiceWhereInput = {
+    AND?: ServiceWhereInput | ServiceWhereInput[]
+    OR?: ServiceWhereInput[]
+    NOT?: ServiceWhereInput | ServiceWhereInput[]
+    id?: StringFilter<"Service"> | string
+    name?: StringFilter<"Service"> | string
+    description?: StringNullableFilter<"Service"> | string | null
+    price?: DecimalFilter<"Service"> | Decimal | DecimalJsLike | number | string
+    employee_id?: StringNullableFilter<"Service"> | string | null
+    createdAt?: DateTimeFilter<"Service"> | Date | string
+    updatedAt?: DateTimeFilter<"Service"> | Date | string
+    employee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
   }
 
-  export type ServicesOrderByWithRelationInput = {
+  export type ServiceOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     price?: SortOrder
-    employee_id?: SortOrder
+    employee_id?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    updateAt?: SortOrder
+    updatedAt?: SortOrder
     employee?: EmployeeOrderByWithRelationInput
   }
 
-  export type ServicesWhereUniqueInput = Prisma.AtLeast<{
+  export type ServiceWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: ServicesWhereInput | ServicesWhereInput[]
-    OR?: ServicesWhereInput[]
-    NOT?: ServicesWhereInput | ServicesWhereInput[]
-    name?: StringFilter<"Services"> | string
-    description?: StringNullableFilter<"Services"> | string | null
-    price?: DecimalFilter<"Services"> | Decimal | DecimalJsLike | number | string
-    employee_id?: StringFilter<"Services"> | string
-    createdAt?: DateTimeFilter<"Services"> | Date | string
-    updateAt?: DateTimeFilter<"Services"> | Date | string
-    employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
+    AND?: ServiceWhereInput | ServiceWhereInput[]
+    OR?: ServiceWhereInput[]
+    NOT?: ServiceWhereInput | ServiceWhereInput[]
+    name?: StringFilter<"Service"> | string
+    description?: StringNullableFilter<"Service"> | string | null
+    price?: DecimalFilter<"Service"> | Decimal | DecimalJsLike | number | string
+    employee_id?: StringNullableFilter<"Service"> | string | null
+    createdAt?: DateTimeFilter<"Service"> | Date | string
+    updatedAt?: DateTimeFilter<"Service"> | Date | string
+    employee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
   }, "id">
 
-  export type ServicesOrderByWithAggregationInput = {
+  export type ServiceOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     price?: SortOrder
-    employee_id?: SortOrder
+    employee_id?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    updateAt?: SortOrder
-    _count?: ServicesCountOrderByAggregateInput
-    _avg?: ServicesAvgOrderByAggregateInput
-    _max?: ServicesMaxOrderByAggregateInput
-    _min?: ServicesMinOrderByAggregateInput
-    _sum?: ServicesSumOrderByAggregateInput
+    updatedAt?: SortOrder
+    _count?: ServiceCountOrderByAggregateInput
+    _avg?: ServiceAvgOrderByAggregateInput
+    _max?: ServiceMaxOrderByAggregateInput
+    _min?: ServiceMinOrderByAggregateInput
+    _sum?: ServiceSumOrderByAggregateInput
   }
 
-  export type ServicesScalarWhereWithAggregatesInput = {
-    AND?: ServicesScalarWhereWithAggregatesInput | ServicesScalarWhereWithAggregatesInput[]
-    OR?: ServicesScalarWhereWithAggregatesInput[]
-    NOT?: ServicesScalarWhereWithAggregatesInput | ServicesScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Services"> | string
-    name?: StringWithAggregatesFilter<"Services"> | string
-    description?: StringNullableWithAggregatesFilter<"Services"> | string | null
-    price?: DecimalWithAggregatesFilter<"Services"> | Decimal | DecimalJsLike | number | string
-    employee_id?: StringWithAggregatesFilter<"Services"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"Services"> | Date | string
-    updateAt?: DateTimeWithAggregatesFilter<"Services"> | Date | string
+  export type ServiceScalarWhereWithAggregatesInput = {
+    AND?: ServiceScalarWhereWithAggregatesInput | ServiceScalarWhereWithAggregatesInput[]
+    OR?: ServiceScalarWhereWithAggregatesInput[]
+    NOT?: ServiceScalarWhereWithAggregatesInput | ServiceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Service"> | string
+    name?: StringWithAggregatesFilter<"Service"> | string
+    description?: StringNullableWithAggregatesFilter<"Service"> | string | null
+    price?: DecimalWithAggregatesFilter<"Service"> | Decimal | DecimalJsLike | number | string
+    employee_id?: StringNullableWithAggregatesFilter<"Service"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Service"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Service"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -6225,10 +6308,10 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    plan: string
+    plan?: string
     role?: $Enums.Role
     createdAt?: Date | string
-    updateAt?: Date | string
+    updatedAt?: Date | string
     clinicas?: ClinicaCreateNestedManyWithoutUserInput
   }
 
@@ -6237,10 +6320,10 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    plan: string
+    plan?: string
     role?: $Enums.Role
     createdAt?: Date | string
-    updateAt?: Date | string
+    updatedAt?: Date | string
     clinicas?: ClinicaUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -6252,7 +6335,7 @@ export namespace Prisma {
     plan?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clinicas?: ClinicaUpdateManyWithoutUserNestedInput
   }
 
@@ -6264,7 +6347,7 @@ export namespace Prisma {
     plan?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clinicas?: ClinicaUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -6273,10 +6356,10 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    plan: string
+    plan?: string
     role?: $Enums.Role
     createdAt?: Date | string
-    updateAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UserUpdateManyMutationInput = {
@@ -6287,7 +6370,7 @@ export namespace Prisma {
     plan?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -6298,7 +6381,7 @@ export namespace Prisma {
     plan?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ClinicaCreateInput = {
@@ -6307,9 +6390,10 @@ export namespace Prisma {
     slug: string
     contact: string
     address: string
+    isActive?: boolean
     createdAt?: Date | string
-    updateAt?: Date | string
-    user: UserCreateNestedOneWithoutClinicasInput
+    updatedAt?: Date | string
+    user?: UserCreateNestedOneWithoutClinicasInput
     employees?: EmployeeCreateNestedManyWithoutClinicaInput
   }
 
@@ -6319,9 +6403,10 @@ export namespace Prisma {
     slug: string
     contact: string
     address: string
-    user_id: string
+    isActive?: boolean
+    user_id?: string | null
     createdAt?: Date | string
-    updateAt?: Date | string
+    updatedAt?: Date | string
     employees?: EmployeeUncheckedCreateNestedManyWithoutClinicaInput
   }
 
@@ -6331,9 +6416,10 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutClinicasNestedInput
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutClinicasNestedInput
     employees?: EmployeeUpdateManyWithoutClinicaNestedInput
   }
 
@@ -6343,9 +6429,10 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
-    user_id?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: EmployeeUncheckedUpdateManyWithoutClinicaNestedInput
   }
 
@@ -6355,9 +6442,10 @@ export namespace Prisma {
     slug: string
     contact: string
     address: string
-    user_id: string
+    isActive?: boolean
+    user_id?: string | null
     createdAt?: Date | string
-    updateAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type ClinicaUpdateManyMutationInput = {
@@ -6366,8 +6454,9 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ClinicaUncheckedUpdateManyInput = {
@@ -6376,9 +6465,10 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
-    user_id?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type EmployeeCreateInput = {
@@ -6389,9 +6479,9 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     createdAt?: Date | string
-    updateAt?: Date | string
-    services?: ServicesCreateNestedManyWithoutEmployeeInput
-    clinica: ClinicaCreateNestedOneWithoutEmployeesInput
+    updatedAt?: Date | string
+    services?: ServiceCreateNestedManyWithoutEmployeeInput
+    clinica?: ClinicaCreateNestedOneWithoutEmployeesInput
   }
 
   export type EmployeeUncheckedCreateInput = {
@@ -6401,10 +6491,10 @@ export namespace Prisma {
     email: string
     password: string
     role?: $Enums.Role
-    clinica_id: string
+    clinica_id?: string | null
     createdAt?: Date | string
-    updateAt?: Date | string
-    services?: ServicesUncheckedCreateNestedManyWithoutEmployeeInput
+    updatedAt?: Date | string
+    services?: ServiceUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUpdateInput = {
@@ -6415,9 +6505,9 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    services?: ServicesUpdateManyWithoutEmployeeNestedInput
-    clinica?: ClinicaUpdateOneRequiredWithoutEmployeesNestedInput
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    services?: ServiceUpdateManyWithoutEmployeeNestedInput
+    clinica?: ClinicaUpdateOneWithoutEmployeesNestedInput
   }
 
   export type EmployeeUncheckedUpdateInput = {
@@ -6427,10 +6517,10 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    clinica_id?: StringFieldUpdateOperationsInput | string
+    clinica_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    services?: ServicesUncheckedUpdateManyWithoutEmployeeNestedInput
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    services?: ServiceUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeCreateManyInput = {
@@ -6440,9 +6530,9 @@ export namespace Prisma {
     email: string
     password: string
     role?: $Enums.Role
-    clinica_id: string
+    clinica_id?: string | null
     createdAt?: Date | string
-    updateAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type EmployeeUpdateManyMutationInput = {
@@ -6453,7 +6543,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type EmployeeUncheckedUpdateManyInput = {
@@ -6463,78 +6553,78 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    clinica_id?: StringFieldUpdateOperationsInput | string
+    clinica_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ServicesCreateInput = {
+  export type ServiceCreateInput = {
     id?: string
     name: string
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
-    updateAt?: Date | string
-    employee: EmployeeCreateNestedOneWithoutServicesInput
+    updatedAt?: Date | string
+    employee?: EmployeeCreateNestedOneWithoutServicesInput
   }
 
-  export type ServicesUncheckedCreateInput = {
+  export type ServiceUncheckedCreateInput = {
     id?: string
     name: string
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
-    employee_id: string
+    employee_id?: string | null
     createdAt?: Date | string
-    updateAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type ServicesUpdateInput = {
+  export type ServiceUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employee?: EmployeeUpdateOneRequiredWithoutServicesNestedInput
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    employee?: EmployeeUpdateOneWithoutServicesNestedInput
   }
 
-  export type ServicesUncheckedUpdateInput = {
+  export type ServiceUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    employee_id?: StringFieldUpdateOperationsInput | string
+    employee_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ServicesCreateManyInput = {
+  export type ServiceCreateManyInput = {
     id?: string
     name: string
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
-    employee_id: string
+    employee_id?: string | null
     createdAt?: Date | string
-    updateAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type ServicesUpdateManyMutationInput = {
+  export type ServiceUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ServicesUncheckedUpdateManyInput = {
+  export type ServiceUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    employee_id?: StringFieldUpdateOperationsInput | string
+    employee_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -6588,7 +6678,7 @@ export namespace Prisma {
     plan?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
-    updateAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -6599,7 +6689,7 @@ export namespace Prisma {
     plan?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
-    updateAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -6610,7 +6700,7 @@ export namespace Prisma {
     plan?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
-    updateAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -6655,103 +6745,9 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
-  }
-
-  export type EmployeeListRelationFilter = {
-    every?: EmployeeWhereInput
-    some?: EmployeeWhereInput
-    none?: EmployeeWhereInput
-  }
-
-  export type EmployeeOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ClinicaCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    slug?: SortOrder
-    contact?: SortOrder
-    address?: SortOrder
-    user_id?: SortOrder
-    createdAt?: SortOrder
-    updateAt?: SortOrder
-  }
-
-  export type ClinicaMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    slug?: SortOrder
-    contact?: SortOrder
-    address?: SortOrder
-    user_id?: SortOrder
-    createdAt?: SortOrder
-    updateAt?: SortOrder
-  }
-
-  export type ClinicaMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    slug?: SortOrder
-    contact?: SortOrder
-    address?: SortOrder
-    user_id?: SortOrder
-    createdAt?: SortOrder
-    updateAt?: SortOrder
-  }
-
-  export type ServicesListRelationFilter = {
-    every?: ServicesWhereInput
-    some?: ServicesWhereInput
-    none?: ServicesWhereInput
-  }
-
-  export type ClinicaScalarRelationFilter = {
-    is?: ClinicaWhereInput
-    isNot?: ClinicaWhereInput
-  }
-
-  export type ServicesOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type EmployeeCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    speciality?: SortOrder
-    email?: SortOrder
-    password?: SortOrder
-    role?: SortOrder
-    clinica_id?: SortOrder
-    createdAt?: SortOrder
-    updateAt?: SortOrder
-  }
-
-  export type EmployeeMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    speciality?: SortOrder
-    email?: SortOrder
-    password?: SortOrder
-    role?: SortOrder
-    clinica_id?: SortOrder
-    createdAt?: SortOrder
-    updateAt?: SortOrder
-  }
-
-  export type EmployeeMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-    speciality?: SortOrder
-    email?: SortOrder
-    password?: SortOrder
-    role?: SortOrder
-    clinica_id?: SortOrder
-    createdAt?: SortOrder
-    updateAt?: SortOrder
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -6769,20 +6765,15 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type DecimalFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
   }
 
-  export type EmployeeScalarRelationFilter = {
-    is?: EmployeeWhereInput
-    isNot?: EmployeeWhereInput
+  export type EmployeeListRelationFilter = {
+    every?: EmployeeWhereInput
+    some?: EmployeeWhereInput
+    none?: EmployeeWhereInput
   }
 
   export type SortOrderInput = {
@@ -6790,42 +6781,52 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
-  export type ServicesCountOrderByAggregateInput = {
+  export type EmployeeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ClinicaCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    description?: SortOrder
-    price?: SortOrder
-    employee_id?: SortOrder
+    slug?: SortOrder
+    contact?: SortOrder
+    address?: SortOrder
+    isActive?: SortOrder
+    user_id?: SortOrder
     createdAt?: SortOrder
-    updateAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
-  export type ServicesAvgOrderByAggregateInput = {
-    price?: SortOrder
-  }
-
-  export type ServicesMaxOrderByAggregateInput = {
+  export type ClinicaMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    description?: SortOrder
-    price?: SortOrder
-    employee_id?: SortOrder
+    slug?: SortOrder
+    contact?: SortOrder
+    address?: SortOrder
+    isActive?: SortOrder
+    user_id?: SortOrder
     createdAt?: SortOrder
-    updateAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
-  export type ServicesMinOrderByAggregateInput = {
+  export type ClinicaMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    description?: SortOrder
-    price?: SortOrder
-    employee_id?: SortOrder
+    slug?: SortOrder
+    contact?: SortOrder
+    address?: SortOrder
+    isActive?: SortOrder
+    user_id?: SortOrder
     createdAt?: SortOrder
-    updateAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
-  export type ServicesSumOrderByAggregateInput = {
-    price?: SortOrder
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -6844,6 +6845,111 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type ServiceListRelationFilter = {
+    every?: ServiceWhereInput
+    some?: ServiceWhereInput
+    none?: ServiceWhereInput
+  }
+
+  export type ClinicaNullableScalarRelationFilter = {
+    is?: ClinicaWhereInput | null
+    isNot?: ClinicaWhereInput | null
+  }
+
+  export type ServiceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EmployeeCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    speciality?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
+    role?: SortOrder
+    clinica_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EmployeeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    speciality?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
+    role?: SortOrder
+    clinica_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EmployeeMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    speciality?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
+    role?: SortOrder
+    clinica_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type EmployeeNullableScalarRelationFilter = {
+    is?: EmployeeWhereInput | null
+    isNot?: EmployeeWhereInput | null
+  }
+
+  export type ServiceCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    price?: SortOrder
+    employee_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ServiceAvgOrderByAggregateInput = {
+    price?: SortOrder
+  }
+
+  export type ServiceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    price?: SortOrder
+    employee_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ServiceMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    price?: SortOrder
+    employee_id?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ServiceSumOrderByAggregateInput = {
+    price?: SortOrder
   }
 
   export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -6936,10 +7042,16 @@ export namespace Prisma {
     connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
   }
 
-  export type UserUpdateOneRequiredWithoutClinicasNestedInput = {
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type UserUpdateOneWithoutClinicasNestedInput = {
     create?: XOR<UserCreateWithoutClinicasInput, UserUncheckedCreateWithoutClinicasInput>
     connectOrCreate?: UserCreateOrConnectWithoutClinicasInput
     upsert?: UserUpsertWithoutClinicasInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutClinicasInput, UserUpdateWithoutClinicasInput>, UserUncheckedUpdateWithoutClinicasInput>
   }
@@ -6958,6 +7070,10 @@ export namespace Prisma {
     deleteMany?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type EmployeeUncheckedUpdateManyWithoutClinicaNestedInput = {
     create?: XOR<EmployeeCreateWithoutClinicaInput, EmployeeUncheckedCreateWithoutClinicaInput> | EmployeeCreateWithoutClinicaInput[] | EmployeeUncheckedCreateWithoutClinicaInput[]
     connectOrCreate?: EmployeeCreateOrConnectWithoutClinicaInput | EmployeeCreateOrConnectWithoutClinicaInput[]
@@ -6972,11 +7088,11 @@ export namespace Prisma {
     deleteMany?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
   }
 
-  export type ServicesCreateNestedManyWithoutEmployeeInput = {
-    create?: XOR<ServicesCreateWithoutEmployeeInput, ServicesUncheckedCreateWithoutEmployeeInput> | ServicesCreateWithoutEmployeeInput[] | ServicesUncheckedCreateWithoutEmployeeInput[]
-    connectOrCreate?: ServicesCreateOrConnectWithoutEmployeeInput | ServicesCreateOrConnectWithoutEmployeeInput[]
-    createMany?: ServicesCreateManyEmployeeInputEnvelope
-    connect?: ServicesWhereUniqueInput | ServicesWhereUniqueInput[]
+  export type ServiceCreateNestedManyWithoutEmployeeInput = {
+    create?: XOR<ServiceCreateWithoutEmployeeInput, ServiceUncheckedCreateWithoutEmployeeInput> | ServiceCreateWithoutEmployeeInput[] | ServiceUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutEmployeeInput | ServiceCreateOrConnectWithoutEmployeeInput[]
+    createMany?: ServiceCreateManyEmployeeInputEnvelope
+    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
   }
 
   export type ClinicaCreateNestedOneWithoutEmployeesInput = {
@@ -6985,57 +7101,55 @@ export namespace Prisma {
     connect?: ClinicaWhereUniqueInput
   }
 
-  export type ServicesUncheckedCreateNestedManyWithoutEmployeeInput = {
-    create?: XOR<ServicesCreateWithoutEmployeeInput, ServicesUncheckedCreateWithoutEmployeeInput> | ServicesCreateWithoutEmployeeInput[] | ServicesUncheckedCreateWithoutEmployeeInput[]
-    connectOrCreate?: ServicesCreateOrConnectWithoutEmployeeInput | ServicesCreateOrConnectWithoutEmployeeInput[]
-    createMany?: ServicesCreateManyEmployeeInputEnvelope
-    connect?: ServicesWhereUniqueInput | ServicesWhereUniqueInput[]
+  export type ServiceUncheckedCreateNestedManyWithoutEmployeeInput = {
+    create?: XOR<ServiceCreateWithoutEmployeeInput, ServiceUncheckedCreateWithoutEmployeeInput> | ServiceCreateWithoutEmployeeInput[] | ServiceUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutEmployeeInput | ServiceCreateOrConnectWithoutEmployeeInput[]
+    createMany?: ServiceCreateManyEmployeeInputEnvelope
+    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
   }
 
-  export type ServicesUpdateManyWithoutEmployeeNestedInput = {
-    create?: XOR<ServicesCreateWithoutEmployeeInput, ServicesUncheckedCreateWithoutEmployeeInput> | ServicesCreateWithoutEmployeeInput[] | ServicesUncheckedCreateWithoutEmployeeInput[]
-    connectOrCreate?: ServicesCreateOrConnectWithoutEmployeeInput | ServicesCreateOrConnectWithoutEmployeeInput[]
-    upsert?: ServicesUpsertWithWhereUniqueWithoutEmployeeInput | ServicesUpsertWithWhereUniqueWithoutEmployeeInput[]
-    createMany?: ServicesCreateManyEmployeeInputEnvelope
-    set?: ServicesWhereUniqueInput | ServicesWhereUniqueInput[]
-    disconnect?: ServicesWhereUniqueInput | ServicesWhereUniqueInput[]
-    delete?: ServicesWhereUniqueInput | ServicesWhereUniqueInput[]
-    connect?: ServicesWhereUniqueInput | ServicesWhereUniqueInput[]
-    update?: ServicesUpdateWithWhereUniqueWithoutEmployeeInput | ServicesUpdateWithWhereUniqueWithoutEmployeeInput[]
-    updateMany?: ServicesUpdateManyWithWhereWithoutEmployeeInput | ServicesUpdateManyWithWhereWithoutEmployeeInput[]
-    deleteMany?: ServicesScalarWhereInput | ServicesScalarWhereInput[]
+  export type ServiceUpdateManyWithoutEmployeeNestedInput = {
+    create?: XOR<ServiceCreateWithoutEmployeeInput, ServiceUncheckedCreateWithoutEmployeeInput> | ServiceCreateWithoutEmployeeInput[] | ServiceUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutEmployeeInput | ServiceCreateOrConnectWithoutEmployeeInput[]
+    upsert?: ServiceUpsertWithWhereUniqueWithoutEmployeeInput | ServiceUpsertWithWhereUniqueWithoutEmployeeInput[]
+    createMany?: ServiceCreateManyEmployeeInputEnvelope
+    set?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    disconnect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    delete?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    update?: ServiceUpdateWithWhereUniqueWithoutEmployeeInput | ServiceUpdateWithWhereUniqueWithoutEmployeeInput[]
+    updateMany?: ServiceUpdateManyWithWhereWithoutEmployeeInput | ServiceUpdateManyWithWhereWithoutEmployeeInput[]
+    deleteMany?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
   }
 
-  export type ClinicaUpdateOneRequiredWithoutEmployeesNestedInput = {
+  export type ClinicaUpdateOneWithoutEmployeesNestedInput = {
     create?: XOR<ClinicaCreateWithoutEmployeesInput, ClinicaUncheckedCreateWithoutEmployeesInput>
     connectOrCreate?: ClinicaCreateOrConnectWithoutEmployeesInput
     upsert?: ClinicaUpsertWithoutEmployeesInput
+    disconnect?: ClinicaWhereInput | boolean
+    delete?: ClinicaWhereInput | boolean
     connect?: ClinicaWhereUniqueInput
     update?: XOR<XOR<ClinicaUpdateToOneWithWhereWithoutEmployeesInput, ClinicaUpdateWithoutEmployeesInput>, ClinicaUncheckedUpdateWithoutEmployeesInput>
   }
 
-  export type ServicesUncheckedUpdateManyWithoutEmployeeNestedInput = {
-    create?: XOR<ServicesCreateWithoutEmployeeInput, ServicesUncheckedCreateWithoutEmployeeInput> | ServicesCreateWithoutEmployeeInput[] | ServicesUncheckedCreateWithoutEmployeeInput[]
-    connectOrCreate?: ServicesCreateOrConnectWithoutEmployeeInput | ServicesCreateOrConnectWithoutEmployeeInput[]
-    upsert?: ServicesUpsertWithWhereUniqueWithoutEmployeeInput | ServicesUpsertWithWhereUniqueWithoutEmployeeInput[]
-    createMany?: ServicesCreateManyEmployeeInputEnvelope
-    set?: ServicesWhereUniqueInput | ServicesWhereUniqueInput[]
-    disconnect?: ServicesWhereUniqueInput | ServicesWhereUniqueInput[]
-    delete?: ServicesWhereUniqueInput | ServicesWhereUniqueInput[]
-    connect?: ServicesWhereUniqueInput | ServicesWhereUniqueInput[]
-    update?: ServicesUpdateWithWhereUniqueWithoutEmployeeInput | ServicesUpdateWithWhereUniqueWithoutEmployeeInput[]
-    updateMany?: ServicesUpdateManyWithWhereWithoutEmployeeInput | ServicesUpdateManyWithWhereWithoutEmployeeInput[]
-    deleteMany?: ServicesScalarWhereInput | ServicesScalarWhereInput[]
+  export type ServiceUncheckedUpdateManyWithoutEmployeeNestedInput = {
+    create?: XOR<ServiceCreateWithoutEmployeeInput, ServiceUncheckedCreateWithoutEmployeeInput> | ServiceCreateWithoutEmployeeInput[] | ServiceUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutEmployeeInput | ServiceCreateOrConnectWithoutEmployeeInput[]
+    upsert?: ServiceUpsertWithWhereUniqueWithoutEmployeeInput | ServiceUpsertWithWhereUniqueWithoutEmployeeInput[]
+    createMany?: ServiceCreateManyEmployeeInputEnvelope
+    set?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    disconnect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    delete?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
+    update?: ServiceUpdateWithWhereUniqueWithoutEmployeeInput | ServiceUpdateWithWhereUniqueWithoutEmployeeInput[]
+    updateMany?: ServiceUpdateManyWithWhereWithoutEmployeeInput | ServiceUpdateManyWithWhereWithoutEmployeeInput[]
+    deleteMany?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
   }
 
   export type EmployeeCreateNestedOneWithoutServicesInput = {
     create?: XOR<EmployeeCreateWithoutServicesInput, EmployeeUncheckedCreateWithoutServicesInput>
     connectOrCreate?: EmployeeCreateOrConnectWithoutServicesInput
     connect?: EmployeeWhereUniqueInput
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type DecimalFieldUpdateOperationsInput = {
@@ -7046,10 +7160,12 @@ export namespace Prisma {
     divide?: Decimal | DecimalJsLike | number | string
   }
 
-  export type EmployeeUpdateOneRequiredWithoutServicesNestedInput = {
+  export type EmployeeUpdateOneWithoutServicesNestedInput = {
     create?: XOR<EmployeeCreateWithoutServicesInput, EmployeeUncheckedCreateWithoutServicesInput>
     connectOrCreate?: EmployeeCreateOrConnectWithoutServicesInput
     upsert?: EmployeeUpsertWithoutServicesInput
+    disconnect?: EmployeeWhereInput | boolean
+    delete?: EmployeeWhereInput | boolean
     connect?: EmployeeWhereUniqueInput
     update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutServicesInput, EmployeeUpdateWithoutServicesInput>, EmployeeUncheckedUpdateWithoutServicesInput>
   }
@@ -7138,6 +7254,11 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -7152,15 +7273,12 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type NestedDecimalFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -7191,6 +7309,17 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
   export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -7213,8 +7342,9 @@ export namespace Prisma {
     slug: string
     contact: string
     address: string
+    isActive?: boolean
     createdAt?: Date | string
-    updateAt?: Date | string
+    updatedAt?: Date | string
     employees?: EmployeeCreateNestedManyWithoutClinicaInput
   }
 
@@ -7224,8 +7354,9 @@ export namespace Prisma {
     slug: string
     contact: string
     address: string
+    isActive?: boolean
     createdAt?: Date | string
-    updateAt?: Date | string
+    updatedAt?: Date | string
     employees?: EmployeeUncheckedCreateNestedManyWithoutClinicaInput
   }
 
@@ -7264,9 +7395,10 @@ export namespace Prisma {
     slug?: StringFilter<"Clinica"> | string
     contact?: StringFilter<"Clinica"> | string
     address?: StringFilter<"Clinica"> | string
-    user_id?: StringFilter<"Clinica"> | string
+    isActive?: BoolFilter<"Clinica"> | boolean
+    user_id?: StringNullableFilter<"Clinica"> | string | null
     createdAt?: DateTimeFilter<"Clinica"> | Date | string
-    updateAt?: DateTimeFilter<"Clinica"> | Date | string
+    updatedAt?: DateTimeFilter<"Clinica"> | Date | string
   }
 
   export type UserCreateWithoutClinicasInput = {
@@ -7274,10 +7406,10 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    plan: string
+    plan?: string
     role?: $Enums.Role
     createdAt?: Date | string
-    updateAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UserUncheckedCreateWithoutClinicasInput = {
@@ -7285,10 +7417,10 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    plan: string
+    plan?: string
     role?: $Enums.Role
     createdAt?: Date | string
-    updateAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UserCreateOrConnectWithoutClinicasInput = {
@@ -7304,8 +7436,8 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     createdAt?: Date | string
-    updateAt?: Date | string
-    services?: ServicesCreateNestedManyWithoutEmployeeInput
+    updatedAt?: Date | string
+    services?: ServiceCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutClinicaInput = {
@@ -7316,8 +7448,8 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     createdAt?: Date | string
-    updateAt?: Date | string
-    services?: ServicesUncheckedCreateNestedManyWithoutEmployeeInput
+    updatedAt?: Date | string
+    services?: ServiceUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeCreateOrConnectWithoutClinicaInput = {
@@ -7349,7 +7481,7 @@ export namespace Prisma {
     plan?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateWithoutClinicasInput = {
@@ -7360,7 +7492,7 @@ export namespace Prisma {
     plan?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type EmployeeUpsertWithWhereUniqueWithoutClinicaInput = {
@@ -7389,36 +7521,36 @@ export namespace Prisma {
     email?: StringFilter<"Employee"> | string
     password?: StringFilter<"Employee"> | string
     role?: EnumRoleFilter<"Employee"> | $Enums.Role
-    clinica_id?: StringFilter<"Employee"> | string
+    clinica_id?: StringNullableFilter<"Employee"> | string | null
     createdAt?: DateTimeFilter<"Employee"> | Date | string
-    updateAt?: DateTimeFilter<"Employee"> | Date | string
+    updatedAt?: DateTimeFilter<"Employee"> | Date | string
   }
 
-  export type ServicesCreateWithoutEmployeeInput = {
+  export type ServiceCreateWithoutEmployeeInput = {
     id?: string
     name: string
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
-    updateAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type ServicesUncheckedCreateWithoutEmployeeInput = {
+  export type ServiceUncheckedCreateWithoutEmployeeInput = {
     id?: string
     name: string
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
-    updateAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type ServicesCreateOrConnectWithoutEmployeeInput = {
-    where: ServicesWhereUniqueInput
-    create: XOR<ServicesCreateWithoutEmployeeInput, ServicesUncheckedCreateWithoutEmployeeInput>
+  export type ServiceCreateOrConnectWithoutEmployeeInput = {
+    where: ServiceWhereUniqueInput
+    create: XOR<ServiceCreateWithoutEmployeeInput, ServiceUncheckedCreateWithoutEmployeeInput>
   }
 
-  export type ServicesCreateManyEmployeeInputEnvelope = {
-    data: ServicesCreateManyEmployeeInput | ServicesCreateManyEmployeeInput[]
+  export type ServiceCreateManyEmployeeInputEnvelope = {
+    data: ServiceCreateManyEmployeeInput | ServiceCreateManyEmployeeInput[]
     skipDuplicates?: boolean
   }
 
@@ -7428,9 +7560,10 @@ export namespace Prisma {
     slug: string
     contact: string
     address: string
+    isActive?: boolean
     createdAt?: Date | string
-    updateAt?: Date | string
-    user: UserCreateNestedOneWithoutClinicasInput
+    updatedAt?: Date | string
+    user?: UserCreateNestedOneWithoutClinicasInput
   }
 
   export type ClinicaUncheckedCreateWithoutEmployeesInput = {
@@ -7439,9 +7572,10 @@ export namespace Prisma {
     slug: string
     contact: string
     address: string
-    user_id: string
+    isActive?: boolean
+    user_id?: string | null
     createdAt?: Date | string
-    updateAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type ClinicaCreateOrConnectWithoutEmployeesInput = {
@@ -7449,33 +7583,33 @@ export namespace Prisma {
     create: XOR<ClinicaCreateWithoutEmployeesInput, ClinicaUncheckedCreateWithoutEmployeesInput>
   }
 
-  export type ServicesUpsertWithWhereUniqueWithoutEmployeeInput = {
-    where: ServicesWhereUniqueInput
-    update: XOR<ServicesUpdateWithoutEmployeeInput, ServicesUncheckedUpdateWithoutEmployeeInput>
-    create: XOR<ServicesCreateWithoutEmployeeInput, ServicesUncheckedCreateWithoutEmployeeInput>
+  export type ServiceUpsertWithWhereUniqueWithoutEmployeeInput = {
+    where: ServiceWhereUniqueInput
+    update: XOR<ServiceUpdateWithoutEmployeeInput, ServiceUncheckedUpdateWithoutEmployeeInput>
+    create: XOR<ServiceCreateWithoutEmployeeInput, ServiceUncheckedCreateWithoutEmployeeInput>
   }
 
-  export type ServicesUpdateWithWhereUniqueWithoutEmployeeInput = {
-    where: ServicesWhereUniqueInput
-    data: XOR<ServicesUpdateWithoutEmployeeInput, ServicesUncheckedUpdateWithoutEmployeeInput>
+  export type ServiceUpdateWithWhereUniqueWithoutEmployeeInput = {
+    where: ServiceWhereUniqueInput
+    data: XOR<ServiceUpdateWithoutEmployeeInput, ServiceUncheckedUpdateWithoutEmployeeInput>
   }
 
-  export type ServicesUpdateManyWithWhereWithoutEmployeeInput = {
-    where: ServicesScalarWhereInput
-    data: XOR<ServicesUpdateManyMutationInput, ServicesUncheckedUpdateManyWithoutEmployeeInput>
+  export type ServiceUpdateManyWithWhereWithoutEmployeeInput = {
+    where: ServiceScalarWhereInput
+    data: XOR<ServiceUpdateManyMutationInput, ServiceUncheckedUpdateManyWithoutEmployeeInput>
   }
 
-  export type ServicesScalarWhereInput = {
-    AND?: ServicesScalarWhereInput | ServicesScalarWhereInput[]
-    OR?: ServicesScalarWhereInput[]
-    NOT?: ServicesScalarWhereInput | ServicesScalarWhereInput[]
-    id?: StringFilter<"Services"> | string
-    name?: StringFilter<"Services"> | string
-    description?: StringNullableFilter<"Services"> | string | null
-    price?: DecimalFilter<"Services"> | Decimal | DecimalJsLike | number | string
-    employee_id?: StringFilter<"Services"> | string
-    createdAt?: DateTimeFilter<"Services"> | Date | string
-    updateAt?: DateTimeFilter<"Services"> | Date | string
+  export type ServiceScalarWhereInput = {
+    AND?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
+    OR?: ServiceScalarWhereInput[]
+    NOT?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
+    id?: StringFilter<"Service"> | string
+    name?: StringFilter<"Service"> | string
+    description?: StringNullableFilter<"Service"> | string | null
+    price?: DecimalFilter<"Service"> | Decimal | DecimalJsLike | number | string
+    employee_id?: StringNullableFilter<"Service"> | string | null
+    createdAt?: DateTimeFilter<"Service"> | Date | string
+    updatedAt?: DateTimeFilter<"Service"> | Date | string
   }
 
   export type ClinicaUpsertWithoutEmployeesInput = {
@@ -7495,9 +7629,10 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutClinicasNestedInput
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutClinicasNestedInput
   }
 
   export type ClinicaUncheckedUpdateWithoutEmployeesInput = {
@@ -7506,9 +7641,10 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
-    user_id?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type EmployeeCreateWithoutServicesInput = {
@@ -7519,8 +7655,8 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     createdAt?: Date | string
-    updateAt?: Date | string
-    clinica: ClinicaCreateNestedOneWithoutEmployeesInput
+    updatedAt?: Date | string
+    clinica?: ClinicaCreateNestedOneWithoutEmployeesInput
   }
 
   export type EmployeeUncheckedCreateWithoutServicesInput = {
@@ -7530,9 +7666,9 @@ export namespace Prisma {
     email: string
     password: string
     role?: $Enums.Role
-    clinica_id: string
+    clinica_id?: string | null
     createdAt?: Date | string
-    updateAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type EmployeeCreateOrConnectWithoutServicesInput = {
@@ -7559,8 +7695,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    clinica?: ClinicaUpdateOneRequiredWithoutEmployeesNestedInput
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clinica?: ClinicaUpdateOneWithoutEmployeesNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutServicesInput = {
@@ -7570,9 +7706,9 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    clinica_id?: StringFieldUpdateOperationsInput | string
+    clinica_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ClinicaCreateManyUserInput = {
@@ -7581,8 +7717,9 @@ export namespace Prisma {
     slug: string
     contact: string
     address: string
+    isActive?: boolean
     createdAt?: Date | string
-    updateAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type ClinicaUpdateWithoutUserInput = {
@@ -7591,8 +7728,9 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: EmployeeUpdateManyWithoutClinicaNestedInput
   }
 
@@ -7602,8 +7740,9 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: EmployeeUncheckedUpdateManyWithoutClinicaNestedInput
   }
 
@@ -7613,8 +7752,9 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     contact?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type EmployeeCreateManyClinicaInput = {
@@ -7625,7 +7765,7 @@ export namespace Prisma {
     password: string
     role?: $Enums.Role
     createdAt?: Date | string
-    updateAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type EmployeeUpdateWithoutClinicaInput = {
@@ -7636,8 +7776,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    services?: ServicesUpdateManyWithoutEmployeeNestedInput
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    services?: ServiceUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutClinicaInput = {
@@ -7648,8 +7788,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    services?: ServicesUncheckedUpdateManyWithoutEmployeeNestedInput
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    services?: ServiceUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateManyWithoutClinicaInput = {
@@ -7660,43 +7800,43 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ServicesCreateManyEmployeeInput = {
+  export type ServiceCreateManyEmployeeInput = {
     id?: string
     name: string
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
-    updateAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type ServicesUpdateWithoutEmployeeInput = {
+  export type ServiceUpdateWithoutEmployeeInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ServicesUncheckedUpdateWithoutEmployeeInput = {
+  export type ServiceUncheckedUpdateWithoutEmployeeInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ServicesUncheckedUpdateManyWithoutEmployeeInput = {
+  export type ServiceUncheckedUpdateManyWithoutEmployeeInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
