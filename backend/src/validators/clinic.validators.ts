@@ -7,9 +7,7 @@ export const clinicRegisterSchema = z.object({
     address: z.string().trim()
 })
 
-export const clinicSlug = z.object({
-    slug: z.string().max(64).trim(),
-})
+export const clinicSlug = z.string().min(1);
 
 export const clinicUserId = z.object({
     user_id: z.uuid(),

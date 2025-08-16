@@ -3,52 +3,64 @@ import app from '../app.ts'
 import {prisma as p} from '../models/prisma.ts'
 import jwt from 'jsonwebtoken'
 import { JWT_SECRET } from '../config/env.ts'
+import { Role } from '../../generated/prisma/index'
 
 
 const api = supertest(app)
 
-let token: string;
-let user_id: string;
+ 
+const plans = [
+  { name: 'BASIC', limit: 1 },
+  { name: 'PRO', limit: 3 },
+  { name: 'ENTERPRISE', limit: 10 },
+];
+const roles: Role[] = [Role.USER,Role.MANAGER,Role.PROVIDER, Role.EMPLOYEE]
 
-beforeEach(async () => {
-    await p.clinica.deleteMany({})
-    await p.user.deleteMany({})
+plans.forEach(({ name, limit }) => {
+  roles.forEach(role =>{
+    describe(`Clinic creation - ${name} plan`, () => {
+    let token: string;
+    let user_id: string;
+    beforeEach(async () => {
+      await p.clinica.deleteMany({});
+      await p.user.deleteMany({});
 
-    const user = await p.user.create({
-       data:{
-            username: 'Gustavo',
-            email: 'asasasasa@gmail.com',
-            password: 'Senhateste#'
-       }
-    })
-    user_id = user.id
-    token = jwt.sign(
-            { id: user.id , email: user.email },
-            JWT_SECRET,
-            { expiresIn: '1h' }
-        );
-    
-})
-
-
-describe('Route to create a clinic ', () => {
-    test('Create new clinic', async () => {
-        const clinic = {
-            name: 'Clinica',
-            slug: 'clinica',
-            contact: '85992833870',
-            address: 'rua 1',
-            user_id: user_id
+      const user = await p.user.create({
+        data: {
+          name: `User_${name}`,
+          email: `user_${name.toLowerCase()}@gmail.com`,
+          password: 'Senhateste#',
+          plan: name,
+          role: role
         }
-        
+      });
+
+      user_id = user.id;
+      token = jwt.sign(
+        { id: user.id, name: user.name, role: user.role, plan: user.plan },
+        JWT_SECRET,
+        { expiresIn: '7d' }
+      );
+    });
+
+    test(`Create up to limit (${limit}) clinics`, async () => {
+      for (let i = 1; i <= limit; i++) {
+        const clinic = {
+          name: `Clinic_${i}`,
+          slug: `clinic_${i}`,
+          contact: `85992833${i}0`,
+          address: `Rua ${i}`,
+          user_id,
+        };
+        let expectStatus = role === 'USER' ? 201 : 403
         await api
           .post('/clinic/create')
           .set('Authorization', `Bearer ${token}`)
           .send(clinic)
-          .expect(201)
-          .expect('Content-Type', /application\/json/)
-    })
-    test('Error to create new clinic', async () => {
+          .expect(expectStatus);
+      }
+    });
+    test('Error to create new clinic because zod validation', async () => {
         const clinic = {
             name: 1,
             slug: 'clinica',
@@ -56,15 +68,15 @@ describe('Route to create a clinic ', () => {
             address: 'rua 1',
             user_id: user_id
         }
-        
+        let expectStatus = role === 'USER' ? 400 : 403
         await api
           .post('/clinic/create')
           .set('Authorization', `Bearer ${token}`)
           .send(clinic)
-          .expect(400)
+          .expect(expectStatus)
           .expect('Content-Type', /application\/json/)
     })
-    test('Error to create new clinic cause user have invalid token', async () => {
+    test('Error to create new clinic because user have invalid token', async () => {
         const clinic = {
             name: 1,
             slug: 'clinica',
@@ -72,7 +84,6 @@ describe('Route to create a clinic ', () => {
             address: 'rua 1',
             user_id: user_id
         }
-        
         await api
           .post('/clinic/create')
           .set('Authorization', `Bearer ${token}a`)
@@ -80,14 +91,310 @@ describe('Route to create a clinic ', () => {
           .expect(403)
           .expect('Content-Type', /application\/json/)
     })
-})
 
-describe('Route to update a clinic', ()=> {
-    test('Update new clinic', async ()=>{
-        
+    test('Error when trying to create clinic above limit', async () => {
+      for (let i = 1; i <= limit; i++) {
+        await p.clinica.create({
+          data: {
+            name: `Clinic_${i}`,
+            slug: `clinic_${i}`,
+            contact: `85992833${i}0`,
+            address: `Rua ${i}`,
+            user_id,
+          }
+        });
+      }
+
+      const extraClinic = {
+        name: 'ExtraClinic',
+        slug: 'extra_clinic',
+        contact: '8599999999',
+        address: 'Rua Extra',
+        user_id,
+      };
+
+      await api
+        .post('/clinic/create')
+        .set('Authorization', `Bearer ${token}`)
+        .send(extraClinic)
+        .expect(403)
+        .expect('Content-Type', /application\/json/);
+    });
+  });
+  })
+});
+
+roles.forEach(role =>{
+    describe('Route to update clinic', ()=>{
+    let token: string;
+    let user_id: string;
+    let originalSlug: string;
+    beforeAll(async () => {
+      await p.clinica.deleteMany({});
+      await p.user.deleteMany({});
+
+      const user = await p.user.create({
+        data: {
+          name: `User_test`,
+          email: `user_test@gmail.com`,
+          password: 'Senhateste#',
+          plan: 'BASIC',
+          role: role
+        }
+      });
+
+      user_id = user.id;
+      token = jwt.sign(
+        { id: user.id, name: user.name, role: user.role, plan: user.plan },
+        JWT_SECRET,
+        { expiresIn: '7d' }
+      );
+      const clinic = await p.clinica.create({
+            data:{
+                name: 'clinica',
+                slug: 'clinica',
+                contact: '85992833870',
+                address: 'rua 1',
+                user_id: user_id
+            }
+        })
+       originalSlug = clinic.slug
+    });
+    test('Test to update a clinic', async()=>{
+        const clinicToUpdate = {
+            name: 'clinica2',
+            slug: 'clinica2',
+            contact: '85992833870',
+            address: 'rua 2',
+            user_id: user_id
+        }
+        let expectStatus = role === 'USER' ? 200 : 403
+        await api
+            .put(`/clinic/update/${originalSlug}`)
+            .set('Authorization', `Bearer ${token}`)
+            .send(clinicToUpdate)
+            .expect(expectStatus)
     })
 })
+})
+
+describe('Route te get clinic by slug', () =>{
+    let token: string;
+    let user_id: string;
+    let originalSlug: string;
+    beforeAll(async () => {
+      await p.clinica.deleteMany({});
+      await p.user.deleteMany({});
+
+      const user = await p.user.create({
+        data: {
+          name: `User_test`,
+          email: `user_test@gmail.com`,
+          password: 'Senhateste#',
+          plan: 'BASIC',
+        }
+      });
+
+      user_id = user.id;
+      token = jwt.sign(
+        { id: user.id, name: user.name, role: user.role, plan: user.plan },
+        JWT_SECRET,
+        { expiresIn: '7d' }
+      );
+      const clinic = await p.clinica.create({
+            data:{
+                name: 'clinica',
+                slug: 'clinica',
+                contact: '85992833870',
+                address: 'rua 1',
+                user_id: user_id
+            }
+        })
+       originalSlug = clinic.slug
+    });
+    test('Get clinic by slug successfull', async ()=>{
+        await api
+          .get(`/clinic/${originalSlug}`)
+          .set('Authorization', `Bearer ${token}`)
+          .expect(200)
+    })
+})
+
+roles.forEach(role =>{
+    describe('Route te get clinic', () =>{
+    let token: string;
+    let user_id: string;
+
+    beforeAll(async () => {
+      await p.clinica.deleteMany({});
+      await p.user.deleteMany({});
+
+      const user = await p.user.create({
+        data: {
+          name: `User_test`,
+          email: `user_test@gmail.com`,
+          password: 'Senhateste#',
+          plan: 'BASIC',
+          role: role
+        }
+      });
+
+      user_id = user.id;
+      token = jwt.sign(
+        { id: user.id, name: user.name, role: user.role, plan: user.plan },
+        JWT_SECRET,
+        { expiresIn: '7d' }
+      );
+      await p.clinica.create({
+            data:{
+                name: 'clinica',
+                slug: 'clinica',
+                contact: '85992833870',
+                address: 'rua 1',
+                user_id: user_id
+            }
+        })
+    });
+    test('Get clinic', async ()=>{
+        let expectStatus = role === 'USER' ? 200 : 403
+        await api
+          .get(`/clinic`)
+          .set('Authorization', `Bearer ${token}`)
+          .expect(expectStatus)
+    })
+})
+})
+
+roles.forEach(role =>{
+    describe('Route te get clinic', () =>{
+    let token: string;
+    let user_id: string;
+    let originalSlug: string;
+    beforeAll(async () => {
+      await p.clinica.deleteMany({});
+      await p.user.deleteMany({});
+
+      const user = await p.user.create({
+        data: {
+          name: `User_test`,
+          email: `user_test@gmail.com`,
+          password: 'Senhateste#',
+          plan: 'BASIC',
+          role: role
+        }
+      });
+
+      user_id = user.id;
+      token = jwt.sign(
+        { id: user.id, name: user.name, role: user.role, plan: user.plan },
+        JWT_SECRET,
+        { expiresIn: '7d' }
+      );
+      const clinic = await p.clinica.create({
+            data:{
+                name: 'clinica',
+                slug: 'clinica',
+                contact: '85992833870',
+                address: 'rua 1',
+                user_id: user_id
+            }
+        })
+      originalSlug = clinic.slug
+    });
+    test('Delete clinic', async ()=>{
+        let expectStatus = role === 'USER' ? 204 : 403
+        await api
+          .delete(`/clinic/delete/${originalSlug}`)
+          .set('Authorization', `Bearer ${token}`)
+          .expect(expectStatus)
+    })
+})
+})
+
+describe('Test intruder', () =>{
+    let token: string;
+    let tokenIntruder: string;
+    let user_id: string;
+    let userIntruder_id: string;
+    let originalSlug: string;
+    beforeEach(async ()=>{
+        await p.clinica.deleteMany({});
+        await p.user.deleteMany({});
+
+        const user = await p.user.create({
+        data: {
+          name: `User_test`,
+          email: `user_test@gmail.com`,
+          password: 'Senhateste#',
+          plan: 'BASIC',
+        }
+        });
+
+        user_id = user.id;
+
+        token = jwt.sign(
+        { id: user.id, name: user.name, role: user.role, plan: user.plan },
+        JWT_SECRET,
+        { expiresIn: '7d' }
+        );
+
+        const userIntruder = await p.user.create({
+        data: {
+          name: `User_intruder`,
+          email: `user_intruder@gmail.com`,
+          password: 'Senhateste#',
+          plan: 'BASIC',
+        }
+        });
+
+        userIntruder_id = userIntruder.id;
+        tokenIntruder = jwt.sign(
+        { id: userIntruder.id, name: userIntruder.name, role: userIntruder.role, plan: userIntruder.plan },
+        JWT_SECRET,
+        { expiresIn: '7d' }
+        );
+        const clinic = await p.clinica.create({
+            data:{
+                name: 'clinica',
+                slug: 'clinica',
+                contact: '85992833870',
+                address: 'rua 1',
+                user_id: user_id
+            }
+        })
+        originalSlug = clinic.slug
+    })
+    test('Intruder delete clinic', async ()=>{
+        
+        await api
+          .delete(`/clinic/delete/${originalSlug}`)
+          .set('Authorization', `Bearer ${tokenIntruder}`)
+          .expect(403)
+    })
+    test('Intruder Get clinic by slug', async ()=>{
+        await api
+          .get(`/clinic/${originalSlug}`)
+          .set('Authorization', `Bearer ${tokenIntruder}`)
+          .expect(403)
+    })
+    test('Intruder update a clinic', async()=>{
+        const clinicToUpdate = {
+            name: 'clinica2',
+            slug: 'clinica2',
+            contact: '85992833870',
+            address: 'rua 2',
+            user_id: user_id
+        }
+        await api
+            .put(`/clinic/update/${originalSlug}`)
+            .set('Authorization', `Bearer ${tokenIntruder}`)
+            .send(clinicToUpdate)
+            .expect(403)
+    })
+})
+
 
 afterAll(async () => {
   await p.$disconnect();
 });
+

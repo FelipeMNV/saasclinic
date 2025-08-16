@@ -4,21 +4,34 @@ import { clinicSlug, clinicRegisterSchema } from "../validators/clinic.validator
 import type { AuthenticatedRequest } from "../middleware/authMiddleware.ts";
 
 export async function createClinic(req: AuthenticatedRequest, res: Response){
-    if(!req.user) return res.status(401).json({ message: "Unauthenticated user" });
-    if (req.user.plan === 'FREE') return res.status(403).json({ message: "You need an active plan to create a clinic" });
+    if(!req.user?.plan) return res.status(401).json({ message: "Unauthenticated user" });
+    if (req.user.plan === 'FREE' || (!(['BASIC','PRO','ENTERPRISE'].includes(req.user.plan)))) {
+        return res.status(403).json({ message: "You need an active plan to create a clinic" });
+    }
     if(req.user.role !== 'USER') return res.status(403).json({message: "Dont't have permission"})
 
-    const result = clinicRegisterSchema.safeParse(req.body)
+    const parseBody = clinicRegisterSchema.safeParse(req.body)
     
-    if(!result.success){
-        return res.status(400).json({ message: result.error.issues })
+    if(!parseBody.success){
+        return res.status(400).json({ message: parseBody.error.issues })
     }
+
+    const countClinic = await p.clinica.count({where:{user_id: req.user.id}})
+
+    if(req.user.plan === 'BASIC'){
+        if(countClinic >= 1) return res.status(403).json({message: 'You have reached the clinic limit for the BASIC plan. Please upgrade to create more'})
+    }else if (req.user.plan === 'PRO'){
+        if(countClinic >= 3) return res.status(403).json({message: 'You have reached the clinic limit for the PRO plan. Please upgrade to create more'})
+    }else if (req.user.plan === 'ENTERPRISE'){
+        if(countClinic >= 10) return res.status(403).json({message: 'You have reached the clinic limit for the ENTERPRISE plan. Contact us to create more'})
+    }
+
     const newClinic = await p.clinica.create({
         data: {
-            name: result.data.name,
-            slug: result.data.slug,
-            contact: result.data.contact,
-            address: result.data.address,
+            name: parseBody.data.name,
+            slug: parseBody.data.slug,
+            contact: parseBody.data.contact,
+            address: parseBody.data.address,
             user_id: req.user.id
         },
         select: {
@@ -85,7 +98,7 @@ export async function getClinicBySlug(req: AuthenticatedRequest, res: Response){
     if(!result.success) return res.status(400).json({message: result.error.issues})
           
     const clinic = await p.clinica.findUnique({
-        where: { slug: result.data.slug },
+        where: { slug: result.data },
         select:{
             id: true,
             name: true,
@@ -107,7 +120,7 @@ export async function getClinicBySlug(req: AuthenticatedRequest, res: Response){
         if(req.user.clinica_id !== clinic.id) return res.status(403).json({ message: "Don't have permission" });
     }
 
-    return res.json(clinic)
+    return res.status(200).json(clinic)
 }
 export async function getClinics(req: AuthenticatedRequest, res: Response){
     if (!req.user) return res.status(401).json({ message: "Unauthenticated user" });
@@ -135,15 +148,15 @@ export async function deleteClinic(req: AuthenticatedRequest, res: Response){
     if (!req.user) return res.status(401).json({ message: "Unauthenticated user" });
     if(!(req.user.role === 'USER')) return res.status(403).json({message: "Dont't have permission"})
 
-    const result = clinicSlug.safeParse(req.body)
+    const result = clinicSlug.safeParse(req.params.slug)
     if(!result.success) return res.status(400).json({message: result.error.issues})
 
-    const clinic = await p.clinica.findUnique({where:{slug: result.data.slug}})
+    const clinic = await p.clinica.findUnique({where:{slug: result.data}})
     if(!clinic) return res.status(404).json({message: 'Clinic not found'})
     if(clinic.user_id !== req.user.id ) return res.status(403).json({message:"Dont't have permission" })
     
     await p.clinica.delete({
-        where: {slug: result.data.slug}
+        where: {slug: result.data}
     })
 
     return res.status(204).end()
