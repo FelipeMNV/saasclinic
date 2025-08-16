@@ -52,7 +52,7 @@ plans.forEach(({ name, limit }) => {
           address: `Rua ${i}`,
           user_id,
         };
-        let expectStatus = role === 'USER' ? 201 : 403
+        const expectStatus = role === 'USER' ? 201 : 403
         await api
           .post('/clinic/create')
           .set('Authorization', `Bearer ${token}`)
@@ -68,7 +68,7 @@ plans.forEach(({ name, limit }) => {
             address: 'rua 1',
             user_id: user_id
         }
-        let expectStatus = role === 'USER' ? 400 : 403
+        const expectStatus = role === 'USER' ? 400 : 403
         await api
           .post('/clinic/create')
           .set('Authorization', `Bearer ${token}`)
@@ -168,7 +168,7 @@ roles.forEach(role =>{
             address: 'rua 2',
             user_id: user_id
         }
-        let expectStatus = role === 'USER' ? 200 : 403
+        const expectStatus = role === 'USER' ? 200 : 403
         await api
             .put(`/clinic/update/${originalSlug}`)
             .set('Authorization', `Bearer ${token}`)
@@ -256,7 +256,7 @@ roles.forEach(role =>{
         })
     });
     test('Get clinic', async ()=>{
-        let expectStatus = role === 'USER' ? 200 : 403
+        const expectStatus = role === 'USER' ? 200 : 403
         await api
           .get(`/clinic`)
           .set('Authorization', `Bearer ${token}`)
@@ -302,7 +302,7 @@ roles.forEach(role =>{
       originalSlug = clinic.slug
     });
     test('Delete clinic', async ()=>{
-        let expectStatus = role === 'USER' ? 204 : 403
+        const expectStatus = role === 'USER' ? 204 : 403
         await api
           .delete(`/clinic/delete/${originalSlug}`)
           .set('Authorization', `Bearer ${token}`)
@@ -312,10 +312,8 @@ roles.forEach(role =>{
 })
 
 describe('Test intruder', () =>{
-    let token: string;
     let tokenIntruder: string;
     let user_id: string;
-    let userIntruder_id: string;
     let originalSlug: string;
     beforeEach(async ()=>{
         await p.clinica.deleteMany({});
@@ -330,13 +328,7 @@ describe('Test intruder', () =>{
         }
         });
 
-        user_id = user.id;
-
-        token = jwt.sign(
-        { id: user.id, name: user.name, role: user.role, plan: user.plan },
-        JWT_SECRET,
-        { expiresIn: '7d' }
-        );
+        user_id = user.id;    
 
         const userIntruder = await p.user.create({
         data: {
@@ -347,7 +339,6 @@ describe('Test intruder', () =>{
         }
         });
 
-        userIntruder_id = userIntruder.id;
         tokenIntruder = jwt.sign(
         { id: userIntruder.id, name: userIntruder.name, role: userIntruder.role, plan: userIntruder.plan },
         JWT_SECRET,

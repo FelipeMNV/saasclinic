@@ -101,9 +101,9 @@ export async function updateUser(req: Request, res: Response) { // ROTA TEM Q SE
 
   const dataToUpdate: any = {};
 
-  if (name) dataToUpdate.name = name;
-  if (email) dataToUpdate.email = email;
-  if (password) dataToUpdate.password = await bcrypt.hash(password, 10);
+  if (name) {dataToUpdate.name = name;}
+  if (email) {dataToUpdate.email = email;}
+  if (password) {dataToUpdate.password = await bcrypt.hash(password, 10);}
 
   const existingUser = await p.user.findUnique({ where: { id }});
   if (!existingUser) {
@@ -128,7 +128,7 @@ export async function updateUser(req: Request, res: Response) { // ROTA TEM Q SE
 export async function getUserById(req: Request, res: Response) { // ROTA TEM Q SER AUTENTICADA
   const { id } = req.params;  //ID NAO VEM POR PARAMETRO
 
-  if(!id) return res.status(400).json({message: 'ID are required'})
+  if(!id) {return res.status(400).json({message: 'ID are required'})}
 
   const user = await p.user.findUnique({
     where: { id },

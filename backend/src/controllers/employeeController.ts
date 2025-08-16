@@ -1,7 +1,6 @@
-import type { Request, Response, NextFunction } from "express";
+import type { Request, Response} from "express";
 import { prisma as p } from "../models/prisma.ts";
 import { employeeSchema, employeeIdSchema } from "../validators/employee.validators.ts";
-import { employeeParamsSchema } from "../validators/employee.validators.ts";
 import type { AuthenticatedRequest } from "../middleware/authMiddleware.ts";
 import bcrypt from "bcryptjs";
 
@@ -104,7 +103,7 @@ export async function deleteEmployee(req: AuthenticatedRequest, res: Response) {
     }
 
     const { slug } = req.params;
-    if (!slug) return res.status(400).json({ message: "Clinic slug is required" });
+    if (!slug) {return res.status(400).json({ message: "Clinic slug is required" });}
 
     const result = employeeIdSchema.safeParse(req.body);
     if (!result.success) {
@@ -160,7 +159,7 @@ export async function updateEmployee(req: AuthenticatedRequest, res: Response){
         return res.status(403).json({ message: "Don't have permission" });
     }
     p.clinica.findUnique
-    if(req.user.role == 'USER'){
+    if(req.user.role === 'USER'){
         
     } else {
 

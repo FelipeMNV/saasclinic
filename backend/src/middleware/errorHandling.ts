@@ -3,9 +3,7 @@ import type { Request, Response, NextFunction } from "express";
 export const errorHandling = (error: unknown,req: Request, res: Response, next: NextFunction) =>{
     
     if(error instanceof Error){
-        console.log(error.name)
         if('code' in error){
-            console.log(error.code)
             if (error.name === 'PrismaClientKnownRequestError') {
                 if (error.code === 'P2002') {
                     return res.status(409).json({ message: "Already exist." });
@@ -21,6 +19,6 @@ export const errorHandling = (error: unknown,req: Request, res: Response, next: 
         }
     }
     
-    return res.status(500).json({ message: "Internal server error" });
+    next(error)
     
 }

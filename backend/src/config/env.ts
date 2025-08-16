@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import { envSchema } from "../validators/env.validator"
-import { error } from "console";
+
 
 dotenv.config({path: process.env.NODE_ENV === 'test' ?  '.env.test' : '.env'});
 
