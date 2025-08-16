@@ -1,50 +1,69 @@
+// import { clinicId } from './../validators/clinic.validators';
 import type { Request, Response} from "express";
 import { prisma as p } from "../models/prisma.ts";
 import { employeeSchema, employeeIdSchema } from "../validators/employee.validators.ts";
 import type { AuthenticatedRequest } from "../middleware/authMiddleware.ts";
+// import { Role } from "../../generated/prisma/index";
 import bcrypt from "bcryptjs";
 
-export async function createEmployee(req: AuthenticatedRequest, res: Response) {
-    if (!req.user?.role) {
-        return res.status(401).json({ message: "Unauthenticated user" });
+
+export async function createEmployee(req: AuthenticatedRequest, res: Response){
+    if(!req.user){
+        return res.status(401).json({ message: "Unauthenticated use"})
+    }
+    
+    if(!req.params.slug){
+        return
+    }
+    
+    if(!req.user.clinica_id){
+        return
     }
 
     const result = employeeSchema.safeParse(req.body)
-    
-    if (!result.success){
+    if(!result.success){
         return res.status(400).json({message: result.error.issues})
     }
-   
-    if(!(req.user.role === 'USER' ||req.user.role === 'MANAGER' )){
-        return res.status(403).json({message: "Dont't have permission"})
-    } 
+    
+    if(req.user.role === "EMPLOYEE"){
+        throw new Error('Employees cannot create new employees')
+    }
 
-    if(!(req.user.clinica_id)){
-        return res.status(400).json({message: "Clinic_id non exis"})
+    const clinic = await p.clinica.findFirst({
+        where:{
+                slug: req.params.slug 
+            }
+    })
+   
+    if(!clinic){
+        return res.status(400).json({ message: "clinic not found" });
+    }
+
+    if(req.user.role !== 'SUPERADMIN'){
+        if(req.user.role === 'USER'){
+            if(req.user.id !== clinic.user_id){
+                return
+            }
+        }else{
+            if(req.user.clinica_id !== clinic.id){
+                return
+            }
+        }
     }
     
     const hashedPassword = await bcrypt.hash(result.data.password, 10);
-
     const newEmployee = await p.employee.create({
-        data: {
+        data:{
             name: result.data.name,
             speciality: result.data.speciality,
-            clinica_id: req.user.clinica_id,
+            clinica_id: clinic.id,
             email: result.data.email,
             password: hashedPassword,
-        },
-        select: {
-            id: true,
-            name: true,
-            speciality: true,
-            email: true,
-            clinica: { select:{ id: true, name: true}},
-            services: { select:{ id: true, name: true}},
-        },
-    });
-
-    return res.status(201).json(newEmployee)    
+        }
+    })
+    return res.status(201).json(newEmployee)
 }
+
 
 export async function getEmployees(req: AuthenticatedRequest, res: Response) {
        
@@ -116,7 +135,7 @@ export async function deleteEmployee(req: AuthenticatedRequest, res: Response) {
     }
 
     if (!(req.user.role === 'USER' || req.user.role === 'MANAGER')) {
-        return res.status(403).json({ message: "Don't have permission" });
+        throw new Error("Don't have permission")
     }
 
     const clinic = await p.clinica.findUnique({
@@ -129,12 +148,12 @@ export async function deleteEmployee(req: AuthenticatedRequest, res: Response) {
 
     if (req.user.role === 'USER') {
         if (clinic.user_id !== req.user.id) {
-            return res.status(403).json({ message: "You cannot delete employees from another clinic" });
+            throw new Error("You cannot delete employees from another clinic")
         }
     } else if (req.user.role === 'MANAGER') {
 
         if (req.user.clinica_id !== clinic.id) {
-            return res.status(403).json({ message: "You cannot delete employees from this clinic" });
+            throw new Error("You cannot delete employees from another clinic")
         }
     }
 

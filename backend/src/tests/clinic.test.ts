@@ -14,7 +14,7 @@ const plans = [
   { name: 'PRO', limit: 3 },
   { name: 'ENTERPRISE', limit: 10 },
 ];
-const roles: Role[] = [Role.USER,Role.MANAGER,Role.PROVIDER, Role.EMPLOYEE]
+const roles: Role[] = [Role.SUPERADMIN,Role.USER,Role.MANAGER, Role.EMPLOYEE]
 
 plans.forEach(({ name, limit }) => {
   roles.forEach(role =>{
@@ -52,7 +52,7 @@ plans.forEach(({ name, limit }) => {
           address: `Rua ${i}`,
           user_id,
         };
-        const expectStatus = role === 'USER' ? 201 : 403
+        const expectStatus = (role === 'USER' || role === 'SUPERADMIN') ? 201 : 403
         await api
           .post('/clinic/create')
           .set('Authorization', `Bearer ${token}`)
@@ -68,7 +68,7 @@ plans.forEach(({ name, limit }) => {
             address: 'rua 1',
             user_id: user_id
         }
-        const expectStatus = role === 'USER' ? 400 : 403
+        const expectStatus =  (role === 'USER' || role === 'SUPERADMIN') ? 400 : 403
         await api
           .post('/clinic/create')
           .set('Authorization', `Bearer ${token}`)
@@ -112,12 +112,12 @@ plans.forEach(({ name, limit }) => {
         address: 'Rua Extra',
         user_id,
       };
-
+      const expectedStatus = role === 'SUPERADMIN' ? 201 : 403
       await api
         .post('/clinic/create')
         .set('Authorization', `Bearer ${token}`)
         .send(extraClinic)
-        .expect(403)
+        .expect(expectedStatus)
         .expect('Content-Type', /application\/json/);
     });
   });
@@ -168,7 +168,7 @@ roles.forEach(role =>{
             address: 'rua 2',
             user_id: user_id
         }
-        const expectStatus = role === 'USER' ? 200 : 403
+        const expectStatus =  (role === 'USER' || role === 'SUPERADMIN') ? 200 : 403
         await api
             .put(`/clinic/update/${originalSlug}`)
             .set('Authorization', `Bearer ${token}`)
@@ -256,7 +256,7 @@ roles.forEach(role =>{
         })
     });
     test('Get clinic', async ()=>{
-        const expectStatus = role === 'USER' ? 200 : 403
+        const expectStatus =  (role === 'USER' || role === 'SUPERADMIN') ? 200 : 403
         await api
           .get(`/clinic`)
           .set('Authorization', `Bearer ${token}`)
@@ -302,7 +302,7 @@ roles.forEach(role =>{
       originalSlug = clinic.slug
     });
     test('Delete clinic', async ()=>{
-        const expectStatus = role === 'USER' ? 204 : 403
+        const expectStatus =  (role === 'USER' || role === 'SUPERADMIN') ? 204 : 403
         await api
           .delete(`/clinic/delete/${originalSlug}`)
           .set('Authorization', `Bearer ${token}`)

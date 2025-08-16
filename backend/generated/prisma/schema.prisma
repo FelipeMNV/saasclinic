@@ -29,47 +29,81 @@ model User {
 }
 
 enum Role {
+  SUPERADMIN
   USER
   MANAGER
-  PROVIDER
   EMPLOYEE
 }
 
 model Clinica {
-  id        String     @id @default(uuid())
-  name      String
-  slug      String     @unique
-  contact   String
-  address   String
-  isActive  Boolean    @default(true)
-  user_id   String?
-  user      User?      @relation(fields: [user_id], references: [id])
-  employees Employee[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id          String        @id @default(uuid())
+  name        String
+  slug        String        @unique
+  contact     String
+  address     String
+  isActive    Boolean       @default(true)
+  user_id     String?
+  user        User?         @relation(fields: [user_id], references: [id])
+  employees   Employee[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  Appointment Appointment[]
 }
 
 model Employee {
-  id         String    @id @default(uuid())
-  name       String
-  speciality String
-  email      String    @unique
-  password   String
-  role       Role      @default(EMPLOYEE)
-  services   Service[]
-  clinica_id String?
-  clinica    Clinica?  @relation(fields: [clinica_id], references: [id])
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  id          String        @id @default(uuid())
+  name        String
+  speciality  String
+  email       String        @unique
+  password    String
+  role        Role          @default(EMPLOYEE)
+  services    Service[]
+  clinica_id  String?
+  clinica     Clinica?      @relation(fields: [clinica_id], references: [id])
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  Appointment Appointment[]
 }
 
 model Service {
-  id          String    @id @default(uuid())
+  id          String        @id @default(uuid())
   name        String
   description String?
   price       Decimal
   employee_id String?
+  employee    Employee?     @relation(fields: [employee_id], references: [id])
+  Appointment Appointment[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Appointment {
+  id     String            @id @default(uuid())
+  date   DateTime
+  status AppointmentStatus @default(PENDING)
+
+  customerName  String
+  customerEmail String
+  customerCPF   String
+  customerPhone String
+
+  service_id String?
+  service    Service? @relation(fields: [service_id], references: [id])
+
+  employee_id String?
   employee    Employee? @relation(fields: [employee_id], references: [id])
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+
+  clinica_id String?
+  clinica    Clinica? @relation(fields: [clinica_id], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  RETURN
+  COMPLETED
+  CANCELLED
 }

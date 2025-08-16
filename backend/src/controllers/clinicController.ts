@@ -2,15 +2,14 @@ import type { Response } from "express";
 import { prisma as p } from "../models/prisma.ts";
 import { clinicSlug, clinicRegisterSchema } from "../validators/clinic.validators.ts";
 import type { AuthenticatedRequest } from "../middleware/authMiddleware.ts";
-
-//  FALTA PESQUISAR SOMENTE CLINICAS QUE ESTÃO ATIVAS
+import { Role } from "../../generated/prisma/index";
 
 export async function createClinic(req: AuthenticatedRequest, res: Response){
     if(!req.user?.plan) {return res.status(401).json({ message: "Unauthenticated user" });}
-    if (req.user.plan === 'FREE' || (!(['BASIC','PRO','ENTERPRISE'].includes(req.user.plan)))) {
-        return res.status(403).json({ message: "You need an active plan to create a clinic" });
+    if (req.user.plan === 'FREE') {
+        throw new Error('You need an active plan to create a clinic')
     }
-    if(req.user.role !== 'USER') {return res.status(403).json({message: "Dont't have permission"})}
+    if(req.user.role !== Role.USER && req.user.role !== Role.SUPERADMIN) {return res.status(403).json({message: "Dont't have permission"})}
 
     const parseBody = clinicRegisterSchema.safeParse(req.body)
     
@@ -21,12 +20,14 @@ export async function createClinic(req: AuthenticatedRequest, res: Response){
     const newClinic = await p.$transaction(async (tx) => {
       const countClinic = await tx.clinica.count({ where: { user_id: req.user!.id } });
 
-      if (req.user!.plan === 'BASIC' && countClinic >= 1) {
-        return res.status(403).json({message: 'You have reached the limit of your BASIC plan. Upgrade to create new clinics.'});
-      } else if (req.user!.plan === 'PRO' && countClinic >= 3) {
-        return res.status(403).json({message: 'You have reached the limit of your PRO plan. Upgrade to create new clinics.'});
-      } else if (req.user!.plan === 'ENTERPRISE' && countClinic >= 10) {
-        return res.status(403).json({message: 'You have reached the limit of your ENTERPRISE plan. Contact us to create new clinics.'});
+      if(req.user?.role !== Role.SUPERADMIN){
+        if (req.user!.plan === 'BASIC' && countClinic >= 1) {
+            throw new Error('You have reached the limit of your BASIC plan. Upgrade to create new clinics.')
+        } else if (req.user!.plan === 'PRO' && countClinic >= 3) {
+            throw new Error('You have reached the limit of your PRO plan. Upgrade to create new clinics.')
+        } else if (req.user!.plan === 'ENTERPRISE' && countClinic >= 10) {
+            throw new Error('You have reached the limit of your ENTERPRISE plan. Contact us to create new clinics.')
+        }
       }
 
       return tx.clinica.create({
@@ -44,7 +45,6 @@ export async function createClinic(req: AuthenticatedRequest, res: Response){
           contact: true,
           address: true,
           createdAt: true,
-          employees: { select: { id: true, name: true } }
         }
       });
     });
@@ -54,7 +54,7 @@ export async function createClinic(req: AuthenticatedRequest, res: Response){
 export async function updateClinic(req: AuthenticatedRequest, res: Response){
     if (!req.user) {return res.status(401).json({ message: "Unauthenticated user" });}
     if (!req.params.slug) {return res.status(400).json({ message: "Clinic slug is required" });}
-    if(!(req.user.role === 'USER')) {return res.status(403).json({message: "Dont't have permission"})}
+    if(!(req.user.role  === Role.USER || req.user.role === Role.SUPERADMIN)) {return res.status(403).json({message: "Dont't have permission"})}
 
     const result = clinicRegisterSchema.safeParse(req.body)
 
@@ -68,12 +68,15 @@ export async function updateClinic(req: AuthenticatedRequest, res: Response){
         return res.status(404).json({ message: "Clinic not found" });
     }
 
-    if (clinic.user_id !== req.user.id) {
-        return res.status(403).json({ message: "You don't have permission to update this clinic" });
-    }
+    if (clinic.user_id !== req.user.id && req.user.role !== Role.SUPERADMIN) {
+        throw new Error("You don't have permission to update this clinic")
+    }   
 
     const updatedClinic = await p.clinica.update({
-        where: { slug: req.params.slug },
+        where: { 
+            slug: req.params.slug,
+            isActive: true
+         },
         data:{
             name: result.data.name,
             slug: result.data.slug,
@@ -102,7 +105,10 @@ export async function getClinicBySlug(req: AuthenticatedRequest, res: Response){
     if(!result.success) {return res.status(400).json({message: result.error.issues})}
           
     const clinic = await p.clinica.findUnique({
-        where: { slug: result.data },
+        where: { 
+            slug: result.data,
+            isActive: true 
+        },
         select:{
             id: true,
             name: true,
@@ -118,20 +124,26 @@ export async function getClinicBySlug(req: AuthenticatedRequest, res: Response){
 
     if (!clinic) {return res.status(404).json({ message: "Clinic not found" });}
 
-    if(req.user.role === 'USER'){
-        if (clinic.user_id !== req.user.id) {return res.status(403).json({ message: "Don't have permission" });}
-    }else{
-        if(req.user.clinica_id !== clinic.id) {return res.status(403).json({ message: "Don't have permission" });}
+    if(req.user?.role !== Role.SUPERADMIN){
+        if(req.user.role === Role.USER){
+
+            if (clinic.user_id !== req.user.id) { throw new Error("Don't have permission")}
+        }else{
+            if(req.user.clinica_id !== clinic.id) {throw new Error("Don't have permission")}
+        }
     }
 
     return res.status(200).json(clinic)
 }
 export async function getClinics(req: AuthenticatedRequest, res: Response){
     if (!req.user) {return res.status(401).json({ message: "Unauthenticated user" });}
-    if(!(req.user.role === 'USER')) {return res.status(403).json({message: "Dont't have permission"})}
+    if(!(req.user.role === Role.USER || req.user.role === Role.SUPERADMIN)) {throw new Error("Dont't have permission")}
     
     const clinics = await p.clinica.findMany({
-        where: {user_id: req.user.id },
+        where: {
+            user_id: req.user.id,
+            isActive: true 
+        },
         select:{
             id: true,
             name: true,
@@ -146,21 +158,24 @@ export async function getClinics(req: AuthenticatedRequest, res: Response){
         }
         
     })
-    return res.json(clinics)
+    return res.status(200).json(clinics);
 }
 export async function deleteClinic(req: AuthenticatedRequest, res: Response){
     if (!req.user) {return res.status(401).json({ message: "Unauthenticated user" });}
-    if(!(req.user.role === 'USER')) {return res.status(403).json({message: "Dont't have permission"})}
+    if(!(req.user.role === Role.USER || req.user.role === Role.SUPERADMIN)) {throw new Error("Dont't have permission")}
 
     const result = clinicSlug.safeParse(req.params.slug)
     if(!result.success) {return res.status(400).json({message: result.error.issues})}
 
     const clinic = await p.clinica.findUnique({where:{slug: result.data}})
     if(!clinic) {return res.status(404).json({message: 'Clinic not found'})}
-    if(clinic.user_id !== req.user.id ) {return res.status(403).json({message:"Dont't have permission" })}
+    if(clinic.user_id !== req.user.id && req.user.role !== Role.SUPERADMIN ) {throw new Error("Dont't have permission")}
     
     await p.clinica.delete({
-        where: {slug: result.data}
+        where: {
+            slug: result.data,
+            isActive: true
+        }
     })
 
     return res.status(204).end()

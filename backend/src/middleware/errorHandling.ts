@@ -12,10 +12,11 @@ export const errorHandling = (error: unknown,req: Request, res: Response, next: 
                     return res.status(404).json({ message: "Resource not found" });
                 }
             }
-        }
-        
+        }    
        if (error.name === 'PrismaClientValidationError') {
             return res.status(400).json({ message: 'Invalid data provided.' });
+        }else if(error.name === 'Error'){
+            res.status(403).json({message: error.message});
         }
     }
     

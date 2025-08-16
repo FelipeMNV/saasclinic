@@ -1,11 +1,13 @@
 import jwt, { type JwtPayload } from "jsonwebtoken";
 import { JWT_SECRET } from "../config/env.ts";
 import type { Request, Response, NextFunction } from "express";
+import type { Role } from "../../generated/prisma";
+
 
 export interface TokenPayload extends JwtPayload {
     id: string,
     name: string,
-    role: string,
+    role: Role;
     plan?: string,
     clinica_id?: string
 }
