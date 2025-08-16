@@ -104,9 +104,7 @@ export async function getClinicBySlug(req: AuthenticatedRequest, res: Response){
     if(req.user.role === 'USER'){
         if (clinic.user_id !== req.user.id) return res.status(403).json({ message: "Don't have permission" });
     }else{
-        const user = await p.employee.findUnique({where:{id: req.user.id}})
-        if(!user) return res.status(404).json({message: "User not found"})
-        if(user.clinica_id !== clinic.id) return res.status(403).json({ message: "Don't have permission" });
+        if(req.user.clinica_id !== clinic.id) return res.status(403).json({ message: "Don't have permission" });
     }
 
     return res.json(clinic)

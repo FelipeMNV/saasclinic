@@ -128,16 +128,13 @@ export async function deleteEmployee(req: AuthenticatedRequest, res: Response) {
         return res.status(404).json({ message: "Clinic not found" });
     }
 
-    // Verificação de permissão
     if (req.user.role === 'USER') {
-        // Usuário deve ser dono da clínica
         if (clinic.user_id !== req.user.id) {
             return res.status(403).json({ message: "You cannot delete employees from another clinic" });
         }
     } else if (req.user.role === 'MANAGER') {
-        // Manager deve ser funcionário da clínica
-        const manager = await p.employee.findUnique({ where: { id: req.user.id } });
-        if (!manager || manager.clinica_id !== clinic.id) {
+
+        if (req.user.clinica_id !== clinic.id) {
             return res.status(403).json({ message: "You cannot delete employees from this clinic" });
         }
     }
