@@ -1,47 +1,66 @@
 import type { Request, Response, NextFunction } from "express";
 import { prisma as p } from "../models/prisma.ts";
-import { employeeSchema } from "../validators/employee.validators.ts";
+import { employeeSchema, employeeIdSchema } from "../validators/employee.validators.ts";
 import { employeeParamsSchema } from "../validators/employee.validators.ts";
+import type { AuthenticatedRequest } from "../middleware/authMiddleware.ts";
+import bcrypt from "bcryptjs";
 
-export async function createEmployee(req: Request, res: Response) {
+export async function createEmployee(req: AuthenticatedRequest, res: Response) {
+    if (!req.user?.role) {
+        return res.status(401).json({ message: "Unauthenticated user" });
+    }
+
     const result = employeeSchema.safeParse(req.body)
-
-
+    
     if (!result.success){
         return res.status(400).json({message: result.error.issues})
     }
+   
+    if(!(req.user.role === 'USER' ||req.user.role === 'MANAGER' )){
+        return res.status(403).json({message: "Dont't have permission"})
+    } 
 
-        const newEmployee = await p.employee.create({
-            data: {
-                name: result.data.name,
-                speciality: result.data.speciality,
-                clinica_id: result.data.clinica_id,
-            },
-            select: {
-                id: true,
-                name: true,
-                speciality: true,
-                clinica: { select:{ id: true, name: true}},
-                services: { select:{ id: true, name: true}},
-            },
-        });
-
-        return res.status(201).json(newEmployee)    
-}
-
-export async function getEmployees(req: Request, res: Response) {
-    const result = employeeParamsSchema.safeParse(req.body)
-
-    if (!result.success){
-        return res.status(400).json({message: result.error.issues})
+    if(!(req.user.clinica_id)){
+        return res.status(400).json({message: "Clinic_id non exis"})
     }
     
+    const hashedPassword = await bcrypt.hash(result.data.password, 10);
+
+    const newEmployee = await p.employee.create({
+        data: {
+            name: result.data.name,
+            speciality: result.data.speciality,
+            clinica_id: req.user.clinica_id,
+            email: result.data.email,
+            password: hashedPassword,
+        },
+        select: {
+            id: true,
+            name: true,
+            speciality: true,
+            email: true,
+            clinica: { select:{ id: true, name: true}},
+            services: { select:{ id: true, name: true}},
+        },
+    });
+
+    return res.status(201).json(newEmployee)    
+}
+
+export async function getEmployees(req: AuthenticatedRequest, res: Response) {
+       
+    if(!req.user?.clinica_id){
+        return res.status(400).json({ message: "User not linked to any clinic" });
+    } 
+
+    
     const employees = await p.employee.findMany({
-        where: {clinica_id: result.data.clinica_id},
+        where: {clinica_id: req.user.clinica_id},
         select: {
         id: true,
         name: true,
         speciality: true,
+        email: true,
         createdAt:true,
         updateAt:true,
         services:{ select:{ id: true , name : true}}
@@ -51,38 +70,104 @@ export async function getEmployees(req: Request, res: Response) {
     return res.status(200).json(employees);
 }
 
-export async function getEmployeeById(req: Request, res: Response) {
-  const { id } = req.params;
+export async function getEmployeeById(req: AuthenticatedRequest, res: Response) {
+    const result = employeeIdSchema.safeParse(req.body);
 
-  if(!id) return res.status(400).json({message: 'ID are required'})
+    if (!result.success) {
+        return res.status(400).json({ message: result.error.issues });
+    }
 
-  const employee = await p.employee.findUnique({
-    where: { id },
-    select: { id: true, name: true, speciality: true, createdAt: true, services: { select:{ id: true, name: true}}}
-  });
+    const employee = await p.employee.findUnique({
+        where: { id: result.data.employee_id },
+        select: {
+            id: true,
+            name: true,
+            speciality: true,
+            email: true,
+            createdAt: true,
+            updateAt: true,
+            clinica: { select: { id: true, name: true } },
+            services: { select: { id: true, name: true } }
+        }
+    }); // ADICIONAR APPOINTMENTS DPS
 
-  if (!employee) {
-    return res.status(404).json({message: "employee not found"});
-  }
-  return res.json(employee);
+    if (!employee) {
+        return res.status(404).json({ message: "Employee not found" });
+    }
+
+    return res.status(200).json(employee);
 }
 
-export async function deleteEmployee(req: Request, res: Response) {
-  const { id } = req.params;
+export async function deleteEmployee(req: AuthenticatedRequest, res: Response) {
+    if (!req.user?.role) {
+        return res.status(401).json({ message: "Unauthenticated user" });
+    }
 
-  if (!id) {
-    return res.status(400).json({message: "Employee ID Is required"});
-  }
+    const { slug } = req.params;
+    if (!slug) return res.status(400).json({ message: "Clinic slug is required" });
 
-  const employee = await p.employee.findUnique({where: { id }});
+    const result = employeeIdSchema.safeParse(req.body);
+    if (!result.success) {
+        return res.status(400).json({ message: result.error.issues });
+    }
 
-  if (!employee) {
-    return res.status(404).json({message: "Employee not found"});
-  }
+    const { id } = req.body;
+    if (!id) {
+        return res.status(400).json({ message: "Employee ID is required" });
+    }
 
-  await p.employee.delete({where: { id } });
+    if (!(req.user.role === 'USER' || req.user.role === 'MANAGER')) {
+        return res.status(403).json({ message: "Don't have permission" });
+    }
 
-  return res.status(204).send();
+    const clinic = await p.clinica.findUnique({
+        where: { slug },
+    });
+
+    if (!clinic) {
+        return res.status(404).json({ message: "Clinic not found" });
+    }
+
+    // Verificação de permissão
+    if (req.user.role === 'USER') {
+        // Usuário deve ser dono da clínica
+        if (clinic.user_id !== req.user.id) {
+            return res.status(403).json({ message: "You cannot delete employees from another clinic" });
+        }
+    } else if (req.user.role === 'MANAGER') {
+        // Manager deve ser funcionário da clínica
+        const manager = await p.employee.findUnique({ where: { id: req.user.id } });
+        if (!manager || manager.clinica_id !== clinic.id) {
+            return res.status(403).json({ message: "You cannot delete employees from this clinic" });
+        }
+    }
+
+
+    await p.employee.delete({ where: { id } });
+
+    return res.status(204).send();
+}
+
+export async function updateEmployee(req: AuthenticatedRequest, res: Response){
+    if (!req.user?.role) {
+        return res.status(401).json({ message: "Unauthenticated user" });
+    }
+    
+    const result = employeeSchema.safeParse(req.body)
+    
+    if (!result.success) {
+        return res.status(400).json({ message: result.error.issues });
+    }
+
+    if (!(req.user.role === 'USER' || req.user.role === 'MANAGER')) {
+        return res.status(403).json({ message: "Don't have permission" });
+    }
+    p.clinica.findUnique
+    if(req.user.role == 'USER'){
+        
+    } else {
+
+    }
 }
 
 export async function updateEmployeeSpeciality(req: Request, res: Response){
@@ -98,7 +183,8 @@ export async function updateEmployeeSpeciality(req: Request, res: Response){
         }
     })
 
-    return res.send(updatedEmployee)}
+    return res.send(updatedEmployee)
+}
 
 export async function updateEmployeeName(req: Request, res: Response){
     const {id , name} = req.body

@@ -4,8 +4,11 @@ import { JWT_SECRET } from "../config/env.ts";
 import type { Request, Response, NextFunction } from "express";
 
 export interface TokenPayload extends JwtPayload {
-    id: string;
-    email: string;
+    id: string,
+    name: string,
+    role: string,
+    plan?: string,
+    clinica_id?: string
 }
 
 export interface AuthenticatedRequest extends Request {

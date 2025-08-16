@@ -1,4 +1,4 @@
-import type { Request, Response, NextFunction } from "express";
+import type { Request, Response } from "express";
 import { prisma as p } from "../models/prisma.ts";
 import bcrypt from 'bcryptjs';
 import { userSchema, userParamsSchema, loginSchema, updateUserSchema } from "../validators/user.validator.ts";
@@ -19,13 +19,13 @@ export async function loginUser(req: Request, res: Response){
   const user = await p.user.findUnique({
     where: { email },
   });
-
   if (!user || !(await bcrypt.compare(password, user.password))) {
     return res.status(401).json({message: 'Credenciais inválidas'});
   }
+  // ADICIONEI O PLAN DELE AO TOKEN, isso se refere ao plano q o cara tem assinado
 
   const token = jwt.sign(
-    {id: user.id, username: user.username, role: user.role },
+    {id: user.id, name: user.name, role: user.role, plan: user.plan},
     JWT_SECRET,
     { expiresIn: '7d'}
   );
@@ -40,7 +40,7 @@ export async function loginUser(req: Request, res: Response){
 
 }
 
-export async function createUser(req: Request, res: Response) {
+export async function createUser(req: Request, res: Response) { 
     const result = userSchema.safeParse(req.body)
 
 
@@ -49,16 +49,18 @@ export async function createUser(req: Request, res: Response) {
     }
         const hashedPassword = await bcrypt.hash(result.data.password, 10);
 
+        // TEM QUE ALTERAR ALGUMAS COISAS PORQUE ADICIONEI O CAMPO PLAN
 
         const newUser = await p.user.create({
             data: {
                 email: result.data.email,
-                username: result.data.username,
+                name: result.data.name,
                 password: hashedPassword,
+                plan: '' // edita isso botei so pra nao aparece erro
             },
             select: {
                 id: true,
-                username: true,
+                name: true,
                 email: true,
                 createdAt: true,
                 clinicas: { select:{ id: true, name: true}}
@@ -72,7 +74,7 @@ export async function getUsers(req: Request, res: Response) {
     const users = await p.user.findMany({
       select: {
         id: true,
-        username: true,
+        name: true,
         email: true,
         createdAt: true,
       },
@@ -82,8 +84,8 @@ export async function getUsers(req: Request, res: Response) {
 
 }
 
-export async function updateUser(req: Request, res: Response) {
-  const paramsResult = userParamsSchema.safeParse(req.params);
+export async function updateUser(req: Request, res: Response) { // ROTA TEM Q SER AUTENTICADA
+  const paramsResult = userParamsSchema.safeParse(req.params);  //ID NAO VEM POR PARAMETRO
   const result = updateUserSchema.safeParse(req.body);
 
   if (!paramsResult.success){
@@ -94,12 +96,12 @@ export async function updateUser(req: Request, res: Response) {
     return res.status(400).json({message: result.error.issues});
   }
 
-  const { id } = paramsResult.data;
-  const { username, email, password } = result.data;
+  const { id } = paramsResult.data; 
+  const { name, email, password } = result.data;
 
   const dataToUpdate: any = {};
 
-  if (username) dataToUpdate.username = username;
+  if (name) dataToUpdate.name = name;
   if (email) dataToUpdate.email = email;
   if (password) dataToUpdate.password = await bcrypt.hash(password, 10);
 
@@ -113,7 +115,7 @@ export async function updateUser(req: Request, res: Response) {
     data: dataToUpdate,
     select: {
       id: true,
-      username: true,
+      name: true,
       email: true,
       createdAt: true,
     },
@@ -123,14 +125,14 @@ export async function updateUser(req: Request, res: Response) {
 }
 
 
-export async function getUserById(req: Request, res: Response) {
-  const { id } = req.params;
+export async function getUserById(req: Request, res: Response) { // ROTA TEM Q SER AUTENTICADA
+  const { id } = req.params;  //ID NAO VEM POR PARAMETRO
 
   if(!id) return res.status(400).json({message: 'ID are required'})
 
   const user = await p.user.findUnique({
     where: { id },
-    select: { id: true, username: true, email: true, createdAt: true, clinicas: { select:{ id: true, name: true}}}
+    select: { id: true, name: true, email: true, createdAt: true, clinicas: { select:{ id: true, name: true}}}
   });
 
   if (!user) {
@@ -139,8 +141,8 @@ export async function getUserById(req: Request, res: Response) {
   return res.json(user);
 }
 
-export async function deleteUser(req: Request, res: Response) {
-  const { id } = req.params;
+export async function deleteUser(req: Request, res: Response) { // ROTA TEM Q SER AUTENTICADA
+  const { id } = req.params; //ID NAO VEM POR PARAMETRO
 
   if (!id) {
     return res.status(400).json({message: "User ID Is required"});

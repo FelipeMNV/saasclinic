@@ -18,19 +18,21 @@ datasource db {
 
 model User {
   id        String    @id @default(uuid())
-  username  String?
+  name  String
   email     String    @unique
   password  String
-  createdAt DateTime  @default(now())
-  updateAt  DateTime  @updatedAt
-  clinicas  Clinica[]
+  plan      String?
   role      Role      @default(USER)
+  clinicas  Clinica[]
+  createdAt DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 }
 
 enum Role {
-  ADMIN
   USER
-  GERENTE
+  MANAGER
+  PROVIDER
+  EMPLOYEE
 }
 
 model Clinica {
@@ -39,31 +41,34 @@ model Clinica {
   slug      String     @unique
   contact   String
   address   String
-  user_id   String
-  user      User       @relation(fields: [user_id], references: [id])
-  createdAt DateTime   @default(now())
-  updateAt  DateTime   @updatedAt
+  user_id   String?     
+  user      User?       @relation(fields: [user_id], references: [id])
   employees Employee[]
+  createdAt DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
 }
 
 model Employee {
   id         String     @id @default(uuid())
   name       String
   speciality String
-  services   Services[]
-  clinica_id String
-  clinica    Clinica    @relation(fields: [clinica_id], references: [id])
+  email      String     @unique
+  password   String
+  role      Role      @default(EMPLOYEE)
+  services   Service[]
+  clinica_id String?
+  clinica    Clinica?    @relation(fields: [clinica_id], references: [id])
   createdAt  DateTime   @default(now())
-  updateAt   DateTime   @updatedAt
+  updatedAt   DateTime   @updatedAt
 }
 
-model Services {
+model Service {
   id          String   @id @default(uuid())
   name        String
   description String?
   price       Decimal
-  employee_id String
-  employee    Employee @relation(fields: [employee_id], references: [id])
+  employee_id String?
+  employee    Employee? @relation(fields: [employee_id], references: [id])
   createdAt   DateTime @default(now())
-  updateAt    DateTime @updatedAt
+  updatedAt    DateTime @updatedAt
 }

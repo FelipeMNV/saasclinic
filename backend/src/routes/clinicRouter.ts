@@ -13,7 +13,7 @@ const clinicRouter = express.Router()
 
 clinicRouter.post('/clinic/create',authenticationToken, createClinic)
 clinicRouter.put('/clinic/update/:slug',authenticationToken, updateClinic)
-clinicRouter.get('/clinic/get',authenticationToken, getClinics)
+clinicRouter.get('/clinic',authenticationToken, getClinics)
 clinicRouter.get('/clinic/:slug',authenticationToken, getClinicBySlug) 
 clinicRouter.delete('/clinic/delete/:slug',authenticationToken, deleteClinic)
 
