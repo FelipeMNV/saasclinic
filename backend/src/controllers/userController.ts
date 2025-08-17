@@ -3,7 +3,9 @@ import { prisma as p } from "../models/prisma.ts";
 import bcrypt from 'bcryptjs';
 import { userSchema, userParamsSchema, loginSchema, updateUserSchema } from "../validators/user.validator.ts";
 import jwt from 'jsonwebtoken';
-import type { AuthenticatedRequest } from "../middleware/authMiddleware.ts";
+import type { AuthenticatedRequest, TokenPayload } from "../middleware/authMiddleware.ts";
+import type { User } from '../../generated/prisma';
+
 const JWT_SECRET = process.env.JWT_SECRET as string;
 
 
@@ -197,13 +199,4 @@ export async function deleteUser(req: AuthenticatedRequest, res: Response) {
   await p.user.delete({ where: { id } });
 
   return res.status(204).end();
-}
-
-/**
- * Fazer novo Token
- * Baseado em plano, limitar clincas
- * mudar o plano 
- */
-export async function updatePlan(req: AuthenticatedRequest, res: Response) {
-  
 }
