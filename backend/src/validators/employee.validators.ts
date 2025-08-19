@@ -8,6 +8,11 @@ export const employeeSchema = z.object({
   password: z.string().min(6).max(128).trim(),
 });
 
+export const employeeUpdateSchema = z.object({
+  name: z.string().max(32).trim().optional(),
+  speciality: z.string().max(32).trim().optional(),
+});
+
 export const employeeParamsSchema = z.object({
   clinica_id: z.uuid(),
 });
