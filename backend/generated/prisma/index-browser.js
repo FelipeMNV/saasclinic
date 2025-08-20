@@ -167,7 +167,8 @@ exports.Prisma.ServiceScalarFieldEnum = {
 
 exports.Prisma.AppointmentScalarFieldEnum = {
   id: 'id',
-  date: 'date',
+  start: 'start',
+  end: 'end',
   status: 'status',
   customerName: 'customerName',
   customerEmail: 'customerEmail',
@@ -176,6 +177,28 @@ exports.Prisma.AppointmentScalarFieldEnum = {
   service_id: 'service_id',
   employee_id: 'employee_id',
   clinica_id: 'clinica_id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AvailabilityScalarFieldEnum = {
+  id: 'id',
+  employee_id: 'employee_id',
+  dayOfWeek: 'dayOfWeek',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  slotDuration: 'slotDuration',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BlockedSlotScalarFieldEnum = {
+  id: 'id',
+  employee_id: 'employee_id',
+  date: 'date',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  reason: 'reason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -214,7 +237,9 @@ exports.Prisma.ModelName = {
   Clinica: 'Clinica',
   Employee: 'Employee',
   Service: 'Service',
-  Appointment: 'Appointment'
+  Appointment: 'Appointment',
+  Availability: 'Availability',
+  BlockedSlot: 'BlockedSlot'
 };
 
 /**
