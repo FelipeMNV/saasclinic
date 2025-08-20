@@ -23,7 +23,11 @@ export const getServiceById = async (req: AuthenticatedRequest, res: Response) =
         return res.status(404).json({message: 'Clinic not found'})
     }
 
-    const {id} = req.body.id
+    if(!req.params.id){
+        return res.status(404).json({message: 'ID not found'})
+    }
+
+    const {id} = req.params
       
     const services = await p.service.findUnique({
            where:{
@@ -69,9 +73,16 @@ export const updateService = async (req: AuthenticatedRequest, res: Response) =>
         return res.status(403).json({ message: "Don't have permission" });
     }
 
+    if(!req.params.id){
+        return res.status(404).json({message: 'ID not found'})
+    }
+
+    const {id} = req.params
+
     const result = updateServiceSchema.safeParse(req.body)
 
     if(!result.success){
+        console.log("foi aqui")
         return res.status(400).json({message: result.error.issues})
     }
     const {description, name , price} = result.data
@@ -82,14 +93,15 @@ export const updateService = async (req: AuthenticatedRequest, res: Response) =>
     if(name){dataUpdated.name = name}
     if(price){dataUpdated.price = new Decimal(price)}
 
-    await p.service.update({
+    const upadatedService = await p.service.update({
         where:{
-            id: result.data.id
+            id
         },
         data: {                    
             ...dataUpdated
         }
     })
+    return res.status(200).json(upadatedService)
 }
 
 export const deleteService= async (req: AuthenticatedRequest, res: Response) =>{
@@ -102,8 +114,12 @@ export const deleteService= async (req: AuthenticatedRequest, res: Response) =>{
     if (!([Role.USER, Role.SUPERADMIN, Role.MANAGER]as Role[]).includes(req.user.role)) {
         return res.status(403).json({ message: "Don't have permission" });
     }
+    if(!req.params.id){
+        return res.status(404).json({message: 'ID not found'})
+    }
 
-    const {id} = req.body.id
+    const {id} = req.params
+
     await p.service.delete({
         where:{
             id

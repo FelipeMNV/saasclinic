@@ -69,7 +69,7 @@ model Service {
   description String?
   price       Decimal
   clinica_id  String?
-  clinica     Clinica?       @relation(fields: [clinica_id], references: [id])
+  clinica     Clinica?      @relation(fields: [clinica_id], references: [id])
   employees   Employee[]    @relation("EmployeeServices") 
   Appointment Appointment[]
   createdAt   DateTime      @default(now())

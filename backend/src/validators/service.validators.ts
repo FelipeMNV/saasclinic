@@ -4,7 +4,6 @@ import {z} from 'zod'
 import { Decimal } from "@prisma/client/runtime/library";
 
 export const updateServiceSchema = z.object({
-    id: z.uuid(),
     name: z.string().max(64).trim().optional(),
     description: z.string().max(256).trim().optional(),
     price: z.string()

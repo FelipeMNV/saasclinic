@@ -14,18 +14,19 @@ const _plans = [
 ];
 const roles: Role[] = [Role.SUPERADMIN,Role.USER,Role.MANAGER, Role.EMPLOYEE]
 
-beforeAll(async () =>{
+
+beforeAll(async ()=>{
+    await p.service.deleteMany({})
     await p.user.deleteMany({})
     await p.clinica.deleteMany({})
-    await p.service.deleteMany({})
 })
-
 
 roles.forEach(role =>{
     describe(`Test service route with role ${role}`, () =>{
         let token: string;
         let clinica_id: string;
         let slug: string;
+        let id: string;
         beforeEach(async ()=>{
             await p.service.deleteMany({})
             await p.user.deleteMany({})
@@ -39,11 +40,6 @@ roles.forEach(role =>{
                     role: role
                 }
             })
-            token = jwt.sign(
-                  { id: user.id, name: user.name, role: user.role, plan: user.plan },
-                    JWT_SECRET,
-                    { expiresIn: '7d' }
-                  );
 
             const clinic = await p.clinica.create({
                 data:{
@@ -54,6 +50,15 @@ roles.forEach(role =>{
                     user_id: user.id
                 }
             })
+
+            const service = await p.service.create({
+                data:{
+                    name: 'serviceTest',
+                    description: 'descriptionTest',
+                    price: '10',
+                    clinica_id: clinic.id
+                }
+            })
             token = jwt.sign(
                   { id: user.id, name: user.name, role: user.role, plan: user.plan, clinica_id: clinic.id },
                     JWT_SECRET,
@@ -61,12 +66,13 @@ roles.forEach(role =>{
                   );
             clinica_id = clinic.id
             slug = clinic.slug
+            id = service.id
         })
 
-        test('Route to create service', async ()=>{
+        test('Route to create a service', async ()=>{
             const newService ={
-                name: 'serviceTest',
-                description: 'descriptionTest',
+                name: 'serviceTest2',
+                description: 'descriptionTest2',
                 price: '10',
                 clinica_id: clinica_id
             }
@@ -76,6 +82,40 @@ roles.forEach(role =>{
                .set('Authorization', `Bearer ${token}`)
                .send(newService)
                .expect(expectedStatus)
+        })
+        test('Route to delete a service', async () =>{
+            const expectedStatus = ([Role.USER, Role.SUPERADMIN, Role.MANAGER]as Role[]).includes(role) ? 204 : 403
+
+            await api.delete(`/service/delete/${slug}/${id}`)
+                     .set('Authorization', `Bearer ${token}`)
+                     .expect(expectedStatus)
+        })
+        test("Route to update a service", async () =>{
+            const updateService ={
+                name: 'serviceTest3',
+                description: 'descriptionTest3',
+                price: '10',
+            }
+
+            const expectedStatus = ([Role.USER, Role.SUPERADMIN, Role.MANAGER]as Role[]).includes(role) ? 200 : 403
+
+            await api
+                    .put(`/service/update/${slug}/${id}`)
+                    .set('Authorization', `Bearer ${token}`)
+                    .send(updateService)
+                    .expect(expectedStatus)
+        })
+        test("Route to get all services", async ()=>{
+            await api
+                    .get(`/service/${slug}`)
+                    .set('Authorization', `Bearer ${token}`)
+                    .expect(200)
+        })
+        test("Route to get a service by id", async ()=>{
+            await api
+                    .get(`/service/${slug}/${id}`)
+                    .set('Authorization', `Bearer ${token}`)
+                    .expect(200)
         })
     })
 })
