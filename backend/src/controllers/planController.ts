@@ -15,8 +15,12 @@ const PLANS_LIMITS: Record<string, number | null> = {
 
 export async function updatePlan(req: AuthenticatedRequest, res: Response){
     const user = req.user;
-    if (!user) return res.status(401).json({ message: "Unauthenticated user" });
+    if (!user) {return res.status(401).json({ message: "Unauthenticated user" })};
 
+    if (user.role !==  'USER' && user.role !== 'SUPERADMIN'){
+        return res.status(403).json({ message: "Permission denied"})
+    }
+    
     const { plan } = req.body as { plan: keyof typeof PLANS_LIMITS};
     if(!plan || !(plan in PLANS_LIMITS)) {
         return res.status(400).json({ message: 'Invalid Plan'})

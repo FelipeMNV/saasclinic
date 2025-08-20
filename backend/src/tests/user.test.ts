@@ -17,7 +17,7 @@ const roles = [Role.USER, Role.MANAGER, Role.EMPLOYEE, Role.SUPERADMIN];
                 let hashedPassword: string;
 
 
-                beforeAll(async () => {
+                    beforeAll(async () => {
                     await p.user.deleteMany();
 
                     hashedPassword = await bcrypt.hash('Password123@', 10);

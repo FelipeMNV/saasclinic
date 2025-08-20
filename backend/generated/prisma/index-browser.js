@@ -160,7 +160,7 @@ exports.Prisma.ServiceScalarFieldEnum = {
   name: 'name',
   description: 'description',
   price: 'price',
-  employee_id: 'employee_id',
+  clinica_id: 'clinica_id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

@@ -4,9 +4,43 @@ import {
   employeeSchema,
   employeeIdSchema,
   employeeUpdateSchema,
+  employeeSchemaLogin,
 } from "../validators/employee.validators.ts";
 import type { AuthenticatedRequest } from "../middleware/authMiddleware.ts";
 import bcrypt from "bcryptjs";
+import jwt from 'jsonwebtoken';
+import { Role } from "../../generated/prisma/index";
+const JWT_SECRET = process.env.JWT_SECRET as string;
+
+export async function employeeLogin(req: Request, res: Response){
+  const result = employeeSchemaLogin.safeParse(req.body);
+  
+  if (!result.success){
+    return res.status(400).json({message: result.error.issues})
+  }
+
+  const { email, password } = result.data;
+  const employee = await p.employee.findUnique({
+    where: {email},
+  })
+  if (!employee || !(await bcrypt.compare(password, employee.password))) {
+    return res.status(401).json({message: 'Invalid credentials'});
+  }
+
+  const token = jwt.sign(
+    {id: employee.id, name: employee.name, speciality: employee.speciality, role: employee.role},
+    JWT_SECRET,
+    {expiresIn: "7d"}
+  )
+
+  const {password: _, ...employeeWithoutPassword} = employee;
+
+  return res.status(200).json({
+    message: "Employee login successful",
+    token,
+    employee: employeeWithoutPassword,
+  })
+}
 
 export async function createEmployee(req: AuthenticatedRequest, res: Response) {
   if (!req.user) {
@@ -23,37 +57,13 @@ export async function createEmployee(req: AuthenticatedRequest, res: Response) {
       .json({ message: "User is not linked to any clinic" });
   }
 
+  if(!req.clinic?.id){
+    return res.status(404).json({message: 'Clinic not found'})
+  }
+
   const result = employeeSchema.safeParse(req.body);
   if (!result.success) {
     return res.status(400).json({ message: result.error.issues });
-  }
-
-  if (req.user.role === "EMPLOYEE") {
-    throw new Error("Employees cannot create new employees");
-  }
-
-  const clinic = await p.clinica.findFirst({
-    where: { slug: req.params.slug },
-  });
-
-  if (!clinic) {
-    return res.status(404).json({ message: "Clinic not found" });
-  }
-
-  if (req.user.role !== "SUPERADMIN") {
-    if (req.user.role === "USER") {
-      if (req.user.id !== clinic.user_id) {
-        return res
-          .status(403)
-          .json({ message: "Access denied: not the clinic owner" });
-      }
-    } else {
-      if (req.user.clinica_id !== clinic.id) {
-        return res
-          .status(403)
-          .json({ message: "Access denied: user not linked to this clinic" });
-      }
-    }
   }
 
   const hashedPassword = await bcrypt.hash(result.data.password, 10);
@@ -61,9 +71,10 @@ export async function createEmployee(req: AuthenticatedRequest, res: Response) {
     data: {
       name: result.data.name,
       speciality: result.data.speciality,
-      clinica_id: clinic.id,
+      clinica_id: req.clinic.id,
       email: result.data.email,
       password: hashedPassword,
+      role: result.data.role,
     },
   });
 
@@ -79,47 +90,18 @@ export async function getEmployees(req: AuthenticatedRequest, res: Response) {
     return res.status(400).json({ message: "Slug is mandatory" });
   }
 
-  if (!req.user.clinica_id) {
-    return res
-      .status(403)
-      .json({ message: "User is not linked to any clinic" });
+  if (!([Role.USER, Role.SUPERADMIN, Role.MANAGER]as Role[]).includes(req.user.role)) {
+    return res.status(403).json({ message: "Don't have permission" });
   }
 
-  const clinic = await p.clinica.findFirst({
-    where: { slug: req.params.slug },
-  });
-
-  if (!clinic) {
-    return res.status(404).json({ message: "Clinic not found" });
-  }
-
-  if (req.user.role !== "SUPERADMIN") {
-    if (req.user.role === "USER") {
-      if (req.user.id !== clinic.user_id) {
-        return res
-          .status(403)
-          .json({ message: "Access denied: not the clinic owner" });
-      }
-    } else {
-      if (req.user.clinica_id !== clinic.id) {
-        return res
-          .status(403)
-          .json({ message: "Access denied: user not linked to this clinic" });
-      }
-    }
+  if(!req.clinic?.id){
+    return res.status(404).json({message: 'Clinic not found'})
   }
 
   const employees = await p.employee.findMany({
-    where: { clinica_id: clinic.id },
-    select: {
-      id: true,
-      name: true,
-      speciality: true,
-      email: true,
-      createdAt: true,
-      updatedAt: true,
-      services: { select: { id: true, name: true } },
-    },
+    where: { 
+      clinica_id: req.clinic.id,
+     },
   });
 
   return res.status(200).json(employees);
@@ -137,39 +119,14 @@ export async function getEmployeeById(
     return res.status(400).json({ message: "Slug is mandatory" });
   }
 
-  if (!req.user.clinica_id) {
-    return res
-      .status(403)
-      .json({ message: "User is not linked to any clinic" });
-  }
-
-  const clinic = await p.clinica.findFirst({
-    where: { slug: req.params.slug },
-  });
-
-  if (!clinic) {
-    return res.status(404).json({ message: "Clinic not found" });
-  }
-
-  if (req.user.role !== "SUPERADMIN") {
-    if (req.user.role === "USER") {
-      if (req.user.id !== clinic.user_id) {
-        return res
-          .status(403)
-          .json({ message: "Access denied: not the clinic owner" });
-      }
-    } else {
-      if (req.user.clinica_id !== clinic.id) {
-        return res
-          .status(403)
-          .json({ message: "Access denied: user not linked to this clinic" });
-      }
-    }
-  }
-
   if (!req.params.id) {
     return res.status(400).json({ message: "ID is mandatory" });
   }
+
+  if(!req.clinic?.id){
+    return res.status(404).json({message: 'Clinic not found'})
+  }
+
 
   const result = employeeIdSchema.safeParse({ employee_id: req.params.id });
   if (!result.success) {
@@ -177,21 +134,10 @@ export async function getEmployeeById(
   }
 
   const employee = await p.employee.findUnique({
-    where: { id: result.data.employee_id },
-    select: {
-      id: true,
-      name: true,
-      speciality: true,
-      email: true,
-      createdAt: true,
-      updatedAt: true,
-      clinica_id: true,
-      clinica: { select: { id: true, name: true } },
-      services: { select: { id: true, name: true } },
-    },
+    where: { id: result.data.employee_id }
   });
 
-  if (!employee || employee.clinica_id !== clinic.id) {
+  if (!employee || employee.clinica_id !== req.clinic.id) {
     return res
       .status(404)
       .json({ message: "Employee not found in this clinic" });
@@ -207,6 +153,14 @@ export async function deleteEmployee(req: AuthenticatedRequest, res: Response) {
     return res.status(401).json({ message: "Unauthenticated user" });
   }
 
+  if (!([Role.USER, Role.SUPERADMIN, Role.MANAGER]as Role[]).includes(req.user.role)) {
+    return res.status(403).json({ message: "Don't have permission" });
+  }
+  
+  if(!req.clinic?.id){
+    return res.status(404).json({message: 'Clinic not found'})
+  }
+  
   if (!req.params.slug) {
     return res.status(400).json({ message: "Slug is mandatory" });
   }
@@ -215,34 +169,6 @@ export async function deleteEmployee(req: AuthenticatedRequest, res: Response) {
     return res
       .status(403)
       .json({ message: "User is not linked to any clinic" });
-  }
-
-  const clinic = await p.clinica.findFirst({
-    where: { slug: req.params.slug },
-  });
-
-  if (!clinic) {
-    return res.status(404).json({ message: "Clinic not found" });
-  }
-
-  if (req.user.role !== "SUPERADMIN") {
-    if (req.user.role === "USER") {
-      if (req.user.id !== clinic.user_id) {
-        return res
-          .status(403)
-          .json({ message: "Access denied: not the clinic owner" });
-      }
-    } else if (req.user.role === "MANAGER") {
-      if (req.user.clinica_id !== clinic.id) {
-        return res.status(403).json({
-          message: "Access denied: manager not linked to this clinic",
-        });
-      }
-    } else {
-      return res.status(403).json({
-        message: "Access denied: you do not have permission to do this action",
-      });
-    }
   }
 
   if (!req.params.id) {
@@ -258,7 +184,7 @@ export async function deleteEmployee(req: AuthenticatedRequest, res: Response) {
     where: { id: result.data.employee_id },
   });
 
-  if (!employee || employee.clinica_id !== clinic.id) {
+  if (!employee || employee.clinica_id !== req.clinic.id) {
     return res
       .status(404)
       .json({ message: "Employee not found in this clinic" });
@@ -284,28 +210,8 @@ export async function updateEmployee(req: AuthenticatedRequest, res: Response) {
       .json({ message: "User is not linked to any clinic" });
   }
 
-  const clinic = await p.clinica.findFirst({
-    where: { slug: req.params.slug },
-  });
-
-  if (!clinic) {
-    return res.status(404).json({ message: "Clinic not found" });
-  }
-
-  if (req.user.role !== "SUPERADMIN") {
-    if (req.user.role === "USER") {
-      if (req.user.id !== clinic.user_id) {
-        return res
-          .status(403)
-          .json({ message: "Access denied: not the clinic owner" });
-      }
-    } else {
-      if (req.user.clinica_id !== clinic.id) {
-        return res
-          .status(403)
-          .json({ message: "Access denied: user not linked to this clinic" });
-      }
-    }
+  if (!([Role.USER, Role.SUPERADMIN, Role.MANAGER]as Role[]).includes(req.user.role)) {
+    return res.status(403).json({ message: "Don't have permission" });
   }
 
   if (!req.params.id) {
@@ -327,13 +233,6 @@ export async function updateEmployee(req: AuthenticatedRequest, res: Response) {
     data: {
       ...(result.data.name && { name: result.data.name }),
       ...(result.data.speciality && { speciality: result.data.speciality }),
-    },
-    select: {
-      id: true,
-      name: true,
-      speciality: true,
-      email: true,
-      clinica: { select: { id: true, name: true } },
     },
   });
 
