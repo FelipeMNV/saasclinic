@@ -61,6 +61,8 @@ model Employee {
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   Appointment Appointment[]
+  availabilities Availability[]
+  blockedslots   BlockedSlot[]
 }
 
 model Service {
@@ -78,8 +80,9 @@ model Service {
 
 model Appointment {
   id     String            @id @default(uuid())
-  date   DateTime
-  status AppointmentStatus @default(PENDING)
+  start   DateTime
+  end     DateTime
+  status  AppointmentStatus @default(PENDING)
 
   customerName  String
   customerEmail String
@@ -97,6 +100,34 @@ model Appointment {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Availability {
+  id          String   @id @default(uuid())
+  employee_id String
+  employee    Employee @relation(fields: [employee_id], references: [id])
+
+  dayOfWeek   Int      // 0=domingo ... 6=sábado
+  startTime   DateTime @db.Time
+  endTime     DateTime @db.Time
+  slotDuration Int     // minutos
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model BlockedSlot {
+  id          String   @id @default(uuid())
+  employee_id String
+  employee    Employee @relation(fields: [employee_id], references: [id])
+
+  date        DateTime
+  startTime   DateTime @db.Time
+  endTime     DateTime @db.Time
+  reason      String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 enum AppointmentStatus {
