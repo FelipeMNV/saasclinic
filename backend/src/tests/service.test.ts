@@ -120,6 +120,144 @@ roles.forEach(role =>{
     })
 })
 
+describe('Service Error test',()=>{
+    let token: string;
+    let clinica_id: string;
+    let slug: string;
+    let id: string;
+    beforeEach(async ()=>{
+            await p.service.deleteMany({})
+            await p.user.deleteMany({})
+            await p.clinica.deleteMany({})
+            const user = await p.user.create({
+                data:{
+                    name: 'userTest',
+                    email: 'emailteste@gmail.com',
+                    password: 'senhateste',
+                    plan: 'PRO',
+                    role: 'USER'
+                }
+            })
+
+            const clinic = await p.clinica.create({
+                data:{
+                    name: 'clinica teste',
+                    slug: 'clinicaTeste',
+                    contact: 'contatoTeste',
+                    address: 'addressTeste',
+                    user_id: user.id
+                }
+            })
+
+            const service = await p.service.create({
+                data:{
+                    name: 'serviceTest',
+                    description: 'descriptionTest',
+                    price: '10',
+                    clinica_id: clinic.id
+                }
+            })
+            token = jwt.sign(
+                  { id: user.id, name: user.name, role: user.role, plan: user.plan, clinica_id: clinic.id },
+                    JWT_SECRET,
+                    { expiresIn: '7d' }
+                  );
+            clinica_id = clinic.id
+            slug = clinic.slug
+            id = service.id
+    })
+    test('Error to create a service',async ()=>{
+        const newService = await p.service.create({
+                data:{
+                    name: '',
+                    description: '',
+                    price: '10',
+                    clinica_id
+                }
+            })
+
+            await api
+                    .post(`/service/create/${slug}`)
+                    .set('Authorization', `Bearer ${token}`)
+                    .send(newService)
+                    .expect(400)
+    })
+    test("Error to update a service", async ()=>{
+        const updateService = await p.service.create({
+                data:{
+                    name: '',
+                    description: 'aa',
+                    price: '10',
+                }
+            })
+
+            await api
+                    .put(`/service/update/${slug}/${id}`)
+                    .set('Authorization', `Bearer ${token}`)
+                    .send(updateService)
+                    .expect(400)
+    })
+})
+
+
+describe("Intruder test", () =>{
+    let token: string;
+    let clinica_id: string;
+    let slug: string;
+    let id: string;
+    beforeEach(async ()=>{
+            await p.service.deleteMany({})
+            await p.user.deleteMany({})
+            await p.clinica.deleteMany({})
+            const user = await p.user.create({
+                data:{
+                    name: 'userTest',
+                    email: 'emailteste@gmail.com',
+                    password: 'senhateste',
+                    plan: 'PRO',
+                    role: 'USER'
+                }
+            })
+
+            const intruder = await p.user.create({
+                data:{
+                    name: 'userTest',
+                    email: 'emailteste@gmail.com',
+                    password: 'senhateste',
+                    plan: 'PRO',
+                    role: 'USER'
+                }
+            })
+
+            const clinic = await p.clinica.create({
+                data:{
+                    name: 'clinica teste',
+                    slug: 'clinicaTeste',
+                    contact: 'contatoTeste',
+                    address: 'addressTeste',
+                    user_id: user.id
+                }
+            })
+
+            const service = await p.service.create({
+                data:{
+                    name: 'serviceTest',
+                    description: 'descriptionTest',
+                    price: '10',
+                    clinica_id: clinic.id
+                }
+            })
+            token = jwt.sign(
+                  { id: user.id, name: user.name, role: user.role, plan: user.plan, clinica_id: clinic.id },
+                    JWT_SECRET,
+                    { expiresIn: '7d' }
+                  );
+            clinica_id = clinic.id
+            slug = clinic.slug
+            id = service.id
+    })
+})
+
 afterAll(async () => {
   await p.$disconnect();
 });

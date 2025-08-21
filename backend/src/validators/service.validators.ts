@@ -4,8 +4,8 @@ import {z} from 'zod'
 import { Decimal } from "@prisma/client/runtime/library";
 
 export const updateServiceSchema = z.object({
-    name: z.string().max(64).trim().optional(),
-    description: z.string().max(256).trim().optional(),
+    name: z.string().min(5).max(64).trim().optional(),
+    description: z.string().min(10).max(256).trim().optional(),
     price: z.string()
     .optional()
     .refine(
@@ -16,8 +16,8 @@ export const updateServiceSchema = z.object({
 })
 
 export const createServiceSchema = z.object({
-    name: z.string().max(64).trim(),
-    description: z.string().max(256).trim(),
+    name: z.string().min(5).max(64).trim(),
+    description: z.string().min(10).max(256).trim(),
     price: z.string()
     .refine(
     (val) => !isNaN(Number(val)), 
