@@ -34,11 +34,6 @@ export type Employee = $Result.DefaultSelection<Prisma.$EmployeePayload>
  */
 export type Service = $Result.DefaultSelection<Prisma.$ServicePayload>
 /**
- * Model Appointment
- * 
- */
-export type Appointment = $Result.DefaultSelection<Prisma.$AppointmentPayload>
-/**
  * Model Availability
  * 
  */
@@ -48,6 +43,11 @@ export type Availability = $Result.DefaultSelection<Prisma.$AvailabilityPayload>
  * 
  */
 export type BlockedSlot = $Result.DefaultSelection<Prisma.$BlockedSlotPayload>
+/**
+ * Model Appointment
+ * 
+ */
+export type Appointment = $Result.DefaultSelection<Prisma.$AppointmentPayload>
 
 /**
  * Enums
@@ -249,16 +249,6 @@ export class PrismaClient<
   get service(): Prisma.ServiceDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.appointment`: Exposes CRUD operations for the **Appointment** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Appointments
-    * const appointments = await prisma.appointment.findMany()
-    * ```
-    */
-  get appointment(): Prisma.AppointmentDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.availability`: Exposes CRUD operations for the **Availability** model.
     * Example usage:
     * ```ts
@@ -277,6 +267,16 @@ export class PrismaClient<
     * ```
     */
   get blockedSlot(): Prisma.BlockedSlotDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.appointment`: Exposes CRUD operations for the **Appointment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Appointments
+    * const appointments = await prisma.appointment.findMany()
+    * ```
+    */
+  get appointment(): Prisma.AppointmentDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -721,9 +721,9 @@ export namespace Prisma {
     Clinica: 'Clinica',
     Employee: 'Employee',
     Service: 'Service',
-    Appointment: 'Appointment',
     Availability: 'Availability',
-    BlockedSlot: 'BlockedSlot'
+    BlockedSlot: 'BlockedSlot',
+    Appointment: 'Appointment'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -742,7 +742,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "clinica" | "employee" | "service" | "appointment" | "availability" | "blockedSlot"
+      modelProps: "user" | "clinica" | "employee" | "service" | "availability" | "blockedSlot" | "appointment"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1042,80 +1042,6 @@ export namespace Prisma {
           }
         }
       }
-      Appointment: {
-        payload: Prisma.$AppointmentPayload<ExtArgs>
-        fields: Prisma.AppointmentFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.AppointmentFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.AppointmentFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>
-          }
-          findFirst: {
-            args: Prisma.AppointmentFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.AppointmentFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>
-          }
-          findMany: {
-            args: Prisma.AppointmentFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>[]
-          }
-          create: {
-            args: Prisma.AppointmentCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>
-          }
-          createMany: {
-            args: Prisma.AppointmentCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.AppointmentCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>[]
-          }
-          delete: {
-            args: Prisma.AppointmentDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>
-          }
-          update: {
-            args: Prisma.AppointmentUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>
-          }
-          deleteMany: {
-            args: Prisma.AppointmentDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.AppointmentUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.AppointmentUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>[]
-          }
-          upsert: {
-            args: Prisma.AppointmentUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>
-          }
-          aggregate: {
-            args: Prisma.AppointmentAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateAppointment>
-          }
-          groupBy: {
-            args: Prisma.AppointmentGroupByArgs<ExtArgs>
-            result: $Utils.Optional<AppointmentGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.AppointmentCountArgs<ExtArgs>
-            result: $Utils.Optional<AppointmentCountAggregateOutputType> | number
-          }
-        }
-      }
       Availability: {
         payload: Prisma.$AvailabilityPayload<ExtArgs>
         fields: Prisma.AvailabilityFieldRefs
@@ -1264,6 +1190,80 @@ export namespace Prisma {
           }
         }
       }
+      Appointment: {
+        payload: Prisma.$AppointmentPayload<ExtArgs>
+        fields: Prisma.AppointmentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AppointmentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AppointmentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>
+          }
+          findFirst: {
+            args: Prisma.AppointmentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AppointmentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>
+          }
+          findMany: {
+            args: Prisma.AppointmentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>[]
+          }
+          create: {
+            args: Prisma.AppointmentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>
+          }
+          createMany: {
+            args: Prisma.AppointmentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AppointmentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>[]
+          }
+          delete: {
+            args: Prisma.AppointmentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>
+          }
+          update: {
+            args: Prisma.AppointmentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>
+          }
+          deleteMany: {
+            args: Prisma.AppointmentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AppointmentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AppointmentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>[]
+          }
+          upsert: {
+            args: Prisma.AppointmentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AppointmentPayload>
+          }
+          aggregate: {
+            args: Prisma.AppointmentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAppointment>
+          }
+          groupBy: {
+            args: Prisma.AppointmentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AppointmentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AppointmentCountArgs<ExtArgs>
+            result: $Utils.Optional<AppointmentCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1360,9 +1360,9 @@ export namespace Prisma {
     clinica?: ClinicaOmit
     employee?: EmployeeOmit
     service?: ServiceOmit
-    appointment?: AppointmentOmit
     availability?: AvailabilityOmit
     blockedSlot?: BlockedSlotOmit
+    appointment?: AppointmentOmit
   }
 
   /* Types for Logging */
@@ -1600,13 +1600,11 @@ export namespace Prisma {
    */
 
   export type ServiceCountOutputType = {
-    employees: number
-    Appointment: number
+    appointments: number
   }
 
   export type ServiceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    employees?: boolean | ServiceCountOutputTypeCountEmployeesArgs
-    Appointment?: boolean | ServiceCountOutputTypeCountAppointmentArgs
+    appointments?: boolean | ServiceCountOutputTypeCountAppointmentsArgs
   }
 
   // Custom InputTypes
@@ -1623,14 +1621,7 @@ export namespace Prisma {
   /**
    * ServiceCountOutputType without action
    */
-  export type ServiceCountOutputTypeCountEmployeesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: EmployeeWhereInput
-  }
-
-  /**
-   * ServiceCountOutputType without action
-   */
-  export type ServiceCountOutputTypeCountAppointmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ServiceCountOutputTypeCountAppointmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AppointmentWhereInput
   }
 
@@ -5220,10 +5211,12 @@ export namespace Prisma {
 
   export type ServiceAvgAggregateOutputType = {
     price: Decimal | null
+    duration: number | null
   }
 
   export type ServiceSumAggregateOutputType = {
     price: Decimal | null
+    duration: number | null
   }
 
   export type ServiceMinAggregateOutputType = {
@@ -5231,6 +5224,8 @@ export namespace Prisma {
     name: string | null
     description: string | null
     price: Decimal | null
+    duration: number | null
+    employee_id: string | null
     clinica_id: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -5241,6 +5236,8 @@ export namespace Prisma {
     name: string | null
     description: string | null
     price: Decimal | null
+    duration: number | null
+    employee_id: string | null
     clinica_id: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -5251,6 +5248,8 @@ export namespace Prisma {
     name: number
     description: number
     price: number
+    duration: number
+    employee_id: number
     clinica_id: number
     createdAt: number
     updatedAt: number
@@ -5260,10 +5259,12 @@ export namespace Prisma {
 
   export type ServiceAvgAggregateInputType = {
     price?: true
+    duration?: true
   }
 
   export type ServiceSumAggregateInputType = {
     price?: true
+    duration?: true
   }
 
   export type ServiceMinAggregateInputType = {
@@ -5271,6 +5272,8 @@ export namespace Prisma {
     name?: true
     description?: true
     price?: true
+    duration?: true
+    employee_id?: true
     clinica_id?: true
     createdAt?: true
     updatedAt?: true
@@ -5281,6 +5284,8 @@ export namespace Prisma {
     name?: true
     description?: true
     price?: true
+    duration?: true
+    employee_id?: true
     clinica_id?: true
     createdAt?: true
     updatedAt?: true
@@ -5291,6 +5296,8 @@ export namespace Prisma {
     name?: true
     description?: true
     price?: true
+    duration?: true
+    employee_id?: true
     clinica_id?: true
     createdAt?: true
     updatedAt?: true
@@ -5388,7 +5395,9 @@ export namespace Prisma {
     name: string
     description: string | null
     price: Decimal
-    clinica_id: string | null
+    duration: number
+    employee_id: string | null
+    clinica_id: string
     createdAt: Date
     updatedAt: Date
     _count: ServiceCountAggregateOutputType | null
@@ -5417,12 +5426,14 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     price?: boolean
+    duration?: boolean
+    employee_id?: boolean
     clinica_id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    clinica?: boolean | Service$clinicaArgs<ExtArgs>
-    employees?: boolean | Service$employeesArgs<ExtArgs>
-    Appointment?: boolean | Service$AppointmentArgs<ExtArgs>
+    employee?: boolean | Service$employeeArgs<ExtArgs>
+    clinica?: boolean | ClinicaDefaultArgs<ExtArgs>
+    appointments?: boolean | Service$appointmentsArgs<ExtArgs>
     _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["service"]>
 
@@ -5431,10 +5442,13 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     price?: boolean
+    duration?: boolean
+    employee_id?: boolean
     clinica_id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    clinica?: boolean | Service$clinicaArgs<ExtArgs>
+    employee?: boolean | Service$employeeArgs<ExtArgs>
+    clinica?: boolean | ClinicaDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["service"]>
 
   export type ServiceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5442,10 +5456,13 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     price?: boolean
+    duration?: boolean
+    employee_id?: boolean
     clinica_id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    clinica?: boolean | Service$clinicaArgs<ExtArgs>
+    employee?: boolean | Service$employeeArgs<ExtArgs>
+    clinica?: boolean | ClinicaDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["service"]>
 
   export type ServiceSelectScalar = {
@@ -5453,38 +5470,44 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     price?: boolean
+    duration?: boolean
+    employee_id?: boolean
     clinica_id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ServiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "price" | "clinica_id" | "createdAt" | "updatedAt", ExtArgs["result"]["service"]>
+  export type ServiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "price" | "duration" | "employee_id" | "clinica_id" | "createdAt" | "updatedAt", ExtArgs["result"]["service"]>
   export type ServiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    clinica?: boolean | Service$clinicaArgs<ExtArgs>
-    employees?: boolean | Service$employeesArgs<ExtArgs>
-    Appointment?: boolean | Service$AppointmentArgs<ExtArgs>
+    employee?: boolean | Service$employeeArgs<ExtArgs>
+    clinica?: boolean | ClinicaDefaultArgs<ExtArgs>
+    appointments?: boolean | Service$appointmentsArgs<ExtArgs>
     _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ServiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    clinica?: boolean | Service$clinicaArgs<ExtArgs>
+    employee?: boolean | Service$employeeArgs<ExtArgs>
+    clinica?: boolean | ClinicaDefaultArgs<ExtArgs>
   }
   export type ServiceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    clinica?: boolean | Service$clinicaArgs<ExtArgs>
+    employee?: boolean | Service$employeeArgs<ExtArgs>
+    clinica?: boolean | ClinicaDefaultArgs<ExtArgs>
   }
 
   export type $ServicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Service"
     objects: {
-      clinica: Prisma.$ClinicaPayload<ExtArgs> | null
-      employees: Prisma.$EmployeePayload<ExtArgs>[]
-      Appointment: Prisma.$AppointmentPayload<ExtArgs>[]
+      employee: Prisma.$EmployeePayload<ExtArgs> | null
+      clinica: Prisma.$ClinicaPayload<ExtArgs>
+      appointments: Prisma.$AppointmentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
       description: string | null
       price: Prisma.Decimal
-      clinica_id: string | null
+      duration: number
+      employee_id: string | null
+      clinica_id: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["service"]>
@@ -5881,9 +5904,9 @@ export namespace Prisma {
    */
   export interface Prisma__ServiceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    clinica<T extends Service$clinicaArgs<ExtArgs> = {}>(args?: Subset<T, Service$clinicaArgs<ExtArgs>>): Prisma__ClinicaClient<$Result.GetResult<Prisma.$ClinicaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    employees<T extends Service$employeesArgs<ExtArgs> = {}>(args?: Subset<T, Service$employeesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    Appointment<T extends Service$AppointmentArgs<ExtArgs> = {}>(args?: Subset<T, Service$AppointmentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    employee<T extends Service$employeeArgs<ExtArgs> = {}>(args?: Subset<T, Service$employeeArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    clinica<T extends ClinicaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClinicaDefaultArgs<ExtArgs>>): Prisma__ClinicaClient<$Result.GetResult<Prisma.$ClinicaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    appointments<T extends Service$appointmentsArgs<ExtArgs> = {}>(args?: Subset<T, Service$appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5917,6 +5940,8 @@ export namespace Prisma {
     readonly name: FieldRef<"Service", 'String'>
     readonly description: FieldRef<"Service", 'String'>
     readonly price: FieldRef<"Service", 'Decimal'>
+    readonly duration: FieldRef<"Service", 'Int'>
+    readonly employee_id: FieldRef<"Service", 'String'>
     readonly clinica_id: FieldRef<"Service", 'String'>
     readonly createdAt: FieldRef<"Service", 'DateTime'>
     readonly updatedAt: FieldRef<"Service", 'DateTime'>
@@ -6316,28 +6341,9 @@ export namespace Prisma {
   }
 
   /**
-   * Service.clinica
+   * Service.employee
    */
-  export type Service$clinicaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Clinica
-     */
-    select?: ClinicaSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Clinica
-     */
-    omit?: ClinicaOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ClinicaInclude<ExtArgs> | null
-    where?: ClinicaWhereInput
-  }
-
-  /**
-   * Service.employees
-   */
-  export type Service$employeesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Service$employeeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Employee
      */
@@ -6351,17 +6357,12 @@ export namespace Prisma {
      */
     include?: EmployeeInclude<ExtArgs> | null
     where?: EmployeeWhereInput
-    orderBy?: EmployeeOrderByWithRelationInput | EmployeeOrderByWithRelationInput[]
-    cursor?: EmployeeWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: EmployeeScalarFieldEnum | EmployeeScalarFieldEnum[]
   }
 
   /**
-   * Service.Appointment
+   * Service.appointments
    */
-  export type Service$AppointmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Service$appointmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Appointment
      */
@@ -6398,6 +6399,2276 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: ServiceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Availability
+   */
+
+  export type AggregateAvailability = {
+    _count: AvailabilityCountAggregateOutputType | null
+    _avg: AvailabilityAvgAggregateOutputType | null
+    _sum: AvailabilitySumAggregateOutputType | null
+    _min: AvailabilityMinAggregateOutputType | null
+    _max: AvailabilityMaxAggregateOutputType | null
+  }
+
+  export type AvailabilityAvgAggregateOutputType = {
+    dayOfWeek: number | null
+    slotDuration: number | null
+  }
+
+  export type AvailabilitySumAggregateOutputType = {
+    dayOfWeek: number | null
+    slotDuration: number | null
+  }
+
+  export type AvailabilityMinAggregateOutputType = {
+    id: string | null
+    employee_id: string | null
+    dayOfWeek: number | null
+    startTime: Date | null
+    endTime: Date | null
+    slotDuration: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AvailabilityMaxAggregateOutputType = {
+    id: string | null
+    employee_id: string | null
+    dayOfWeek: number | null
+    startTime: Date | null
+    endTime: Date | null
+    slotDuration: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AvailabilityCountAggregateOutputType = {
+    id: number
+    employee_id: number
+    dayOfWeek: number
+    startTime: number
+    endTime: number
+    slotDuration: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AvailabilityAvgAggregateInputType = {
+    dayOfWeek?: true
+    slotDuration?: true
+  }
+
+  export type AvailabilitySumAggregateInputType = {
+    dayOfWeek?: true
+    slotDuration?: true
+  }
+
+  export type AvailabilityMinAggregateInputType = {
+    id?: true
+    employee_id?: true
+    dayOfWeek?: true
+    startTime?: true
+    endTime?: true
+    slotDuration?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AvailabilityMaxAggregateInputType = {
+    id?: true
+    employee_id?: true
+    dayOfWeek?: true
+    startTime?: true
+    endTime?: true
+    slotDuration?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AvailabilityCountAggregateInputType = {
+    id?: true
+    employee_id?: true
+    dayOfWeek?: true
+    startTime?: true
+    endTime?: true
+    slotDuration?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AvailabilityAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Availability to aggregate.
+     */
+    where?: AvailabilityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Availabilities to fetch.
+     */
+    orderBy?: AvailabilityOrderByWithRelationInput | AvailabilityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AvailabilityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Availabilities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Availabilities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Availabilities
+    **/
+    _count?: true | AvailabilityCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AvailabilityAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AvailabilitySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AvailabilityMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AvailabilityMaxAggregateInputType
+  }
+
+  export type GetAvailabilityAggregateType<T extends AvailabilityAggregateArgs> = {
+        [P in keyof T & keyof AggregateAvailability]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAvailability[P]>
+      : GetScalarType<T[P], AggregateAvailability[P]>
+  }
+
+
+
+
+  export type AvailabilityGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AvailabilityWhereInput
+    orderBy?: AvailabilityOrderByWithAggregationInput | AvailabilityOrderByWithAggregationInput[]
+    by: AvailabilityScalarFieldEnum[] | AvailabilityScalarFieldEnum
+    having?: AvailabilityScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AvailabilityCountAggregateInputType | true
+    _avg?: AvailabilityAvgAggregateInputType
+    _sum?: AvailabilitySumAggregateInputType
+    _min?: AvailabilityMinAggregateInputType
+    _max?: AvailabilityMaxAggregateInputType
+  }
+
+  export type AvailabilityGroupByOutputType = {
+    id: string
+    employee_id: string | null
+    dayOfWeek: number
+    startTime: Date
+    endTime: Date
+    slotDuration: number
+    createdAt: Date
+    updatedAt: Date
+    _count: AvailabilityCountAggregateOutputType | null
+    _avg: AvailabilityAvgAggregateOutputType | null
+    _sum: AvailabilitySumAggregateOutputType | null
+    _min: AvailabilityMinAggregateOutputType | null
+    _max: AvailabilityMaxAggregateOutputType | null
+  }
+
+  type GetAvailabilityGroupByPayload<T extends AvailabilityGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AvailabilityGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AvailabilityGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AvailabilityGroupByOutputType[P]>
+            : GetScalarType<T[P], AvailabilityGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AvailabilitySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    employee_id?: boolean
+    dayOfWeek?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    slotDuration?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    employee?: boolean | Availability$employeeArgs<ExtArgs>
+  }, ExtArgs["result"]["availability"]>
+
+  export type AvailabilitySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    employee_id?: boolean
+    dayOfWeek?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    slotDuration?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    employee?: boolean | Availability$employeeArgs<ExtArgs>
+  }, ExtArgs["result"]["availability"]>
+
+  export type AvailabilitySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    employee_id?: boolean
+    dayOfWeek?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    slotDuration?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    employee?: boolean | Availability$employeeArgs<ExtArgs>
+  }, ExtArgs["result"]["availability"]>
+
+  export type AvailabilitySelectScalar = {
+    id?: boolean
+    employee_id?: boolean
+    dayOfWeek?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    slotDuration?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AvailabilityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "employee_id" | "dayOfWeek" | "startTime" | "endTime" | "slotDuration" | "createdAt" | "updatedAt", ExtArgs["result"]["availability"]>
+  export type AvailabilityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employee?: boolean | Availability$employeeArgs<ExtArgs>
+  }
+  export type AvailabilityIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employee?: boolean | Availability$employeeArgs<ExtArgs>
+  }
+  export type AvailabilityIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employee?: boolean | Availability$employeeArgs<ExtArgs>
+  }
+
+  export type $AvailabilityPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Availability"
+    objects: {
+      employee: Prisma.$EmployeePayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      employee_id: string | null
+      dayOfWeek: number
+      startTime: Date
+      endTime: Date
+      slotDuration: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["availability"]>
+    composites: {}
+  }
+
+  type AvailabilityGetPayload<S extends boolean | null | undefined | AvailabilityDefaultArgs> = $Result.GetResult<Prisma.$AvailabilityPayload, S>
+
+  type AvailabilityCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AvailabilityFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AvailabilityCountAggregateInputType | true
+    }
+
+  export interface AvailabilityDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Availability'], meta: { name: 'Availability' } }
+    /**
+     * Find zero or one Availability that matches the filter.
+     * @param {AvailabilityFindUniqueArgs} args - Arguments to find a Availability
+     * @example
+     * // Get one Availability
+     * const availability = await prisma.availability.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AvailabilityFindUniqueArgs>(args: SelectSubset<T, AvailabilityFindUniqueArgs<ExtArgs>>): Prisma__AvailabilityClient<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Availability that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AvailabilityFindUniqueOrThrowArgs} args - Arguments to find a Availability
+     * @example
+     * // Get one Availability
+     * const availability = await prisma.availability.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AvailabilityFindUniqueOrThrowArgs>(args: SelectSubset<T, AvailabilityFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AvailabilityClient<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Availability that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvailabilityFindFirstArgs} args - Arguments to find a Availability
+     * @example
+     * // Get one Availability
+     * const availability = await prisma.availability.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AvailabilityFindFirstArgs>(args?: SelectSubset<T, AvailabilityFindFirstArgs<ExtArgs>>): Prisma__AvailabilityClient<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Availability that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvailabilityFindFirstOrThrowArgs} args - Arguments to find a Availability
+     * @example
+     * // Get one Availability
+     * const availability = await prisma.availability.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AvailabilityFindFirstOrThrowArgs>(args?: SelectSubset<T, AvailabilityFindFirstOrThrowArgs<ExtArgs>>): Prisma__AvailabilityClient<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Availabilities that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvailabilityFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Availabilities
+     * const availabilities = await prisma.availability.findMany()
+     * 
+     * // Get first 10 Availabilities
+     * const availabilities = await prisma.availability.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const availabilityWithIdOnly = await prisma.availability.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AvailabilityFindManyArgs>(args?: SelectSubset<T, AvailabilityFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Availability.
+     * @param {AvailabilityCreateArgs} args - Arguments to create a Availability.
+     * @example
+     * // Create one Availability
+     * const Availability = await prisma.availability.create({
+     *   data: {
+     *     // ... data to create a Availability
+     *   }
+     * })
+     * 
+     */
+    create<T extends AvailabilityCreateArgs>(args: SelectSubset<T, AvailabilityCreateArgs<ExtArgs>>): Prisma__AvailabilityClient<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Availabilities.
+     * @param {AvailabilityCreateManyArgs} args - Arguments to create many Availabilities.
+     * @example
+     * // Create many Availabilities
+     * const availability = await prisma.availability.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AvailabilityCreateManyArgs>(args?: SelectSubset<T, AvailabilityCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Availabilities and returns the data saved in the database.
+     * @param {AvailabilityCreateManyAndReturnArgs} args - Arguments to create many Availabilities.
+     * @example
+     * // Create many Availabilities
+     * const availability = await prisma.availability.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Availabilities and only return the `id`
+     * const availabilityWithIdOnly = await prisma.availability.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AvailabilityCreateManyAndReturnArgs>(args?: SelectSubset<T, AvailabilityCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Availability.
+     * @param {AvailabilityDeleteArgs} args - Arguments to delete one Availability.
+     * @example
+     * // Delete one Availability
+     * const Availability = await prisma.availability.delete({
+     *   where: {
+     *     // ... filter to delete one Availability
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AvailabilityDeleteArgs>(args: SelectSubset<T, AvailabilityDeleteArgs<ExtArgs>>): Prisma__AvailabilityClient<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Availability.
+     * @param {AvailabilityUpdateArgs} args - Arguments to update one Availability.
+     * @example
+     * // Update one Availability
+     * const availability = await prisma.availability.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AvailabilityUpdateArgs>(args: SelectSubset<T, AvailabilityUpdateArgs<ExtArgs>>): Prisma__AvailabilityClient<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Availabilities.
+     * @param {AvailabilityDeleteManyArgs} args - Arguments to filter Availabilities to delete.
+     * @example
+     * // Delete a few Availabilities
+     * const { count } = await prisma.availability.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AvailabilityDeleteManyArgs>(args?: SelectSubset<T, AvailabilityDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Availabilities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvailabilityUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Availabilities
+     * const availability = await prisma.availability.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AvailabilityUpdateManyArgs>(args: SelectSubset<T, AvailabilityUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Availabilities and returns the data updated in the database.
+     * @param {AvailabilityUpdateManyAndReturnArgs} args - Arguments to update many Availabilities.
+     * @example
+     * // Update many Availabilities
+     * const availability = await prisma.availability.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Availabilities and only return the `id`
+     * const availabilityWithIdOnly = await prisma.availability.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AvailabilityUpdateManyAndReturnArgs>(args: SelectSubset<T, AvailabilityUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Availability.
+     * @param {AvailabilityUpsertArgs} args - Arguments to update or create a Availability.
+     * @example
+     * // Update or create a Availability
+     * const availability = await prisma.availability.upsert({
+     *   create: {
+     *     // ... data to create a Availability
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Availability we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AvailabilityUpsertArgs>(args: SelectSubset<T, AvailabilityUpsertArgs<ExtArgs>>): Prisma__AvailabilityClient<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Availabilities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvailabilityCountArgs} args - Arguments to filter Availabilities to count.
+     * @example
+     * // Count the number of Availabilities
+     * const count = await prisma.availability.count({
+     *   where: {
+     *     // ... the filter for the Availabilities we want to count
+     *   }
+     * })
+    **/
+    count<T extends AvailabilityCountArgs>(
+      args?: Subset<T, AvailabilityCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AvailabilityCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Availability.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvailabilityAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AvailabilityAggregateArgs>(args: Subset<T, AvailabilityAggregateArgs>): Prisma.PrismaPromise<GetAvailabilityAggregateType<T>>
+
+    /**
+     * Group by Availability.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AvailabilityGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AvailabilityGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AvailabilityGroupByArgs['orderBy'] }
+        : { orderBy?: AvailabilityGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AvailabilityGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAvailabilityGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Availability model
+   */
+  readonly fields: AvailabilityFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Availability.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AvailabilityClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    employee<T extends Availability$employeeArgs<ExtArgs> = {}>(args?: Subset<T, Availability$employeeArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Availability model
+   */
+  interface AvailabilityFieldRefs {
+    readonly id: FieldRef<"Availability", 'String'>
+    readonly employee_id: FieldRef<"Availability", 'String'>
+    readonly dayOfWeek: FieldRef<"Availability", 'Int'>
+    readonly startTime: FieldRef<"Availability", 'DateTime'>
+    readonly endTime: FieldRef<"Availability", 'DateTime'>
+    readonly slotDuration: FieldRef<"Availability", 'Int'>
+    readonly createdAt: FieldRef<"Availability", 'DateTime'>
+    readonly updatedAt: FieldRef<"Availability", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Availability findUnique
+   */
+  export type AvailabilityFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Availability
+     */
+    select?: AvailabilitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Availability
+     */
+    omit?: AvailabilityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvailabilityInclude<ExtArgs> | null
+    /**
+     * Filter, which Availability to fetch.
+     */
+    where: AvailabilityWhereUniqueInput
+  }
+
+  /**
+   * Availability findUniqueOrThrow
+   */
+  export type AvailabilityFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Availability
+     */
+    select?: AvailabilitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Availability
+     */
+    omit?: AvailabilityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvailabilityInclude<ExtArgs> | null
+    /**
+     * Filter, which Availability to fetch.
+     */
+    where: AvailabilityWhereUniqueInput
+  }
+
+  /**
+   * Availability findFirst
+   */
+  export type AvailabilityFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Availability
+     */
+    select?: AvailabilitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Availability
+     */
+    omit?: AvailabilityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvailabilityInclude<ExtArgs> | null
+    /**
+     * Filter, which Availability to fetch.
+     */
+    where?: AvailabilityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Availabilities to fetch.
+     */
+    orderBy?: AvailabilityOrderByWithRelationInput | AvailabilityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Availabilities.
+     */
+    cursor?: AvailabilityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Availabilities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Availabilities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Availabilities.
+     */
+    distinct?: AvailabilityScalarFieldEnum | AvailabilityScalarFieldEnum[]
+  }
+
+  /**
+   * Availability findFirstOrThrow
+   */
+  export type AvailabilityFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Availability
+     */
+    select?: AvailabilitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Availability
+     */
+    omit?: AvailabilityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvailabilityInclude<ExtArgs> | null
+    /**
+     * Filter, which Availability to fetch.
+     */
+    where?: AvailabilityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Availabilities to fetch.
+     */
+    orderBy?: AvailabilityOrderByWithRelationInput | AvailabilityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Availabilities.
+     */
+    cursor?: AvailabilityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Availabilities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Availabilities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Availabilities.
+     */
+    distinct?: AvailabilityScalarFieldEnum | AvailabilityScalarFieldEnum[]
+  }
+
+  /**
+   * Availability findMany
+   */
+  export type AvailabilityFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Availability
+     */
+    select?: AvailabilitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Availability
+     */
+    omit?: AvailabilityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvailabilityInclude<ExtArgs> | null
+    /**
+     * Filter, which Availabilities to fetch.
+     */
+    where?: AvailabilityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Availabilities to fetch.
+     */
+    orderBy?: AvailabilityOrderByWithRelationInput | AvailabilityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Availabilities.
+     */
+    cursor?: AvailabilityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Availabilities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Availabilities.
+     */
+    skip?: number
+    distinct?: AvailabilityScalarFieldEnum | AvailabilityScalarFieldEnum[]
+  }
+
+  /**
+   * Availability create
+   */
+  export type AvailabilityCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Availability
+     */
+    select?: AvailabilitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Availability
+     */
+    omit?: AvailabilityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvailabilityInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Availability.
+     */
+    data: XOR<AvailabilityCreateInput, AvailabilityUncheckedCreateInput>
+  }
+
+  /**
+   * Availability createMany
+   */
+  export type AvailabilityCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Availabilities.
+     */
+    data: AvailabilityCreateManyInput | AvailabilityCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Availability createManyAndReturn
+   */
+  export type AvailabilityCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Availability
+     */
+    select?: AvailabilitySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Availability
+     */
+    omit?: AvailabilityOmit<ExtArgs> | null
+    /**
+     * The data used to create many Availabilities.
+     */
+    data: AvailabilityCreateManyInput | AvailabilityCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvailabilityIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Availability update
+   */
+  export type AvailabilityUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Availability
+     */
+    select?: AvailabilitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Availability
+     */
+    omit?: AvailabilityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvailabilityInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Availability.
+     */
+    data: XOR<AvailabilityUpdateInput, AvailabilityUncheckedUpdateInput>
+    /**
+     * Choose, which Availability to update.
+     */
+    where: AvailabilityWhereUniqueInput
+  }
+
+  /**
+   * Availability updateMany
+   */
+  export type AvailabilityUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Availabilities.
+     */
+    data: XOR<AvailabilityUpdateManyMutationInput, AvailabilityUncheckedUpdateManyInput>
+    /**
+     * Filter which Availabilities to update
+     */
+    where?: AvailabilityWhereInput
+    /**
+     * Limit how many Availabilities to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Availability updateManyAndReturn
+   */
+  export type AvailabilityUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Availability
+     */
+    select?: AvailabilitySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Availability
+     */
+    omit?: AvailabilityOmit<ExtArgs> | null
+    /**
+     * The data used to update Availabilities.
+     */
+    data: XOR<AvailabilityUpdateManyMutationInput, AvailabilityUncheckedUpdateManyInput>
+    /**
+     * Filter which Availabilities to update
+     */
+    where?: AvailabilityWhereInput
+    /**
+     * Limit how many Availabilities to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvailabilityIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Availability upsert
+   */
+  export type AvailabilityUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Availability
+     */
+    select?: AvailabilitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Availability
+     */
+    omit?: AvailabilityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvailabilityInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Availability to update in case it exists.
+     */
+    where: AvailabilityWhereUniqueInput
+    /**
+     * In case the Availability found by the `where` argument doesn't exist, create a new Availability with this data.
+     */
+    create: XOR<AvailabilityCreateInput, AvailabilityUncheckedCreateInput>
+    /**
+     * In case the Availability was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AvailabilityUpdateInput, AvailabilityUncheckedUpdateInput>
+  }
+
+  /**
+   * Availability delete
+   */
+  export type AvailabilityDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Availability
+     */
+    select?: AvailabilitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Availability
+     */
+    omit?: AvailabilityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvailabilityInclude<ExtArgs> | null
+    /**
+     * Filter which Availability to delete.
+     */
+    where: AvailabilityWhereUniqueInput
+  }
+
+  /**
+   * Availability deleteMany
+   */
+  export type AvailabilityDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Availabilities to delete
+     */
+    where?: AvailabilityWhereInput
+    /**
+     * Limit how many Availabilities to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Availability.employee
+   */
+  export type Availability$employeeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Employee
+     */
+    select?: EmployeeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Employee
+     */
+    omit?: EmployeeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeInclude<ExtArgs> | null
+    where?: EmployeeWhereInput
+  }
+
+  /**
+   * Availability without action
+   */
+  export type AvailabilityDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Availability
+     */
+    select?: AvailabilitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Availability
+     */
+    omit?: AvailabilityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvailabilityInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model BlockedSlot
+   */
+
+  export type AggregateBlockedSlot = {
+    _count: BlockedSlotCountAggregateOutputType | null
+    _min: BlockedSlotMinAggregateOutputType | null
+    _max: BlockedSlotMaxAggregateOutputType | null
+  }
+
+  export type BlockedSlotMinAggregateOutputType = {
+    id: string | null
+    employee_id: string | null
+    date: Date | null
+    startTime: Date | null
+    endTime: Date | null
+    reason: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BlockedSlotMaxAggregateOutputType = {
+    id: string | null
+    employee_id: string | null
+    date: Date | null
+    startTime: Date | null
+    endTime: Date | null
+    reason: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BlockedSlotCountAggregateOutputType = {
+    id: number
+    employee_id: number
+    date: number
+    startTime: number
+    endTime: number
+    reason: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type BlockedSlotMinAggregateInputType = {
+    id?: true
+    employee_id?: true
+    date?: true
+    startTime?: true
+    endTime?: true
+    reason?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BlockedSlotMaxAggregateInputType = {
+    id?: true
+    employee_id?: true
+    date?: true
+    startTime?: true
+    endTime?: true
+    reason?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BlockedSlotCountAggregateInputType = {
+    id?: true
+    employee_id?: true
+    date?: true
+    startTime?: true
+    endTime?: true
+    reason?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type BlockedSlotAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BlockedSlot to aggregate.
+     */
+    where?: BlockedSlotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BlockedSlots to fetch.
+     */
+    orderBy?: BlockedSlotOrderByWithRelationInput | BlockedSlotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BlockedSlotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BlockedSlots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BlockedSlots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BlockedSlots
+    **/
+    _count?: true | BlockedSlotCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BlockedSlotMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BlockedSlotMaxAggregateInputType
+  }
+
+  export type GetBlockedSlotAggregateType<T extends BlockedSlotAggregateArgs> = {
+        [P in keyof T & keyof AggregateBlockedSlot]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBlockedSlot[P]>
+      : GetScalarType<T[P], AggregateBlockedSlot[P]>
+  }
+
+
+
+
+  export type BlockedSlotGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BlockedSlotWhereInput
+    orderBy?: BlockedSlotOrderByWithAggregationInput | BlockedSlotOrderByWithAggregationInput[]
+    by: BlockedSlotScalarFieldEnum[] | BlockedSlotScalarFieldEnum
+    having?: BlockedSlotScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BlockedSlotCountAggregateInputType | true
+    _min?: BlockedSlotMinAggregateInputType
+    _max?: BlockedSlotMaxAggregateInputType
+  }
+
+  export type BlockedSlotGroupByOutputType = {
+    id: string
+    employee_id: string | null
+    date: Date
+    startTime: Date
+    endTime: Date
+    reason: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: BlockedSlotCountAggregateOutputType | null
+    _min: BlockedSlotMinAggregateOutputType | null
+    _max: BlockedSlotMaxAggregateOutputType | null
+  }
+
+  type GetBlockedSlotGroupByPayload<T extends BlockedSlotGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BlockedSlotGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BlockedSlotGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BlockedSlotGroupByOutputType[P]>
+            : GetScalarType<T[P], BlockedSlotGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BlockedSlotSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    employee_id?: boolean
+    date?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    reason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    employee?: boolean | BlockedSlot$employeeArgs<ExtArgs>
+  }, ExtArgs["result"]["blockedSlot"]>
+
+  export type BlockedSlotSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    employee_id?: boolean
+    date?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    reason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    employee?: boolean | BlockedSlot$employeeArgs<ExtArgs>
+  }, ExtArgs["result"]["blockedSlot"]>
+
+  export type BlockedSlotSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    employee_id?: boolean
+    date?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    reason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    employee?: boolean | BlockedSlot$employeeArgs<ExtArgs>
+  }, ExtArgs["result"]["blockedSlot"]>
+
+  export type BlockedSlotSelectScalar = {
+    id?: boolean
+    employee_id?: boolean
+    date?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    reason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type BlockedSlotOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "employee_id" | "date" | "startTime" | "endTime" | "reason" | "createdAt" | "updatedAt", ExtArgs["result"]["blockedSlot"]>
+  export type BlockedSlotInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employee?: boolean | BlockedSlot$employeeArgs<ExtArgs>
+  }
+  export type BlockedSlotIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employee?: boolean | BlockedSlot$employeeArgs<ExtArgs>
+  }
+  export type BlockedSlotIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    employee?: boolean | BlockedSlot$employeeArgs<ExtArgs>
+  }
+
+  export type $BlockedSlotPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BlockedSlot"
+    objects: {
+      employee: Prisma.$EmployeePayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      employee_id: string | null
+      date: Date
+      startTime: Date
+      endTime: Date
+      reason: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["blockedSlot"]>
+    composites: {}
+  }
+
+  type BlockedSlotGetPayload<S extends boolean | null | undefined | BlockedSlotDefaultArgs> = $Result.GetResult<Prisma.$BlockedSlotPayload, S>
+
+  type BlockedSlotCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BlockedSlotFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BlockedSlotCountAggregateInputType | true
+    }
+
+  export interface BlockedSlotDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BlockedSlot'], meta: { name: 'BlockedSlot' } }
+    /**
+     * Find zero or one BlockedSlot that matches the filter.
+     * @param {BlockedSlotFindUniqueArgs} args - Arguments to find a BlockedSlot
+     * @example
+     * // Get one BlockedSlot
+     * const blockedSlot = await prisma.blockedSlot.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BlockedSlotFindUniqueArgs>(args: SelectSubset<T, BlockedSlotFindUniqueArgs<ExtArgs>>): Prisma__BlockedSlotClient<$Result.GetResult<Prisma.$BlockedSlotPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BlockedSlot that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BlockedSlotFindUniqueOrThrowArgs} args - Arguments to find a BlockedSlot
+     * @example
+     * // Get one BlockedSlot
+     * const blockedSlot = await prisma.blockedSlot.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BlockedSlotFindUniqueOrThrowArgs>(args: SelectSubset<T, BlockedSlotFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BlockedSlotClient<$Result.GetResult<Prisma.$BlockedSlotPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BlockedSlot that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlockedSlotFindFirstArgs} args - Arguments to find a BlockedSlot
+     * @example
+     * // Get one BlockedSlot
+     * const blockedSlot = await prisma.blockedSlot.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BlockedSlotFindFirstArgs>(args?: SelectSubset<T, BlockedSlotFindFirstArgs<ExtArgs>>): Prisma__BlockedSlotClient<$Result.GetResult<Prisma.$BlockedSlotPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BlockedSlot that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlockedSlotFindFirstOrThrowArgs} args - Arguments to find a BlockedSlot
+     * @example
+     * // Get one BlockedSlot
+     * const blockedSlot = await prisma.blockedSlot.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BlockedSlotFindFirstOrThrowArgs>(args?: SelectSubset<T, BlockedSlotFindFirstOrThrowArgs<ExtArgs>>): Prisma__BlockedSlotClient<$Result.GetResult<Prisma.$BlockedSlotPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BlockedSlots that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlockedSlotFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BlockedSlots
+     * const blockedSlots = await prisma.blockedSlot.findMany()
+     * 
+     * // Get first 10 BlockedSlots
+     * const blockedSlots = await prisma.blockedSlot.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const blockedSlotWithIdOnly = await prisma.blockedSlot.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BlockedSlotFindManyArgs>(args?: SelectSubset<T, BlockedSlotFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlockedSlotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BlockedSlot.
+     * @param {BlockedSlotCreateArgs} args - Arguments to create a BlockedSlot.
+     * @example
+     * // Create one BlockedSlot
+     * const BlockedSlot = await prisma.blockedSlot.create({
+     *   data: {
+     *     // ... data to create a BlockedSlot
+     *   }
+     * })
+     * 
+     */
+    create<T extends BlockedSlotCreateArgs>(args: SelectSubset<T, BlockedSlotCreateArgs<ExtArgs>>): Prisma__BlockedSlotClient<$Result.GetResult<Prisma.$BlockedSlotPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BlockedSlots.
+     * @param {BlockedSlotCreateManyArgs} args - Arguments to create many BlockedSlots.
+     * @example
+     * // Create many BlockedSlots
+     * const blockedSlot = await prisma.blockedSlot.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BlockedSlotCreateManyArgs>(args?: SelectSubset<T, BlockedSlotCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BlockedSlots and returns the data saved in the database.
+     * @param {BlockedSlotCreateManyAndReturnArgs} args - Arguments to create many BlockedSlots.
+     * @example
+     * // Create many BlockedSlots
+     * const blockedSlot = await prisma.blockedSlot.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BlockedSlots and only return the `id`
+     * const blockedSlotWithIdOnly = await prisma.blockedSlot.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BlockedSlotCreateManyAndReturnArgs>(args?: SelectSubset<T, BlockedSlotCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlockedSlotPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a BlockedSlot.
+     * @param {BlockedSlotDeleteArgs} args - Arguments to delete one BlockedSlot.
+     * @example
+     * // Delete one BlockedSlot
+     * const BlockedSlot = await prisma.blockedSlot.delete({
+     *   where: {
+     *     // ... filter to delete one BlockedSlot
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BlockedSlotDeleteArgs>(args: SelectSubset<T, BlockedSlotDeleteArgs<ExtArgs>>): Prisma__BlockedSlotClient<$Result.GetResult<Prisma.$BlockedSlotPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BlockedSlot.
+     * @param {BlockedSlotUpdateArgs} args - Arguments to update one BlockedSlot.
+     * @example
+     * // Update one BlockedSlot
+     * const blockedSlot = await prisma.blockedSlot.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BlockedSlotUpdateArgs>(args: SelectSubset<T, BlockedSlotUpdateArgs<ExtArgs>>): Prisma__BlockedSlotClient<$Result.GetResult<Prisma.$BlockedSlotPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BlockedSlots.
+     * @param {BlockedSlotDeleteManyArgs} args - Arguments to filter BlockedSlots to delete.
+     * @example
+     * // Delete a few BlockedSlots
+     * const { count } = await prisma.blockedSlot.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BlockedSlotDeleteManyArgs>(args?: SelectSubset<T, BlockedSlotDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BlockedSlots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlockedSlotUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BlockedSlots
+     * const blockedSlot = await prisma.blockedSlot.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BlockedSlotUpdateManyArgs>(args: SelectSubset<T, BlockedSlotUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BlockedSlots and returns the data updated in the database.
+     * @param {BlockedSlotUpdateManyAndReturnArgs} args - Arguments to update many BlockedSlots.
+     * @example
+     * // Update many BlockedSlots
+     * const blockedSlot = await prisma.blockedSlot.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more BlockedSlots and only return the `id`
+     * const blockedSlotWithIdOnly = await prisma.blockedSlot.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BlockedSlotUpdateManyAndReturnArgs>(args: SelectSubset<T, BlockedSlotUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlockedSlotPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one BlockedSlot.
+     * @param {BlockedSlotUpsertArgs} args - Arguments to update or create a BlockedSlot.
+     * @example
+     * // Update or create a BlockedSlot
+     * const blockedSlot = await prisma.blockedSlot.upsert({
+     *   create: {
+     *     // ... data to create a BlockedSlot
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BlockedSlot we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BlockedSlotUpsertArgs>(args: SelectSubset<T, BlockedSlotUpsertArgs<ExtArgs>>): Prisma__BlockedSlotClient<$Result.GetResult<Prisma.$BlockedSlotPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of BlockedSlots.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlockedSlotCountArgs} args - Arguments to filter BlockedSlots to count.
+     * @example
+     * // Count the number of BlockedSlots
+     * const count = await prisma.blockedSlot.count({
+     *   where: {
+     *     // ... the filter for the BlockedSlots we want to count
+     *   }
+     * })
+    **/
+    count<T extends BlockedSlotCountArgs>(
+      args?: Subset<T, BlockedSlotCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BlockedSlotCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BlockedSlot.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlockedSlotAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BlockedSlotAggregateArgs>(args: Subset<T, BlockedSlotAggregateArgs>): Prisma.PrismaPromise<GetBlockedSlotAggregateType<T>>
+
+    /**
+     * Group by BlockedSlot.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BlockedSlotGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BlockedSlotGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BlockedSlotGroupByArgs['orderBy'] }
+        : { orderBy?: BlockedSlotGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BlockedSlotGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBlockedSlotGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BlockedSlot model
+   */
+  readonly fields: BlockedSlotFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BlockedSlot.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BlockedSlotClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    employee<T extends BlockedSlot$employeeArgs<ExtArgs> = {}>(args?: Subset<T, BlockedSlot$employeeArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BlockedSlot model
+   */
+  interface BlockedSlotFieldRefs {
+    readonly id: FieldRef<"BlockedSlot", 'String'>
+    readonly employee_id: FieldRef<"BlockedSlot", 'String'>
+    readonly date: FieldRef<"BlockedSlot", 'DateTime'>
+    readonly startTime: FieldRef<"BlockedSlot", 'DateTime'>
+    readonly endTime: FieldRef<"BlockedSlot", 'DateTime'>
+    readonly reason: FieldRef<"BlockedSlot", 'String'>
+    readonly createdAt: FieldRef<"BlockedSlot", 'DateTime'>
+    readonly updatedAt: FieldRef<"BlockedSlot", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BlockedSlot findUnique
+   */
+  export type BlockedSlotFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockedSlot
+     */
+    select?: BlockedSlotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockedSlot
+     */
+    omit?: BlockedSlotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockedSlotInclude<ExtArgs> | null
+    /**
+     * Filter, which BlockedSlot to fetch.
+     */
+    where: BlockedSlotWhereUniqueInput
+  }
+
+  /**
+   * BlockedSlot findUniqueOrThrow
+   */
+  export type BlockedSlotFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockedSlot
+     */
+    select?: BlockedSlotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockedSlot
+     */
+    omit?: BlockedSlotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockedSlotInclude<ExtArgs> | null
+    /**
+     * Filter, which BlockedSlot to fetch.
+     */
+    where: BlockedSlotWhereUniqueInput
+  }
+
+  /**
+   * BlockedSlot findFirst
+   */
+  export type BlockedSlotFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockedSlot
+     */
+    select?: BlockedSlotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockedSlot
+     */
+    omit?: BlockedSlotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockedSlotInclude<ExtArgs> | null
+    /**
+     * Filter, which BlockedSlot to fetch.
+     */
+    where?: BlockedSlotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BlockedSlots to fetch.
+     */
+    orderBy?: BlockedSlotOrderByWithRelationInput | BlockedSlotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BlockedSlots.
+     */
+    cursor?: BlockedSlotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BlockedSlots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BlockedSlots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BlockedSlots.
+     */
+    distinct?: BlockedSlotScalarFieldEnum | BlockedSlotScalarFieldEnum[]
+  }
+
+  /**
+   * BlockedSlot findFirstOrThrow
+   */
+  export type BlockedSlotFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockedSlot
+     */
+    select?: BlockedSlotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockedSlot
+     */
+    omit?: BlockedSlotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockedSlotInclude<ExtArgs> | null
+    /**
+     * Filter, which BlockedSlot to fetch.
+     */
+    where?: BlockedSlotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BlockedSlots to fetch.
+     */
+    orderBy?: BlockedSlotOrderByWithRelationInput | BlockedSlotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BlockedSlots.
+     */
+    cursor?: BlockedSlotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BlockedSlots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BlockedSlots.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BlockedSlots.
+     */
+    distinct?: BlockedSlotScalarFieldEnum | BlockedSlotScalarFieldEnum[]
+  }
+
+  /**
+   * BlockedSlot findMany
+   */
+  export type BlockedSlotFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockedSlot
+     */
+    select?: BlockedSlotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockedSlot
+     */
+    omit?: BlockedSlotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockedSlotInclude<ExtArgs> | null
+    /**
+     * Filter, which BlockedSlots to fetch.
+     */
+    where?: BlockedSlotWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BlockedSlots to fetch.
+     */
+    orderBy?: BlockedSlotOrderByWithRelationInput | BlockedSlotOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BlockedSlots.
+     */
+    cursor?: BlockedSlotWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BlockedSlots from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BlockedSlots.
+     */
+    skip?: number
+    distinct?: BlockedSlotScalarFieldEnum | BlockedSlotScalarFieldEnum[]
+  }
+
+  /**
+   * BlockedSlot create
+   */
+  export type BlockedSlotCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockedSlot
+     */
+    select?: BlockedSlotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockedSlot
+     */
+    omit?: BlockedSlotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockedSlotInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BlockedSlot.
+     */
+    data: XOR<BlockedSlotCreateInput, BlockedSlotUncheckedCreateInput>
+  }
+
+  /**
+   * BlockedSlot createMany
+   */
+  export type BlockedSlotCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BlockedSlots.
+     */
+    data: BlockedSlotCreateManyInput | BlockedSlotCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BlockedSlot createManyAndReturn
+   */
+  export type BlockedSlotCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockedSlot
+     */
+    select?: BlockedSlotSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockedSlot
+     */
+    omit?: BlockedSlotOmit<ExtArgs> | null
+    /**
+     * The data used to create many BlockedSlots.
+     */
+    data: BlockedSlotCreateManyInput | BlockedSlotCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockedSlotIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BlockedSlot update
+   */
+  export type BlockedSlotUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockedSlot
+     */
+    select?: BlockedSlotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockedSlot
+     */
+    omit?: BlockedSlotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockedSlotInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BlockedSlot.
+     */
+    data: XOR<BlockedSlotUpdateInput, BlockedSlotUncheckedUpdateInput>
+    /**
+     * Choose, which BlockedSlot to update.
+     */
+    where: BlockedSlotWhereUniqueInput
+  }
+
+  /**
+   * BlockedSlot updateMany
+   */
+  export type BlockedSlotUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BlockedSlots.
+     */
+    data: XOR<BlockedSlotUpdateManyMutationInput, BlockedSlotUncheckedUpdateManyInput>
+    /**
+     * Filter which BlockedSlots to update
+     */
+    where?: BlockedSlotWhereInput
+    /**
+     * Limit how many BlockedSlots to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BlockedSlot updateManyAndReturn
+   */
+  export type BlockedSlotUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockedSlot
+     */
+    select?: BlockedSlotSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockedSlot
+     */
+    omit?: BlockedSlotOmit<ExtArgs> | null
+    /**
+     * The data used to update BlockedSlots.
+     */
+    data: XOR<BlockedSlotUpdateManyMutationInput, BlockedSlotUncheckedUpdateManyInput>
+    /**
+     * Filter which BlockedSlots to update
+     */
+    where?: BlockedSlotWhereInput
+    /**
+     * Limit how many BlockedSlots to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockedSlotIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BlockedSlot upsert
+   */
+  export type BlockedSlotUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockedSlot
+     */
+    select?: BlockedSlotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockedSlot
+     */
+    omit?: BlockedSlotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockedSlotInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BlockedSlot to update in case it exists.
+     */
+    where: BlockedSlotWhereUniqueInput
+    /**
+     * In case the BlockedSlot found by the `where` argument doesn't exist, create a new BlockedSlot with this data.
+     */
+    create: XOR<BlockedSlotCreateInput, BlockedSlotUncheckedCreateInput>
+    /**
+     * In case the BlockedSlot was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BlockedSlotUpdateInput, BlockedSlotUncheckedUpdateInput>
+  }
+
+  /**
+   * BlockedSlot delete
+   */
+  export type BlockedSlotDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockedSlot
+     */
+    select?: BlockedSlotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockedSlot
+     */
+    omit?: BlockedSlotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockedSlotInclude<ExtArgs> | null
+    /**
+     * Filter which BlockedSlot to delete.
+     */
+    where: BlockedSlotWhereUniqueInput
+  }
+
+  /**
+   * BlockedSlot deleteMany
+   */
+  export type BlockedSlotDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BlockedSlots to delete
+     */
+    where?: BlockedSlotWhereInput
+    /**
+     * Limit how many BlockedSlots to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BlockedSlot.employee
+   */
+  export type BlockedSlot$employeeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Employee
+     */
+    select?: EmployeeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Employee
+     */
+    omit?: EmployeeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmployeeInclude<ExtArgs> | null
+    where?: EmployeeWhereInput
+  }
+
+  /**
+   * BlockedSlot without action
+   */
+  export type BlockedSlotDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockedSlot
+     */
+    select?: BlockedSlotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockedSlot
+     */
+    omit?: BlockedSlotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockedSlotInclude<ExtArgs> | null
   }
 
 
@@ -7637,2238 +9908,6 @@ export namespace Prisma {
 
 
   /**
-   * Model Availability
-   */
-
-  export type AggregateAvailability = {
-    _count: AvailabilityCountAggregateOutputType | null
-    _avg: AvailabilityAvgAggregateOutputType | null
-    _sum: AvailabilitySumAggregateOutputType | null
-    _min: AvailabilityMinAggregateOutputType | null
-    _max: AvailabilityMaxAggregateOutputType | null
-  }
-
-  export type AvailabilityAvgAggregateOutputType = {
-    dayOfWeek: number | null
-    slotDuration: number | null
-  }
-
-  export type AvailabilitySumAggregateOutputType = {
-    dayOfWeek: number | null
-    slotDuration: number | null
-  }
-
-  export type AvailabilityMinAggregateOutputType = {
-    id: string | null
-    employee_id: string | null
-    dayOfWeek: number | null
-    startTime: Date | null
-    endTime: Date | null
-    slotDuration: number | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type AvailabilityMaxAggregateOutputType = {
-    id: string | null
-    employee_id: string | null
-    dayOfWeek: number | null
-    startTime: Date | null
-    endTime: Date | null
-    slotDuration: number | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type AvailabilityCountAggregateOutputType = {
-    id: number
-    employee_id: number
-    dayOfWeek: number
-    startTime: number
-    endTime: number
-    slotDuration: number
-    createdAt: number
-    updatedAt: number
-    _all: number
-  }
-
-
-  export type AvailabilityAvgAggregateInputType = {
-    dayOfWeek?: true
-    slotDuration?: true
-  }
-
-  export type AvailabilitySumAggregateInputType = {
-    dayOfWeek?: true
-    slotDuration?: true
-  }
-
-  export type AvailabilityMinAggregateInputType = {
-    id?: true
-    employee_id?: true
-    dayOfWeek?: true
-    startTime?: true
-    endTime?: true
-    slotDuration?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type AvailabilityMaxAggregateInputType = {
-    id?: true
-    employee_id?: true
-    dayOfWeek?: true
-    startTime?: true
-    endTime?: true
-    slotDuration?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type AvailabilityCountAggregateInputType = {
-    id?: true
-    employee_id?: true
-    dayOfWeek?: true
-    startTime?: true
-    endTime?: true
-    slotDuration?: true
-    createdAt?: true
-    updatedAt?: true
-    _all?: true
-  }
-
-  export type AvailabilityAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Availability to aggregate.
-     */
-    where?: AvailabilityWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Availabilities to fetch.
-     */
-    orderBy?: AvailabilityOrderByWithRelationInput | AvailabilityOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: AvailabilityWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Availabilities from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Availabilities.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Availabilities
-    **/
-    _count?: true | AvailabilityCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: AvailabilityAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: AvailabilitySumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: AvailabilityMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: AvailabilityMaxAggregateInputType
-  }
-
-  export type GetAvailabilityAggregateType<T extends AvailabilityAggregateArgs> = {
-        [P in keyof T & keyof AggregateAvailability]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateAvailability[P]>
-      : GetScalarType<T[P], AggregateAvailability[P]>
-  }
-
-
-
-
-  export type AvailabilityGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AvailabilityWhereInput
-    orderBy?: AvailabilityOrderByWithAggregationInput | AvailabilityOrderByWithAggregationInput[]
-    by: AvailabilityScalarFieldEnum[] | AvailabilityScalarFieldEnum
-    having?: AvailabilityScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: AvailabilityCountAggregateInputType | true
-    _avg?: AvailabilityAvgAggregateInputType
-    _sum?: AvailabilitySumAggregateInputType
-    _min?: AvailabilityMinAggregateInputType
-    _max?: AvailabilityMaxAggregateInputType
-  }
-
-  export type AvailabilityGroupByOutputType = {
-    id: string
-    employee_id: string
-    dayOfWeek: number
-    startTime: Date
-    endTime: Date
-    slotDuration: number
-    createdAt: Date
-    updatedAt: Date
-    _count: AvailabilityCountAggregateOutputType | null
-    _avg: AvailabilityAvgAggregateOutputType | null
-    _sum: AvailabilitySumAggregateOutputType | null
-    _min: AvailabilityMinAggregateOutputType | null
-    _max: AvailabilityMaxAggregateOutputType | null
-  }
-
-  type GetAvailabilityGroupByPayload<T extends AvailabilityGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<AvailabilityGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof AvailabilityGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], AvailabilityGroupByOutputType[P]>
-            : GetScalarType<T[P], AvailabilityGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type AvailabilitySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    employee_id?: boolean
-    dayOfWeek?: boolean
-    startTime?: boolean
-    endTime?: boolean
-    slotDuration?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["availability"]>
-
-  export type AvailabilitySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    employee_id?: boolean
-    dayOfWeek?: boolean
-    startTime?: boolean
-    endTime?: boolean
-    slotDuration?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["availability"]>
-
-  export type AvailabilitySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    employee_id?: boolean
-    dayOfWeek?: boolean
-    startTime?: boolean
-    endTime?: boolean
-    slotDuration?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["availability"]>
-
-  export type AvailabilitySelectScalar = {
-    id?: boolean
-    employee_id?: boolean
-    dayOfWeek?: boolean
-    startTime?: boolean
-    endTime?: boolean
-    slotDuration?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }
-
-  export type AvailabilityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "employee_id" | "dayOfWeek" | "startTime" | "endTime" | "slotDuration" | "createdAt" | "updatedAt", ExtArgs["result"]["availability"]>
-  export type AvailabilityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
-  }
-  export type AvailabilityIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
-  }
-  export type AvailabilityIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
-  }
-
-  export type $AvailabilityPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Availability"
-    objects: {
-      employee: Prisma.$EmployeePayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      employee_id: string
-      dayOfWeek: number
-      startTime: Date
-      endTime: Date
-      slotDuration: number
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["availability"]>
-    composites: {}
-  }
-
-  type AvailabilityGetPayload<S extends boolean | null | undefined | AvailabilityDefaultArgs> = $Result.GetResult<Prisma.$AvailabilityPayload, S>
-
-  type AvailabilityCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<AvailabilityFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: AvailabilityCountAggregateInputType | true
-    }
-
-  export interface AvailabilityDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Availability'], meta: { name: 'Availability' } }
-    /**
-     * Find zero or one Availability that matches the filter.
-     * @param {AvailabilityFindUniqueArgs} args - Arguments to find a Availability
-     * @example
-     * // Get one Availability
-     * const availability = await prisma.availability.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends AvailabilityFindUniqueArgs>(args: SelectSubset<T, AvailabilityFindUniqueArgs<ExtArgs>>): Prisma__AvailabilityClient<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Availability that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {AvailabilityFindUniqueOrThrowArgs} args - Arguments to find a Availability
-     * @example
-     * // Get one Availability
-     * const availability = await prisma.availability.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends AvailabilityFindUniqueOrThrowArgs>(args: SelectSubset<T, AvailabilityFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AvailabilityClient<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Availability that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AvailabilityFindFirstArgs} args - Arguments to find a Availability
-     * @example
-     * // Get one Availability
-     * const availability = await prisma.availability.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends AvailabilityFindFirstArgs>(args?: SelectSubset<T, AvailabilityFindFirstArgs<ExtArgs>>): Prisma__AvailabilityClient<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Availability that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AvailabilityFindFirstOrThrowArgs} args - Arguments to find a Availability
-     * @example
-     * // Get one Availability
-     * const availability = await prisma.availability.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends AvailabilityFindFirstOrThrowArgs>(args?: SelectSubset<T, AvailabilityFindFirstOrThrowArgs<ExtArgs>>): Prisma__AvailabilityClient<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Availabilities that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AvailabilityFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Availabilities
-     * const availabilities = await prisma.availability.findMany()
-     * 
-     * // Get first 10 Availabilities
-     * const availabilities = await prisma.availability.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const availabilityWithIdOnly = await prisma.availability.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends AvailabilityFindManyArgs>(args?: SelectSubset<T, AvailabilityFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Availability.
-     * @param {AvailabilityCreateArgs} args - Arguments to create a Availability.
-     * @example
-     * // Create one Availability
-     * const Availability = await prisma.availability.create({
-     *   data: {
-     *     // ... data to create a Availability
-     *   }
-     * })
-     * 
-     */
-    create<T extends AvailabilityCreateArgs>(args: SelectSubset<T, AvailabilityCreateArgs<ExtArgs>>): Prisma__AvailabilityClient<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Availabilities.
-     * @param {AvailabilityCreateManyArgs} args - Arguments to create many Availabilities.
-     * @example
-     * // Create many Availabilities
-     * const availability = await prisma.availability.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends AvailabilityCreateManyArgs>(args?: SelectSubset<T, AvailabilityCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Availabilities and returns the data saved in the database.
-     * @param {AvailabilityCreateManyAndReturnArgs} args - Arguments to create many Availabilities.
-     * @example
-     * // Create many Availabilities
-     * const availability = await prisma.availability.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Availabilities and only return the `id`
-     * const availabilityWithIdOnly = await prisma.availability.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends AvailabilityCreateManyAndReturnArgs>(args?: SelectSubset<T, AvailabilityCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Availability.
-     * @param {AvailabilityDeleteArgs} args - Arguments to delete one Availability.
-     * @example
-     * // Delete one Availability
-     * const Availability = await prisma.availability.delete({
-     *   where: {
-     *     // ... filter to delete one Availability
-     *   }
-     * })
-     * 
-     */
-    delete<T extends AvailabilityDeleteArgs>(args: SelectSubset<T, AvailabilityDeleteArgs<ExtArgs>>): Prisma__AvailabilityClient<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Availability.
-     * @param {AvailabilityUpdateArgs} args - Arguments to update one Availability.
-     * @example
-     * // Update one Availability
-     * const availability = await prisma.availability.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends AvailabilityUpdateArgs>(args: SelectSubset<T, AvailabilityUpdateArgs<ExtArgs>>): Prisma__AvailabilityClient<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Availabilities.
-     * @param {AvailabilityDeleteManyArgs} args - Arguments to filter Availabilities to delete.
-     * @example
-     * // Delete a few Availabilities
-     * const { count } = await prisma.availability.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends AvailabilityDeleteManyArgs>(args?: SelectSubset<T, AvailabilityDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Availabilities.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AvailabilityUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Availabilities
-     * const availability = await prisma.availability.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends AvailabilityUpdateManyArgs>(args: SelectSubset<T, AvailabilityUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Availabilities and returns the data updated in the database.
-     * @param {AvailabilityUpdateManyAndReturnArgs} args - Arguments to update many Availabilities.
-     * @example
-     * // Update many Availabilities
-     * const availability = await prisma.availability.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Availabilities and only return the `id`
-     * const availabilityWithIdOnly = await prisma.availability.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends AvailabilityUpdateManyAndReturnArgs>(args: SelectSubset<T, AvailabilityUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Availability.
-     * @param {AvailabilityUpsertArgs} args - Arguments to update or create a Availability.
-     * @example
-     * // Update or create a Availability
-     * const availability = await prisma.availability.upsert({
-     *   create: {
-     *     // ... data to create a Availability
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Availability we want to update
-     *   }
-     * })
-     */
-    upsert<T extends AvailabilityUpsertArgs>(args: SelectSubset<T, AvailabilityUpsertArgs<ExtArgs>>): Prisma__AvailabilityClient<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Availabilities.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AvailabilityCountArgs} args - Arguments to filter Availabilities to count.
-     * @example
-     * // Count the number of Availabilities
-     * const count = await prisma.availability.count({
-     *   where: {
-     *     // ... the filter for the Availabilities we want to count
-     *   }
-     * })
-    **/
-    count<T extends AvailabilityCountArgs>(
-      args?: Subset<T, AvailabilityCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], AvailabilityCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Availability.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AvailabilityAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends AvailabilityAggregateArgs>(args: Subset<T, AvailabilityAggregateArgs>): Prisma.PrismaPromise<GetAvailabilityAggregateType<T>>
-
-    /**
-     * Group by Availability.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AvailabilityGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends AvailabilityGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: AvailabilityGroupByArgs['orderBy'] }
-        : { orderBy?: AvailabilityGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, AvailabilityGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAvailabilityGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Availability model
-   */
-  readonly fields: AvailabilityFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Availability.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__AvailabilityClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    employee<T extends EmployeeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EmployeeDefaultArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Availability model
-   */
-  interface AvailabilityFieldRefs {
-    readonly id: FieldRef<"Availability", 'String'>
-    readonly employee_id: FieldRef<"Availability", 'String'>
-    readonly dayOfWeek: FieldRef<"Availability", 'Int'>
-    readonly startTime: FieldRef<"Availability", 'DateTime'>
-    readonly endTime: FieldRef<"Availability", 'DateTime'>
-    readonly slotDuration: FieldRef<"Availability", 'Int'>
-    readonly createdAt: FieldRef<"Availability", 'DateTime'>
-    readonly updatedAt: FieldRef<"Availability", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Availability findUnique
-   */
-  export type AvailabilityFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Availability
-     */
-    select?: AvailabilitySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Availability
-     */
-    omit?: AvailabilityOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AvailabilityInclude<ExtArgs> | null
-    /**
-     * Filter, which Availability to fetch.
-     */
-    where: AvailabilityWhereUniqueInput
-  }
-
-  /**
-   * Availability findUniqueOrThrow
-   */
-  export type AvailabilityFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Availability
-     */
-    select?: AvailabilitySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Availability
-     */
-    omit?: AvailabilityOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AvailabilityInclude<ExtArgs> | null
-    /**
-     * Filter, which Availability to fetch.
-     */
-    where: AvailabilityWhereUniqueInput
-  }
-
-  /**
-   * Availability findFirst
-   */
-  export type AvailabilityFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Availability
-     */
-    select?: AvailabilitySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Availability
-     */
-    omit?: AvailabilityOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AvailabilityInclude<ExtArgs> | null
-    /**
-     * Filter, which Availability to fetch.
-     */
-    where?: AvailabilityWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Availabilities to fetch.
-     */
-    orderBy?: AvailabilityOrderByWithRelationInput | AvailabilityOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Availabilities.
-     */
-    cursor?: AvailabilityWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Availabilities from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Availabilities.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Availabilities.
-     */
-    distinct?: AvailabilityScalarFieldEnum | AvailabilityScalarFieldEnum[]
-  }
-
-  /**
-   * Availability findFirstOrThrow
-   */
-  export type AvailabilityFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Availability
-     */
-    select?: AvailabilitySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Availability
-     */
-    omit?: AvailabilityOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AvailabilityInclude<ExtArgs> | null
-    /**
-     * Filter, which Availability to fetch.
-     */
-    where?: AvailabilityWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Availabilities to fetch.
-     */
-    orderBy?: AvailabilityOrderByWithRelationInput | AvailabilityOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Availabilities.
-     */
-    cursor?: AvailabilityWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Availabilities from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Availabilities.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Availabilities.
-     */
-    distinct?: AvailabilityScalarFieldEnum | AvailabilityScalarFieldEnum[]
-  }
-
-  /**
-   * Availability findMany
-   */
-  export type AvailabilityFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Availability
-     */
-    select?: AvailabilitySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Availability
-     */
-    omit?: AvailabilityOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AvailabilityInclude<ExtArgs> | null
-    /**
-     * Filter, which Availabilities to fetch.
-     */
-    where?: AvailabilityWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Availabilities to fetch.
-     */
-    orderBy?: AvailabilityOrderByWithRelationInput | AvailabilityOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Availabilities.
-     */
-    cursor?: AvailabilityWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Availabilities from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Availabilities.
-     */
-    skip?: number
-    distinct?: AvailabilityScalarFieldEnum | AvailabilityScalarFieldEnum[]
-  }
-
-  /**
-   * Availability create
-   */
-  export type AvailabilityCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Availability
-     */
-    select?: AvailabilitySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Availability
-     */
-    omit?: AvailabilityOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AvailabilityInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Availability.
-     */
-    data: XOR<AvailabilityCreateInput, AvailabilityUncheckedCreateInput>
-  }
-
-  /**
-   * Availability createMany
-   */
-  export type AvailabilityCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Availabilities.
-     */
-    data: AvailabilityCreateManyInput | AvailabilityCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Availability createManyAndReturn
-   */
-  export type AvailabilityCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Availability
-     */
-    select?: AvailabilitySelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Availability
-     */
-    omit?: AvailabilityOmit<ExtArgs> | null
-    /**
-     * The data used to create many Availabilities.
-     */
-    data: AvailabilityCreateManyInput | AvailabilityCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AvailabilityIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Availability update
-   */
-  export type AvailabilityUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Availability
-     */
-    select?: AvailabilitySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Availability
-     */
-    omit?: AvailabilityOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AvailabilityInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Availability.
-     */
-    data: XOR<AvailabilityUpdateInput, AvailabilityUncheckedUpdateInput>
-    /**
-     * Choose, which Availability to update.
-     */
-    where: AvailabilityWhereUniqueInput
-  }
-
-  /**
-   * Availability updateMany
-   */
-  export type AvailabilityUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Availabilities.
-     */
-    data: XOR<AvailabilityUpdateManyMutationInput, AvailabilityUncheckedUpdateManyInput>
-    /**
-     * Filter which Availabilities to update
-     */
-    where?: AvailabilityWhereInput
-    /**
-     * Limit how many Availabilities to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Availability updateManyAndReturn
-   */
-  export type AvailabilityUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Availability
-     */
-    select?: AvailabilitySelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Availability
-     */
-    omit?: AvailabilityOmit<ExtArgs> | null
-    /**
-     * The data used to update Availabilities.
-     */
-    data: XOR<AvailabilityUpdateManyMutationInput, AvailabilityUncheckedUpdateManyInput>
-    /**
-     * Filter which Availabilities to update
-     */
-    where?: AvailabilityWhereInput
-    /**
-     * Limit how many Availabilities to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AvailabilityIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * Availability upsert
-   */
-  export type AvailabilityUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Availability
-     */
-    select?: AvailabilitySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Availability
-     */
-    omit?: AvailabilityOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AvailabilityInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Availability to update in case it exists.
-     */
-    where: AvailabilityWhereUniqueInput
-    /**
-     * In case the Availability found by the `where` argument doesn't exist, create a new Availability with this data.
-     */
-    create: XOR<AvailabilityCreateInput, AvailabilityUncheckedCreateInput>
-    /**
-     * In case the Availability was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<AvailabilityUpdateInput, AvailabilityUncheckedUpdateInput>
-  }
-
-  /**
-   * Availability delete
-   */
-  export type AvailabilityDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Availability
-     */
-    select?: AvailabilitySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Availability
-     */
-    omit?: AvailabilityOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AvailabilityInclude<ExtArgs> | null
-    /**
-     * Filter which Availability to delete.
-     */
-    where: AvailabilityWhereUniqueInput
-  }
-
-  /**
-   * Availability deleteMany
-   */
-  export type AvailabilityDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Availabilities to delete
-     */
-    where?: AvailabilityWhereInput
-    /**
-     * Limit how many Availabilities to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * Availability without action
-   */
-  export type AvailabilityDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Availability
-     */
-    select?: AvailabilitySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Availability
-     */
-    omit?: AvailabilityOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AvailabilityInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model BlockedSlot
-   */
-
-  export type AggregateBlockedSlot = {
-    _count: BlockedSlotCountAggregateOutputType | null
-    _min: BlockedSlotMinAggregateOutputType | null
-    _max: BlockedSlotMaxAggregateOutputType | null
-  }
-
-  export type BlockedSlotMinAggregateOutputType = {
-    id: string | null
-    employee_id: string | null
-    date: Date | null
-    startTime: Date | null
-    endTime: Date | null
-    reason: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type BlockedSlotMaxAggregateOutputType = {
-    id: string | null
-    employee_id: string | null
-    date: Date | null
-    startTime: Date | null
-    endTime: Date | null
-    reason: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type BlockedSlotCountAggregateOutputType = {
-    id: number
-    employee_id: number
-    date: number
-    startTime: number
-    endTime: number
-    reason: number
-    createdAt: number
-    updatedAt: number
-    _all: number
-  }
-
-
-  export type BlockedSlotMinAggregateInputType = {
-    id?: true
-    employee_id?: true
-    date?: true
-    startTime?: true
-    endTime?: true
-    reason?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type BlockedSlotMaxAggregateInputType = {
-    id?: true
-    employee_id?: true
-    date?: true
-    startTime?: true
-    endTime?: true
-    reason?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type BlockedSlotCountAggregateInputType = {
-    id?: true
-    employee_id?: true
-    date?: true
-    startTime?: true
-    endTime?: true
-    reason?: true
-    createdAt?: true
-    updatedAt?: true
-    _all?: true
-  }
-
-  export type BlockedSlotAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which BlockedSlot to aggregate.
-     */
-    where?: BlockedSlotWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BlockedSlots to fetch.
-     */
-    orderBy?: BlockedSlotOrderByWithRelationInput | BlockedSlotOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: BlockedSlotWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BlockedSlots from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BlockedSlots.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned BlockedSlots
-    **/
-    _count?: true | BlockedSlotCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: BlockedSlotMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: BlockedSlotMaxAggregateInputType
-  }
-
-  export type GetBlockedSlotAggregateType<T extends BlockedSlotAggregateArgs> = {
-        [P in keyof T & keyof AggregateBlockedSlot]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateBlockedSlot[P]>
-      : GetScalarType<T[P], AggregateBlockedSlot[P]>
-  }
-
-
-
-
-  export type BlockedSlotGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: BlockedSlotWhereInput
-    orderBy?: BlockedSlotOrderByWithAggregationInput | BlockedSlotOrderByWithAggregationInput[]
-    by: BlockedSlotScalarFieldEnum[] | BlockedSlotScalarFieldEnum
-    having?: BlockedSlotScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: BlockedSlotCountAggregateInputType | true
-    _min?: BlockedSlotMinAggregateInputType
-    _max?: BlockedSlotMaxAggregateInputType
-  }
-
-  export type BlockedSlotGroupByOutputType = {
-    id: string
-    employee_id: string
-    date: Date
-    startTime: Date
-    endTime: Date
-    reason: string | null
-    createdAt: Date
-    updatedAt: Date
-    _count: BlockedSlotCountAggregateOutputType | null
-    _min: BlockedSlotMinAggregateOutputType | null
-    _max: BlockedSlotMaxAggregateOutputType | null
-  }
-
-  type GetBlockedSlotGroupByPayload<T extends BlockedSlotGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<BlockedSlotGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof BlockedSlotGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], BlockedSlotGroupByOutputType[P]>
-            : GetScalarType<T[P], BlockedSlotGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type BlockedSlotSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    employee_id?: boolean
-    date?: boolean
-    startTime?: boolean
-    endTime?: boolean
-    reason?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["blockedSlot"]>
-
-  export type BlockedSlotSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    employee_id?: boolean
-    date?: boolean
-    startTime?: boolean
-    endTime?: boolean
-    reason?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["blockedSlot"]>
-
-  export type BlockedSlotSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    employee_id?: boolean
-    date?: boolean
-    startTime?: boolean
-    endTime?: boolean
-    reason?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["blockedSlot"]>
-
-  export type BlockedSlotSelectScalar = {
-    id?: boolean
-    employee_id?: boolean
-    date?: boolean
-    startTime?: boolean
-    endTime?: boolean
-    reason?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }
-
-  export type BlockedSlotOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "employee_id" | "date" | "startTime" | "endTime" | "reason" | "createdAt" | "updatedAt", ExtArgs["result"]["blockedSlot"]>
-  export type BlockedSlotInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
-  }
-  export type BlockedSlotIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
-  }
-  export type BlockedSlotIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    employee?: boolean | EmployeeDefaultArgs<ExtArgs>
-  }
-
-  export type $BlockedSlotPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "BlockedSlot"
-    objects: {
-      employee: Prisma.$EmployeePayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      employee_id: string
-      date: Date
-      startTime: Date
-      endTime: Date
-      reason: string | null
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["blockedSlot"]>
-    composites: {}
-  }
-
-  type BlockedSlotGetPayload<S extends boolean | null | undefined | BlockedSlotDefaultArgs> = $Result.GetResult<Prisma.$BlockedSlotPayload, S>
-
-  type BlockedSlotCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<BlockedSlotFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: BlockedSlotCountAggregateInputType | true
-    }
-
-  export interface BlockedSlotDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BlockedSlot'], meta: { name: 'BlockedSlot' } }
-    /**
-     * Find zero or one BlockedSlot that matches the filter.
-     * @param {BlockedSlotFindUniqueArgs} args - Arguments to find a BlockedSlot
-     * @example
-     * // Get one BlockedSlot
-     * const blockedSlot = await prisma.blockedSlot.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends BlockedSlotFindUniqueArgs>(args: SelectSubset<T, BlockedSlotFindUniqueArgs<ExtArgs>>): Prisma__BlockedSlotClient<$Result.GetResult<Prisma.$BlockedSlotPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one BlockedSlot that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {BlockedSlotFindUniqueOrThrowArgs} args - Arguments to find a BlockedSlot
-     * @example
-     * // Get one BlockedSlot
-     * const blockedSlot = await prisma.blockedSlot.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends BlockedSlotFindUniqueOrThrowArgs>(args: SelectSubset<T, BlockedSlotFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BlockedSlotClient<$Result.GetResult<Prisma.$BlockedSlotPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first BlockedSlot that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BlockedSlotFindFirstArgs} args - Arguments to find a BlockedSlot
-     * @example
-     * // Get one BlockedSlot
-     * const blockedSlot = await prisma.blockedSlot.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends BlockedSlotFindFirstArgs>(args?: SelectSubset<T, BlockedSlotFindFirstArgs<ExtArgs>>): Prisma__BlockedSlotClient<$Result.GetResult<Prisma.$BlockedSlotPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first BlockedSlot that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BlockedSlotFindFirstOrThrowArgs} args - Arguments to find a BlockedSlot
-     * @example
-     * // Get one BlockedSlot
-     * const blockedSlot = await prisma.blockedSlot.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends BlockedSlotFindFirstOrThrowArgs>(args?: SelectSubset<T, BlockedSlotFindFirstOrThrowArgs<ExtArgs>>): Prisma__BlockedSlotClient<$Result.GetResult<Prisma.$BlockedSlotPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more BlockedSlots that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BlockedSlotFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all BlockedSlots
-     * const blockedSlots = await prisma.blockedSlot.findMany()
-     * 
-     * // Get first 10 BlockedSlots
-     * const blockedSlots = await prisma.blockedSlot.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const blockedSlotWithIdOnly = await prisma.blockedSlot.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends BlockedSlotFindManyArgs>(args?: SelectSubset<T, BlockedSlotFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlockedSlotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a BlockedSlot.
-     * @param {BlockedSlotCreateArgs} args - Arguments to create a BlockedSlot.
-     * @example
-     * // Create one BlockedSlot
-     * const BlockedSlot = await prisma.blockedSlot.create({
-     *   data: {
-     *     // ... data to create a BlockedSlot
-     *   }
-     * })
-     * 
-     */
-    create<T extends BlockedSlotCreateArgs>(args: SelectSubset<T, BlockedSlotCreateArgs<ExtArgs>>): Prisma__BlockedSlotClient<$Result.GetResult<Prisma.$BlockedSlotPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many BlockedSlots.
-     * @param {BlockedSlotCreateManyArgs} args - Arguments to create many BlockedSlots.
-     * @example
-     * // Create many BlockedSlots
-     * const blockedSlot = await prisma.blockedSlot.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends BlockedSlotCreateManyArgs>(args?: SelectSubset<T, BlockedSlotCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many BlockedSlots and returns the data saved in the database.
-     * @param {BlockedSlotCreateManyAndReturnArgs} args - Arguments to create many BlockedSlots.
-     * @example
-     * // Create many BlockedSlots
-     * const blockedSlot = await prisma.blockedSlot.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many BlockedSlots and only return the `id`
-     * const blockedSlotWithIdOnly = await prisma.blockedSlot.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends BlockedSlotCreateManyAndReturnArgs>(args?: SelectSubset<T, BlockedSlotCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlockedSlotPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a BlockedSlot.
-     * @param {BlockedSlotDeleteArgs} args - Arguments to delete one BlockedSlot.
-     * @example
-     * // Delete one BlockedSlot
-     * const BlockedSlot = await prisma.blockedSlot.delete({
-     *   where: {
-     *     // ... filter to delete one BlockedSlot
-     *   }
-     * })
-     * 
-     */
-    delete<T extends BlockedSlotDeleteArgs>(args: SelectSubset<T, BlockedSlotDeleteArgs<ExtArgs>>): Prisma__BlockedSlotClient<$Result.GetResult<Prisma.$BlockedSlotPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one BlockedSlot.
-     * @param {BlockedSlotUpdateArgs} args - Arguments to update one BlockedSlot.
-     * @example
-     * // Update one BlockedSlot
-     * const blockedSlot = await prisma.blockedSlot.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends BlockedSlotUpdateArgs>(args: SelectSubset<T, BlockedSlotUpdateArgs<ExtArgs>>): Prisma__BlockedSlotClient<$Result.GetResult<Prisma.$BlockedSlotPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more BlockedSlots.
-     * @param {BlockedSlotDeleteManyArgs} args - Arguments to filter BlockedSlots to delete.
-     * @example
-     * // Delete a few BlockedSlots
-     * const { count } = await prisma.blockedSlot.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends BlockedSlotDeleteManyArgs>(args?: SelectSubset<T, BlockedSlotDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more BlockedSlots.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BlockedSlotUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many BlockedSlots
-     * const blockedSlot = await prisma.blockedSlot.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends BlockedSlotUpdateManyArgs>(args: SelectSubset<T, BlockedSlotUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more BlockedSlots and returns the data updated in the database.
-     * @param {BlockedSlotUpdateManyAndReturnArgs} args - Arguments to update many BlockedSlots.
-     * @example
-     * // Update many BlockedSlots
-     * const blockedSlot = await prisma.blockedSlot.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more BlockedSlots and only return the `id`
-     * const blockedSlotWithIdOnly = await prisma.blockedSlot.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends BlockedSlotUpdateManyAndReturnArgs>(args: SelectSubset<T, BlockedSlotUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlockedSlotPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one BlockedSlot.
-     * @param {BlockedSlotUpsertArgs} args - Arguments to update or create a BlockedSlot.
-     * @example
-     * // Update or create a BlockedSlot
-     * const blockedSlot = await prisma.blockedSlot.upsert({
-     *   create: {
-     *     // ... data to create a BlockedSlot
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the BlockedSlot we want to update
-     *   }
-     * })
-     */
-    upsert<T extends BlockedSlotUpsertArgs>(args: SelectSubset<T, BlockedSlotUpsertArgs<ExtArgs>>): Prisma__BlockedSlotClient<$Result.GetResult<Prisma.$BlockedSlotPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of BlockedSlots.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BlockedSlotCountArgs} args - Arguments to filter BlockedSlots to count.
-     * @example
-     * // Count the number of BlockedSlots
-     * const count = await prisma.blockedSlot.count({
-     *   where: {
-     *     // ... the filter for the BlockedSlots we want to count
-     *   }
-     * })
-    **/
-    count<T extends BlockedSlotCountArgs>(
-      args?: Subset<T, BlockedSlotCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], BlockedSlotCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a BlockedSlot.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BlockedSlotAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends BlockedSlotAggregateArgs>(args: Subset<T, BlockedSlotAggregateArgs>): Prisma.PrismaPromise<GetBlockedSlotAggregateType<T>>
-
-    /**
-     * Group by BlockedSlot.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {BlockedSlotGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends BlockedSlotGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: BlockedSlotGroupByArgs['orderBy'] }
-        : { orderBy?: BlockedSlotGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, BlockedSlotGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBlockedSlotGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the BlockedSlot model
-   */
-  readonly fields: BlockedSlotFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for BlockedSlot.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__BlockedSlotClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    employee<T extends EmployeeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EmployeeDefaultArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the BlockedSlot model
-   */
-  interface BlockedSlotFieldRefs {
-    readonly id: FieldRef<"BlockedSlot", 'String'>
-    readonly employee_id: FieldRef<"BlockedSlot", 'String'>
-    readonly date: FieldRef<"BlockedSlot", 'DateTime'>
-    readonly startTime: FieldRef<"BlockedSlot", 'DateTime'>
-    readonly endTime: FieldRef<"BlockedSlot", 'DateTime'>
-    readonly reason: FieldRef<"BlockedSlot", 'String'>
-    readonly createdAt: FieldRef<"BlockedSlot", 'DateTime'>
-    readonly updatedAt: FieldRef<"BlockedSlot", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * BlockedSlot findUnique
-   */
-  export type BlockedSlotFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BlockedSlot
-     */
-    select?: BlockedSlotSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BlockedSlot
-     */
-    omit?: BlockedSlotOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BlockedSlotInclude<ExtArgs> | null
-    /**
-     * Filter, which BlockedSlot to fetch.
-     */
-    where: BlockedSlotWhereUniqueInput
-  }
-
-  /**
-   * BlockedSlot findUniqueOrThrow
-   */
-  export type BlockedSlotFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BlockedSlot
-     */
-    select?: BlockedSlotSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BlockedSlot
-     */
-    omit?: BlockedSlotOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BlockedSlotInclude<ExtArgs> | null
-    /**
-     * Filter, which BlockedSlot to fetch.
-     */
-    where: BlockedSlotWhereUniqueInput
-  }
-
-  /**
-   * BlockedSlot findFirst
-   */
-  export type BlockedSlotFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BlockedSlot
-     */
-    select?: BlockedSlotSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BlockedSlot
-     */
-    omit?: BlockedSlotOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BlockedSlotInclude<ExtArgs> | null
-    /**
-     * Filter, which BlockedSlot to fetch.
-     */
-    where?: BlockedSlotWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BlockedSlots to fetch.
-     */
-    orderBy?: BlockedSlotOrderByWithRelationInput | BlockedSlotOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for BlockedSlots.
-     */
-    cursor?: BlockedSlotWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BlockedSlots from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BlockedSlots.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of BlockedSlots.
-     */
-    distinct?: BlockedSlotScalarFieldEnum | BlockedSlotScalarFieldEnum[]
-  }
-
-  /**
-   * BlockedSlot findFirstOrThrow
-   */
-  export type BlockedSlotFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BlockedSlot
-     */
-    select?: BlockedSlotSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BlockedSlot
-     */
-    omit?: BlockedSlotOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BlockedSlotInclude<ExtArgs> | null
-    /**
-     * Filter, which BlockedSlot to fetch.
-     */
-    where?: BlockedSlotWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BlockedSlots to fetch.
-     */
-    orderBy?: BlockedSlotOrderByWithRelationInput | BlockedSlotOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for BlockedSlots.
-     */
-    cursor?: BlockedSlotWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BlockedSlots from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BlockedSlots.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of BlockedSlots.
-     */
-    distinct?: BlockedSlotScalarFieldEnum | BlockedSlotScalarFieldEnum[]
-  }
-
-  /**
-   * BlockedSlot findMany
-   */
-  export type BlockedSlotFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BlockedSlot
-     */
-    select?: BlockedSlotSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BlockedSlot
-     */
-    omit?: BlockedSlotOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BlockedSlotInclude<ExtArgs> | null
-    /**
-     * Filter, which BlockedSlots to fetch.
-     */
-    where?: BlockedSlotWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of BlockedSlots to fetch.
-     */
-    orderBy?: BlockedSlotOrderByWithRelationInput | BlockedSlotOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing BlockedSlots.
-     */
-    cursor?: BlockedSlotWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` BlockedSlots from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` BlockedSlots.
-     */
-    skip?: number
-    distinct?: BlockedSlotScalarFieldEnum | BlockedSlotScalarFieldEnum[]
-  }
-
-  /**
-   * BlockedSlot create
-   */
-  export type BlockedSlotCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BlockedSlot
-     */
-    select?: BlockedSlotSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BlockedSlot
-     */
-    omit?: BlockedSlotOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BlockedSlotInclude<ExtArgs> | null
-    /**
-     * The data needed to create a BlockedSlot.
-     */
-    data: XOR<BlockedSlotCreateInput, BlockedSlotUncheckedCreateInput>
-  }
-
-  /**
-   * BlockedSlot createMany
-   */
-  export type BlockedSlotCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many BlockedSlots.
-     */
-    data: BlockedSlotCreateManyInput | BlockedSlotCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * BlockedSlot createManyAndReturn
-   */
-  export type BlockedSlotCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BlockedSlot
-     */
-    select?: BlockedSlotSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the BlockedSlot
-     */
-    omit?: BlockedSlotOmit<ExtArgs> | null
-    /**
-     * The data used to create many BlockedSlots.
-     */
-    data: BlockedSlotCreateManyInput | BlockedSlotCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BlockedSlotIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * BlockedSlot update
-   */
-  export type BlockedSlotUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BlockedSlot
-     */
-    select?: BlockedSlotSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BlockedSlot
-     */
-    omit?: BlockedSlotOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BlockedSlotInclude<ExtArgs> | null
-    /**
-     * The data needed to update a BlockedSlot.
-     */
-    data: XOR<BlockedSlotUpdateInput, BlockedSlotUncheckedUpdateInput>
-    /**
-     * Choose, which BlockedSlot to update.
-     */
-    where: BlockedSlotWhereUniqueInput
-  }
-
-  /**
-   * BlockedSlot updateMany
-   */
-  export type BlockedSlotUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update BlockedSlots.
-     */
-    data: XOR<BlockedSlotUpdateManyMutationInput, BlockedSlotUncheckedUpdateManyInput>
-    /**
-     * Filter which BlockedSlots to update
-     */
-    where?: BlockedSlotWhereInput
-    /**
-     * Limit how many BlockedSlots to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * BlockedSlot updateManyAndReturn
-   */
-  export type BlockedSlotUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BlockedSlot
-     */
-    select?: BlockedSlotSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the BlockedSlot
-     */
-    omit?: BlockedSlotOmit<ExtArgs> | null
-    /**
-     * The data used to update BlockedSlots.
-     */
-    data: XOR<BlockedSlotUpdateManyMutationInput, BlockedSlotUncheckedUpdateManyInput>
-    /**
-     * Filter which BlockedSlots to update
-     */
-    where?: BlockedSlotWhereInput
-    /**
-     * Limit how many BlockedSlots to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BlockedSlotIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * BlockedSlot upsert
-   */
-  export type BlockedSlotUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BlockedSlot
-     */
-    select?: BlockedSlotSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BlockedSlot
-     */
-    omit?: BlockedSlotOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BlockedSlotInclude<ExtArgs> | null
-    /**
-     * The filter to search for the BlockedSlot to update in case it exists.
-     */
-    where: BlockedSlotWhereUniqueInput
-    /**
-     * In case the BlockedSlot found by the `where` argument doesn't exist, create a new BlockedSlot with this data.
-     */
-    create: XOR<BlockedSlotCreateInput, BlockedSlotUncheckedCreateInput>
-    /**
-     * In case the BlockedSlot was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<BlockedSlotUpdateInput, BlockedSlotUncheckedUpdateInput>
-  }
-
-  /**
-   * BlockedSlot delete
-   */
-  export type BlockedSlotDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BlockedSlot
-     */
-    select?: BlockedSlotSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BlockedSlot
-     */
-    omit?: BlockedSlotOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BlockedSlotInclude<ExtArgs> | null
-    /**
-     * Filter which BlockedSlot to delete.
-     */
-    where: BlockedSlotWhereUniqueInput
-  }
-
-  /**
-   * BlockedSlot deleteMany
-   */
-  export type BlockedSlotDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which BlockedSlots to delete
-     */
-    where?: BlockedSlotWhereInput
-    /**
-     * Limit how many BlockedSlots to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * BlockedSlot without action
-   */
-  export type BlockedSlotDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BlockedSlot
-     */
-    select?: BlockedSlotSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BlockedSlot
-     */
-    omit?: BlockedSlotOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BlockedSlotInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Enums
    */
 
@@ -9931,31 +9970,14 @@ export namespace Prisma {
     name: 'name',
     description: 'description',
     price: 'price',
-    clinica_id: 'clinica_id',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-  };
-
-  export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
-
-
-  export const AppointmentScalarFieldEnum: {
-    id: 'id',
-    start: 'start',
-    end: 'end',
-    status: 'status',
-    customerName: 'customerName',
-    customerEmail: 'customerEmail',
-    customerCPF: 'customerCPF',
-    customerPhone: 'customerPhone',
-    service_id: 'service_id',
+    duration: 'duration',
     employee_id: 'employee_id',
     clinica_id: 'clinica_id',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
-  export type AppointmentScalarFieldEnum = (typeof AppointmentScalarFieldEnum)[keyof typeof AppointmentScalarFieldEnum]
+  export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
 
 
   export const AvailabilityScalarFieldEnum: {
@@ -9984,6 +10006,25 @@ export namespace Prisma {
   };
 
   export type BlockedSlotScalarFieldEnum = (typeof BlockedSlotScalarFieldEnum)[keyof typeof BlockedSlotScalarFieldEnum]
+
+
+  export const AppointmentScalarFieldEnum: {
+    id: 'id',
+    start: 'start',
+    end: 'end',
+    status: 'status',
+    customerName: 'customerName',
+    customerEmail: 'customerEmail',
+    customerCPF: 'customerCPF',
+    customerPhone: 'customerPhone',
+    service_id: 'service_id',
+    employee_id: 'employee_id',
+    clinica_id: 'clinica_id',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AppointmentScalarFieldEnum = (typeof AppointmentScalarFieldEnum)[keyof typeof AppointmentScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -10079,20 +10120,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'AppointmentStatus'
-   */
-  export type EnumAppointmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AppointmentStatus'>
-    
-
-
-  /**
-   * Reference to a field of type 'AppointmentStatus[]'
-   */
-  export type ListEnumAppointmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AppointmentStatus[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -10103,6 +10130,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AppointmentStatus'
+   */
+  export type EnumAppointmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AppointmentStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'AppointmentStatus[]'
+   */
+  export type ListEnumAppointmentStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AppointmentStatus[]'>
     
 
 
@@ -10372,12 +10413,14 @@ export namespace Prisma {
     name?: StringFilter<"Service"> | string
     description?: StringNullableFilter<"Service"> | string | null
     price?: DecimalFilter<"Service"> | Decimal | DecimalJsLike | number | string
-    clinica_id?: StringNullableFilter<"Service"> | string | null
+    duration?: IntFilter<"Service"> | number
+    employee_id?: StringNullableFilter<"Service"> | string | null
+    clinica_id?: StringFilter<"Service"> | string
     createdAt?: DateTimeFilter<"Service"> | Date | string
     updatedAt?: DateTimeFilter<"Service"> | Date | string
-    clinica?: XOR<ClinicaNullableScalarRelationFilter, ClinicaWhereInput> | null
-    employees?: EmployeeListRelationFilter
-    Appointment?: AppointmentListRelationFilter
+    employee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
+    clinica?: XOR<ClinicaScalarRelationFilter, ClinicaWhereInput>
+    appointments?: AppointmentListRelationFilter
   }
 
   export type ServiceOrderByWithRelationInput = {
@@ -10385,12 +10428,14 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     price?: SortOrder
-    clinica_id?: SortOrderInput | SortOrder
+    duration?: SortOrder
+    employee_id?: SortOrderInput | SortOrder
+    clinica_id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    employee?: EmployeeOrderByWithRelationInput
     clinica?: ClinicaOrderByWithRelationInput
-    employees?: EmployeeOrderByRelationAggregateInput
-    Appointment?: AppointmentOrderByRelationAggregateInput
+    appointments?: AppointmentOrderByRelationAggregateInput
   }
 
   export type ServiceWhereUniqueInput = Prisma.AtLeast<{
@@ -10401,12 +10446,14 @@ export namespace Prisma {
     name?: StringFilter<"Service"> | string
     description?: StringNullableFilter<"Service"> | string | null
     price?: DecimalFilter<"Service"> | Decimal | DecimalJsLike | number | string
-    clinica_id?: StringNullableFilter<"Service"> | string | null
+    duration?: IntFilter<"Service"> | number
+    employee_id?: StringNullableFilter<"Service"> | string | null
+    clinica_id?: StringFilter<"Service"> | string
     createdAt?: DateTimeFilter<"Service"> | Date | string
     updatedAt?: DateTimeFilter<"Service"> | Date | string
-    clinica?: XOR<ClinicaNullableScalarRelationFilter, ClinicaWhereInput> | null
-    employees?: EmployeeListRelationFilter
-    Appointment?: AppointmentListRelationFilter
+    employee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
+    clinica?: XOR<ClinicaScalarRelationFilter, ClinicaWhereInput>
+    appointments?: AppointmentListRelationFilter
   }, "id">
 
   export type ServiceOrderByWithAggregationInput = {
@@ -10414,7 +10461,9 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     price?: SortOrder
-    clinica_id?: SortOrderInput | SortOrder
+    duration?: SortOrder
+    employee_id?: SortOrderInput | SortOrder
+    clinica_id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ServiceCountOrderByAggregateInput
@@ -10432,9 +10481,153 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Service"> | string
     description?: StringNullableWithAggregatesFilter<"Service"> | string | null
     price?: DecimalWithAggregatesFilter<"Service"> | Decimal | DecimalJsLike | number | string
-    clinica_id?: StringNullableWithAggregatesFilter<"Service"> | string | null
+    duration?: IntWithAggregatesFilter<"Service"> | number
+    employee_id?: StringNullableWithAggregatesFilter<"Service"> | string | null
+    clinica_id?: StringWithAggregatesFilter<"Service"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Service"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Service"> | Date | string
+  }
+
+  export type AvailabilityWhereInput = {
+    AND?: AvailabilityWhereInput | AvailabilityWhereInput[]
+    OR?: AvailabilityWhereInput[]
+    NOT?: AvailabilityWhereInput | AvailabilityWhereInput[]
+    id?: StringFilter<"Availability"> | string
+    employee_id?: StringNullableFilter<"Availability"> | string | null
+    dayOfWeek?: IntFilter<"Availability"> | number
+    startTime?: DateTimeFilter<"Availability"> | Date | string
+    endTime?: DateTimeFilter<"Availability"> | Date | string
+    slotDuration?: IntFilter<"Availability"> | number
+    createdAt?: DateTimeFilter<"Availability"> | Date | string
+    updatedAt?: DateTimeFilter<"Availability"> | Date | string
+    employee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
+  }
+
+  export type AvailabilityOrderByWithRelationInput = {
+    id?: SortOrder
+    employee_id?: SortOrderInput | SortOrder
+    dayOfWeek?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    slotDuration?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    employee?: EmployeeOrderByWithRelationInput
+  }
+
+  export type AvailabilityWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AvailabilityWhereInput | AvailabilityWhereInput[]
+    OR?: AvailabilityWhereInput[]
+    NOT?: AvailabilityWhereInput | AvailabilityWhereInput[]
+    employee_id?: StringNullableFilter<"Availability"> | string | null
+    dayOfWeek?: IntFilter<"Availability"> | number
+    startTime?: DateTimeFilter<"Availability"> | Date | string
+    endTime?: DateTimeFilter<"Availability"> | Date | string
+    slotDuration?: IntFilter<"Availability"> | number
+    createdAt?: DateTimeFilter<"Availability"> | Date | string
+    updatedAt?: DateTimeFilter<"Availability"> | Date | string
+    employee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
+  }, "id">
+
+  export type AvailabilityOrderByWithAggregationInput = {
+    id?: SortOrder
+    employee_id?: SortOrderInput | SortOrder
+    dayOfWeek?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    slotDuration?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AvailabilityCountOrderByAggregateInput
+    _avg?: AvailabilityAvgOrderByAggregateInput
+    _max?: AvailabilityMaxOrderByAggregateInput
+    _min?: AvailabilityMinOrderByAggregateInput
+    _sum?: AvailabilitySumOrderByAggregateInput
+  }
+
+  export type AvailabilityScalarWhereWithAggregatesInput = {
+    AND?: AvailabilityScalarWhereWithAggregatesInput | AvailabilityScalarWhereWithAggregatesInput[]
+    OR?: AvailabilityScalarWhereWithAggregatesInput[]
+    NOT?: AvailabilityScalarWhereWithAggregatesInput | AvailabilityScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Availability"> | string
+    employee_id?: StringNullableWithAggregatesFilter<"Availability"> | string | null
+    dayOfWeek?: IntWithAggregatesFilter<"Availability"> | number
+    startTime?: DateTimeWithAggregatesFilter<"Availability"> | Date | string
+    endTime?: DateTimeWithAggregatesFilter<"Availability"> | Date | string
+    slotDuration?: IntWithAggregatesFilter<"Availability"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Availability"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Availability"> | Date | string
+  }
+
+  export type BlockedSlotWhereInput = {
+    AND?: BlockedSlotWhereInput | BlockedSlotWhereInput[]
+    OR?: BlockedSlotWhereInput[]
+    NOT?: BlockedSlotWhereInput | BlockedSlotWhereInput[]
+    id?: StringFilter<"BlockedSlot"> | string
+    employee_id?: StringNullableFilter<"BlockedSlot"> | string | null
+    date?: DateTimeFilter<"BlockedSlot"> | Date | string
+    startTime?: DateTimeFilter<"BlockedSlot"> | Date | string
+    endTime?: DateTimeFilter<"BlockedSlot"> | Date | string
+    reason?: StringNullableFilter<"BlockedSlot"> | string | null
+    createdAt?: DateTimeFilter<"BlockedSlot"> | Date | string
+    updatedAt?: DateTimeFilter<"BlockedSlot"> | Date | string
+    employee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
+  }
+
+  export type BlockedSlotOrderByWithRelationInput = {
+    id?: SortOrder
+    employee_id?: SortOrderInput | SortOrder
+    date?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    reason?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    employee?: EmployeeOrderByWithRelationInput
+  }
+
+  export type BlockedSlotWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BlockedSlotWhereInput | BlockedSlotWhereInput[]
+    OR?: BlockedSlotWhereInput[]
+    NOT?: BlockedSlotWhereInput | BlockedSlotWhereInput[]
+    employee_id?: StringNullableFilter<"BlockedSlot"> | string | null
+    date?: DateTimeFilter<"BlockedSlot"> | Date | string
+    startTime?: DateTimeFilter<"BlockedSlot"> | Date | string
+    endTime?: DateTimeFilter<"BlockedSlot"> | Date | string
+    reason?: StringNullableFilter<"BlockedSlot"> | string | null
+    createdAt?: DateTimeFilter<"BlockedSlot"> | Date | string
+    updatedAt?: DateTimeFilter<"BlockedSlot"> | Date | string
+    employee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
+  }, "id">
+
+  export type BlockedSlotOrderByWithAggregationInput = {
+    id?: SortOrder
+    employee_id?: SortOrderInput | SortOrder
+    date?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    reason?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: BlockedSlotCountOrderByAggregateInput
+    _max?: BlockedSlotMaxOrderByAggregateInput
+    _min?: BlockedSlotMinOrderByAggregateInput
+  }
+
+  export type BlockedSlotScalarWhereWithAggregatesInput = {
+    AND?: BlockedSlotScalarWhereWithAggregatesInput | BlockedSlotScalarWhereWithAggregatesInput[]
+    OR?: BlockedSlotScalarWhereWithAggregatesInput[]
+    NOT?: BlockedSlotScalarWhereWithAggregatesInput | BlockedSlotScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BlockedSlot"> | string
+    employee_id?: StringNullableWithAggregatesFilter<"BlockedSlot"> | string | null
+    date?: DateTimeWithAggregatesFilter<"BlockedSlot"> | Date | string
+    startTime?: DateTimeWithAggregatesFilter<"BlockedSlot"> | Date | string
+    endTime?: DateTimeWithAggregatesFilter<"BlockedSlot"> | Date | string
+    reason?: StringNullableWithAggregatesFilter<"BlockedSlot"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"BlockedSlot"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"BlockedSlot"> | Date | string
   }
 
   export type AppointmentWhereInput = {
@@ -10536,148 +10729,6 @@ export namespace Prisma {
     clinica_id?: StringNullableWithAggregatesFilter<"Appointment"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Appointment"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Appointment"> | Date | string
-  }
-
-  export type AvailabilityWhereInput = {
-    AND?: AvailabilityWhereInput | AvailabilityWhereInput[]
-    OR?: AvailabilityWhereInput[]
-    NOT?: AvailabilityWhereInput | AvailabilityWhereInput[]
-    id?: StringFilter<"Availability"> | string
-    employee_id?: StringFilter<"Availability"> | string
-    dayOfWeek?: IntFilter<"Availability"> | number
-    startTime?: DateTimeFilter<"Availability"> | Date | string
-    endTime?: DateTimeFilter<"Availability"> | Date | string
-    slotDuration?: IntFilter<"Availability"> | number
-    createdAt?: DateTimeFilter<"Availability"> | Date | string
-    updatedAt?: DateTimeFilter<"Availability"> | Date | string
-    employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
-  }
-
-  export type AvailabilityOrderByWithRelationInput = {
-    id?: SortOrder
-    employee_id?: SortOrder
-    dayOfWeek?: SortOrder
-    startTime?: SortOrder
-    endTime?: SortOrder
-    slotDuration?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    employee?: EmployeeOrderByWithRelationInput
-  }
-
-  export type AvailabilityWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: AvailabilityWhereInput | AvailabilityWhereInput[]
-    OR?: AvailabilityWhereInput[]
-    NOT?: AvailabilityWhereInput | AvailabilityWhereInput[]
-    employee_id?: StringFilter<"Availability"> | string
-    dayOfWeek?: IntFilter<"Availability"> | number
-    startTime?: DateTimeFilter<"Availability"> | Date | string
-    endTime?: DateTimeFilter<"Availability"> | Date | string
-    slotDuration?: IntFilter<"Availability"> | number
-    createdAt?: DateTimeFilter<"Availability"> | Date | string
-    updatedAt?: DateTimeFilter<"Availability"> | Date | string
-    employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
-  }, "id">
-
-  export type AvailabilityOrderByWithAggregationInput = {
-    id?: SortOrder
-    employee_id?: SortOrder
-    dayOfWeek?: SortOrder
-    startTime?: SortOrder
-    endTime?: SortOrder
-    slotDuration?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: AvailabilityCountOrderByAggregateInput
-    _avg?: AvailabilityAvgOrderByAggregateInput
-    _max?: AvailabilityMaxOrderByAggregateInput
-    _min?: AvailabilityMinOrderByAggregateInput
-    _sum?: AvailabilitySumOrderByAggregateInput
-  }
-
-  export type AvailabilityScalarWhereWithAggregatesInput = {
-    AND?: AvailabilityScalarWhereWithAggregatesInput | AvailabilityScalarWhereWithAggregatesInput[]
-    OR?: AvailabilityScalarWhereWithAggregatesInput[]
-    NOT?: AvailabilityScalarWhereWithAggregatesInput | AvailabilityScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Availability"> | string
-    employee_id?: StringWithAggregatesFilter<"Availability"> | string
-    dayOfWeek?: IntWithAggregatesFilter<"Availability"> | number
-    startTime?: DateTimeWithAggregatesFilter<"Availability"> | Date | string
-    endTime?: DateTimeWithAggregatesFilter<"Availability"> | Date | string
-    slotDuration?: IntWithAggregatesFilter<"Availability"> | number
-    createdAt?: DateTimeWithAggregatesFilter<"Availability"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Availability"> | Date | string
-  }
-
-  export type BlockedSlotWhereInput = {
-    AND?: BlockedSlotWhereInput | BlockedSlotWhereInput[]
-    OR?: BlockedSlotWhereInput[]
-    NOT?: BlockedSlotWhereInput | BlockedSlotWhereInput[]
-    id?: StringFilter<"BlockedSlot"> | string
-    employee_id?: StringFilter<"BlockedSlot"> | string
-    date?: DateTimeFilter<"BlockedSlot"> | Date | string
-    startTime?: DateTimeFilter<"BlockedSlot"> | Date | string
-    endTime?: DateTimeFilter<"BlockedSlot"> | Date | string
-    reason?: StringNullableFilter<"BlockedSlot"> | string | null
-    createdAt?: DateTimeFilter<"BlockedSlot"> | Date | string
-    updatedAt?: DateTimeFilter<"BlockedSlot"> | Date | string
-    employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
-  }
-
-  export type BlockedSlotOrderByWithRelationInput = {
-    id?: SortOrder
-    employee_id?: SortOrder
-    date?: SortOrder
-    startTime?: SortOrder
-    endTime?: SortOrder
-    reason?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    employee?: EmployeeOrderByWithRelationInput
-  }
-
-  export type BlockedSlotWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: BlockedSlotWhereInput | BlockedSlotWhereInput[]
-    OR?: BlockedSlotWhereInput[]
-    NOT?: BlockedSlotWhereInput | BlockedSlotWhereInput[]
-    employee_id?: StringFilter<"BlockedSlot"> | string
-    date?: DateTimeFilter<"BlockedSlot"> | Date | string
-    startTime?: DateTimeFilter<"BlockedSlot"> | Date | string
-    endTime?: DateTimeFilter<"BlockedSlot"> | Date | string
-    reason?: StringNullableFilter<"BlockedSlot"> | string | null
-    createdAt?: DateTimeFilter<"BlockedSlot"> | Date | string
-    updatedAt?: DateTimeFilter<"BlockedSlot"> | Date | string
-    employee?: XOR<EmployeeScalarRelationFilter, EmployeeWhereInput>
-  }, "id">
-
-  export type BlockedSlotOrderByWithAggregationInput = {
-    id?: SortOrder
-    employee_id?: SortOrder
-    date?: SortOrder
-    startTime?: SortOrder
-    endTime?: SortOrder
-    reason?: SortOrderInput | SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: BlockedSlotCountOrderByAggregateInput
-    _max?: BlockedSlotMaxOrderByAggregateInput
-    _min?: BlockedSlotMinOrderByAggregateInput
-  }
-
-  export type BlockedSlotScalarWhereWithAggregatesInput = {
-    AND?: BlockedSlotScalarWhereWithAggregatesInput | BlockedSlotScalarWhereWithAggregatesInput[]
-    OR?: BlockedSlotScalarWhereWithAggregatesInput[]
-    NOT?: BlockedSlotScalarWhereWithAggregatesInput | BlockedSlotScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"BlockedSlot"> | string
-    employee_id?: StringWithAggregatesFilter<"BlockedSlot"> | string
-    date?: DateTimeWithAggregatesFilter<"BlockedSlot"> | Date | string
-    startTime?: DateTimeWithAggregatesFilter<"BlockedSlot"> | Date | string
-    endTime?: DateTimeWithAggregatesFilter<"BlockedSlot"> | Date | string
-    reason?: StringNullableWithAggregatesFilter<"BlockedSlot"> | string | null
-    createdAt?: DateTimeWithAggregatesFilter<"BlockedSlot"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"BlockedSlot"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -10865,7 +10916,7 @@ export namespace Prisma {
     role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
-    services?: ServiceCreateNestedManyWithoutEmployeesInput
+    services?: ServiceCreateNestedManyWithoutEmployeeInput
     clinica?: ClinicaCreateNestedOneWithoutEmployeesInput
     Appointment?: AppointmentCreateNestedManyWithoutEmployeeInput
     availabilities?: AvailabilityCreateNestedManyWithoutEmployeeInput
@@ -10882,7 +10933,7 @@ export namespace Prisma {
     clinica_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    services?: ServiceUncheckedCreateNestedManyWithoutEmployeesInput
+    services?: ServiceUncheckedCreateNestedManyWithoutEmployeeInput
     Appointment?: AppointmentUncheckedCreateNestedManyWithoutEmployeeInput
     availabilities?: AvailabilityUncheckedCreateNestedManyWithoutEmployeeInput
     blockedslots?: BlockedSlotUncheckedCreateNestedManyWithoutEmployeeInput
@@ -10897,7 +10948,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    services?: ServiceUpdateManyWithoutEmployeesNestedInput
+    services?: ServiceUpdateManyWithoutEmployeeNestedInput
     clinica?: ClinicaUpdateOneWithoutEmployeesNestedInput
     Appointment?: AppointmentUpdateManyWithoutEmployeeNestedInput
     availabilities?: AvailabilityUpdateManyWithoutEmployeeNestedInput
@@ -10914,7 +10965,7 @@ export namespace Prisma {
     clinica_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    services?: ServiceUncheckedUpdateManyWithoutEmployeesNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutEmployeeNestedInput
     Appointment?: AppointmentUncheckedUpdateManyWithoutEmployeeNestedInput
     availabilities?: AvailabilityUncheckedUpdateManyWithoutEmployeeNestedInput
     blockedslots?: BlockedSlotUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -10960,11 +11011,12 @@ export namespace Prisma {
     name: string
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
+    duration: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    clinica?: ClinicaCreateNestedOneWithoutServicesInput
-    employees?: EmployeeCreateNestedManyWithoutServicesInput
-    Appointment?: AppointmentCreateNestedManyWithoutServiceInput
+    employee?: EmployeeCreateNestedOneWithoutServicesInput
+    clinica: ClinicaCreateNestedOneWithoutServicesInput
+    appointments?: AppointmentCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateInput = {
@@ -10972,11 +11024,12 @@ export namespace Prisma {
     name: string
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
-    clinica_id?: string | null
+    duration: number
+    employee_id?: string | null
+    clinica_id: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    employees?: EmployeeUncheckedCreateNestedManyWithoutServicesInput
-    Appointment?: AppointmentUncheckedCreateNestedManyWithoutServiceInput
+    appointments?: AppointmentUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUpdateInput = {
@@ -10984,11 +11037,12 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    clinica?: ClinicaUpdateOneWithoutServicesNestedInput
-    employees?: EmployeeUpdateManyWithoutServicesNestedInput
-    Appointment?: AppointmentUpdateManyWithoutServiceNestedInput
+    employee?: EmployeeUpdateOneWithoutServicesNestedInput
+    clinica?: ClinicaUpdateOneRequiredWithoutServicesNestedInput
+    appointments?: AppointmentUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateInput = {
@@ -10996,11 +11050,12 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    clinica_id?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    employee_id?: NullableStringFieldUpdateOperationsInput | string | null
+    clinica_id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employees?: EmployeeUncheckedUpdateManyWithoutServicesNestedInput
-    Appointment?: AppointmentUncheckedUpdateManyWithoutServiceNestedInput
+    appointments?: AppointmentUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceCreateManyInput = {
@@ -11008,7 +11063,9 @@ export namespace Prisma {
     name: string
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
-    clinica_id?: string | null
+    duration: number
+    employee_id?: string | null
+    clinica_id: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11018,6 +11075,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11027,7 +11085,161 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    clinica_id?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    employee_id?: NullableStringFieldUpdateOperationsInput | string | null
+    clinica_id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AvailabilityCreateInput = {
+    id?: string
+    dayOfWeek: number
+    startTime: Date | string
+    endTime: Date | string
+    slotDuration: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    employee?: EmployeeCreateNestedOneWithoutAvailabilitiesInput
+  }
+
+  export type AvailabilityUncheckedCreateInput = {
+    id?: string
+    employee_id?: string | null
+    dayOfWeek: number
+    startTime: Date | string
+    endTime: Date | string
+    slotDuration: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AvailabilityUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    slotDuration?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    employee?: EmployeeUpdateOneWithoutAvailabilitiesNestedInput
+  }
+
+  export type AvailabilityUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employee_id?: NullableStringFieldUpdateOperationsInput | string | null
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    slotDuration?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AvailabilityCreateManyInput = {
+    id?: string
+    employee_id?: string | null
+    dayOfWeek: number
+    startTime: Date | string
+    endTime: Date | string
+    slotDuration: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AvailabilityUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    slotDuration?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AvailabilityUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employee_id?: NullableStringFieldUpdateOperationsInput | string | null
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    slotDuration?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BlockedSlotCreateInput = {
+    id?: string
+    date: Date | string
+    startTime: Date | string
+    endTime: Date | string
+    reason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    employee?: EmployeeCreateNestedOneWithoutBlockedslotsInput
+  }
+
+  export type BlockedSlotUncheckedCreateInput = {
+    id?: string
+    employee_id?: string | null
+    date: Date | string
+    startTime: Date | string
+    endTime: Date | string
+    reason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BlockedSlotUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    employee?: EmployeeUpdateOneWithoutBlockedslotsNestedInput
+  }
+
+  export type BlockedSlotUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employee_id?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BlockedSlotCreateManyInput = {
+    id?: string
+    employee_id?: string | null
+    date: Date | string
+    startTime: Date | string
+    endTime: Date | string
+    reason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BlockedSlotUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BlockedSlotUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employee_id?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11043,7 +11255,7 @@ export namespace Prisma {
     customerPhone: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    service?: ServiceCreateNestedOneWithoutAppointmentInput
+    service?: ServiceCreateNestedOneWithoutAppointmentsInput
     employee?: EmployeeCreateNestedOneWithoutAppointmentInput
     clinica?: ClinicaCreateNestedOneWithoutAppointmentInput
   }
@@ -11075,7 +11287,7 @@ export namespace Prisma {
     customerPhone?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    service?: ServiceUpdateOneWithoutAppointmentNestedInput
+    service?: ServiceUpdateOneWithoutAppointmentsNestedInput
     employee?: EmployeeUpdateOneWithoutAppointmentNestedInput
     clinica?: ClinicaUpdateOneWithoutAppointmentNestedInput
   }
@@ -11137,158 +11349,6 @@ export namespace Prisma {
     service_id?: NullableStringFieldUpdateOperationsInput | string | null
     employee_id?: NullableStringFieldUpdateOperationsInput | string | null
     clinica_id?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AvailabilityCreateInput = {
-    id?: string
-    dayOfWeek: number
-    startTime: Date | string
-    endTime: Date | string
-    slotDuration: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    employee: EmployeeCreateNestedOneWithoutAvailabilitiesInput
-  }
-
-  export type AvailabilityUncheckedCreateInput = {
-    id?: string
-    employee_id: string
-    dayOfWeek: number
-    startTime: Date | string
-    endTime: Date | string
-    slotDuration: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type AvailabilityUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    dayOfWeek?: IntFieldUpdateOperationsInput | number
-    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    slotDuration?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employee?: EmployeeUpdateOneRequiredWithoutAvailabilitiesNestedInput
-  }
-
-  export type AvailabilityUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    employee_id?: StringFieldUpdateOperationsInput | string
-    dayOfWeek?: IntFieldUpdateOperationsInput | number
-    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    slotDuration?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AvailabilityCreateManyInput = {
-    id?: string
-    employee_id: string
-    dayOfWeek: number
-    startTime: Date | string
-    endTime: Date | string
-    slotDuration: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type AvailabilityUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    dayOfWeek?: IntFieldUpdateOperationsInput | number
-    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    slotDuration?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AvailabilityUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    employee_id?: StringFieldUpdateOperationsInput | string
-    dayOfWeek?: IntFieldUpdateOperationsInput | number
-    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    slotDuration?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type BlockedSlotCreateInput = {
-    id?: string
-    date: Date | string
-    startTime: Date | string
-    endTime: Date | string
-    reason?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    employee: EmployeeCreateNestedOneWithoutBlockedslotsInput
-  }
-
-  export type BlockedSlotUncheckedCreateInput = {
-    id?: string
-    employee_id: string
-    date: Date | string
-    startTime: Date | string
-    endTime: Date | string
-    reason?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type BlockedSlotUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    reason?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employee?: EmployeeUpdateOneRequiredWithoutBlockedslotsNestedInput
-  }
-
-  export type BlockedSlotUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    employee_id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    reason?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type BlockedSlotCreateManyInput = {
-    id?: string
-    employee_id: string
-    date: Date | string
-    startTime: Date | string
-    endTime: Date | string
-    reason?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type BlockedSlotUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    reason?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type BlockedSlotUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    employee_id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    reason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11605,11 +11665,34 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type EmployeeNullableScalarRelationFilter = {
+    is?: EmployeeWhereInput | null
+    isNot?: EmployeeWhereInput | null
+  }
+
+  export type ClinicaScalarRelationFilter = {
+    is?: ClinicaWhereInput
+    isNot?: ClinicaWhereInput
+  }
+
   export type ServiceCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
     price?: SortOrder
+    duration?: SortOrder
+    employee_id?: SortOrder
     clinica_id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -11617,6 +11700,7 @@ export namespace Prisma {
 
   export type ServiceAvgOrderByAggregateInput = {
     price?: SortOrder
+    duration?: SortOrder
   }
 
   export type ServiceMaxOrderByAggregateInput = {
@@ -11624,6 +11708,8 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     price?: SortOrder
+    duration?: SortOrder
+    employee_id?: SortOrder
     clinica_id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -11634,6 +11720,8 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     price?: SortOrder
+    duration?: SortOrder
+    employee_id?: SortOrder
     clinica_id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -11641,6 +11729,7 @@ export namespace Prisma {
 
   export type ServiceSumOrderByAggregateInput = {
     price?: SortOrder
+    duration?: SortOrder
   }
 
   export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -11659,6 +11748,98 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type AvailabilityCountOrderByAggregateInput = {
+    id?: SortOrder
+    employee_id?: SortOrder
+    dayOfWeek?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    slotDuration?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AvailabilityAvgOrderByAggregateInput = {
+    dayOfWeek?: SortOrder
+    slotDuration?: SortOrder
+  }
+
+  export type AvailabilityMaxOrderByAggregateInput = {
+    id?: SortOrder
+    employee_id?: SortOrder
+    dayOfWeek?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    slotDuration?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AvailabilityMinOrderByAggregateInput = {
+    id?: SortOrder
+    employee_id?: SortOrder
+    dayOfWeek?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    slotDuration?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AvailabilitySumOrderByAggregateInput = {
+    dayOfWeek?: SortOrder
+    slotDuration?: SortOrder
+  }
+
+  export type BlockedSlotCountOrderByAggregateInput = {
+    id?: SortOrder
+    employee_id?: SortOrder
+    date?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BlockedSlotMaxOrderByAggregateInput = {
+    id?: SortOrder
+    employee_id?: SortOrder
+    date?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BlockedSlotMinOrderByAggregateInput = {
+    id?: SortOrder
+    employee_id?: SortOrder
+    date?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type EnumAppointmentStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.AppointmentStatus | EnumAppointmentStatusFieldRefInput<$PrismaModel>
     in?: $Enums.AppointmentStatus[] | ListEnumAppointmentStatusFieldRefInput<$PrismaModel>
@@ -11669,11 +11850,6 @@ export namespace Prisma {
   export type ServiceNullableScalarRelationFilter = {
     is?: ServiceWhereInput | null
     isNot?: ServiceWhereInput | null
-  }
-
-  export type EmployeeNullableScalarRelationFilter = {
-    is?: EmployeeWhereInput | null
-    isNot?: EmployeeWhereInput | null
   }
 
   export type AppointmentCountOrderByAggregateInput = {
@@ -11732,114 +11908,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumAppointmentStatusFilter<$PrismaModel>
     _max?: NestedEnumAppointmentStatusFilter<$PrismaModel>
-  }
-
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type EmployeeScalarRelationFilter = {
-    is?: EmployeeWhereInput
-    isNot?: EmployeeWhereInput
-  }
-
-  export type AvailabilityCountOrderByAggregateInput = {
-    id?: SortOrder
-    employee_id?: SortOrder
-    dayOfWeek?: SortOrder
-    startTime?: SortOrder
-    endTime?: SortOrder
-    slotDuration?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type AvailabilityAvgOrderByAggregateInput = {
-    dayOfWeek?: SortOrder
-    slotDuration?: SortOrder
-  }
-
-  export type AvailabilityMaxOrderByAggregateInput = {
-    id?: SortOrder
-    employee_id?: SortOrder
-    dayOfWeek?: SortOrder
-    startTime?: SortOrder
-    endTime?: SortOrder
-    slotDuration?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type AvailabilityMinOrderByAggregateInput = {
-    id?: SortOrder
-    employee_id?: SortOrder
-    dayOfWeek?: SortOrder
-    startTime?: SortOrder
-    endTime?: SortOrder
-    slotDuration?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type AvailabilitySumOrderByAggregateInput = {
-    dayOfWeek?: SortOrder
-    slotDuration?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type BlockedSlotCountOrderByAggregateInput = {
-    id?: SortOrder
-    employee_id?: SortOrder
-    date?: SortOrder
-    startTime?: SortOrder
-    endTime?: SortOrder
-    reason?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type BlockedSlotMaxOrderByAggregateInput = {
-    id?: SortOrder
-    employee_id?: SortOrder
-    date?: SortOrder
-    startTime?: SortOrder
-    endTime?: SortOrder
-    reason?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type BlockedSlotMinOrderByAggregateInput = {
-    id?: SortOrder
-    employee_id?: SortOrder
-    date?: SortOrder
-    startTime?: SortOrder
-    endTime?: SortOrder
-    reason?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
   export type ClinicaCreateNestedManyWithoutUserInput = {
@@ -12046,9 +12114,10 @@ export namespace Prisma {
     deleteMany?: AppointmentScalarWhereInput | AppointmentScalarWhereInput[]
   }
 
-  export type ServiceCreateNestedManyWithoutEmployeesInput = {
-    create?: XOR<ServiceCreateWithoutEmployeesInput, ServiceUncheckedCreateWithoutEmployeesInput> | ServiceCreateWithoutEmployeesInput[] | ServiceUncheckedCreateWithoutEmployeesInput[]
-    connectOrCreate?: ServiceCreateOrConnectWithoutEmployeesInput | ServiceCreateOrConnectWithoutEmployeesInput[]
+  export type ServiceCreateNestedManyWithoutEmployeeInput = {
+    create?: XOR<ServiceCreateWithoutEmployeeInput, ServiceUncheckedCreateWithoutEmployeeInput> | ServiceCreateWithoutEmployeeInput[] | ServiceUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutEmployeeInput | ServiceCreateOrConnectWithoutEmployeeInput[]
+    createMany?: ServiceCreateManyEmployeeInputEnvelope
     connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
   }
 
@@ -12079,9 +12148,10 @@ export namespace Prisma {
     connect?: BlockedSlotWhereUniqueInput | BlockedSlotWhereUniqueInput[]
   }
 
-  export type ServiceUncheckedCreateNestedManyWithoutEmployeesInput = {
-    create?: XOR<ServiceCreateWithoutEmployeesInput, ServiceUncheckedCreateWithoutEmployeesInput> | ServiceCreateWithoutEmployeesInput[] | ServiceUncheckedCreateWithoutEmployeesInput[]
-    connectOrCreate?: ServiceCreateOrConnectWithoutEmployeesInput | ServiceCreateOrConnectWithoutEmployeesInput[]
+  export type ServiceUncheckedCreateNestedManyWithoutEmployeeInput = {
+    create?: XOR<ServiceCreateWithoutEmployeeInput, ServiceUncheckedCreateWithoutEmployeeInput> | ServiceCreateWithoutEmployeeInput[] | ServiceUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutEmployeeInput | ServiceCreateOrConnectWithoutEmployeeInput[]
+    createMany?: ServiceCreateManyEmployeeInputEnvelope
     connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
   }
 
@@ -12106,16 +12176,17 @@ export namespace Prisma {
     connect?: BlockedSlotWhereUniqueInput | BlockedSlotWhereUniqueInput[]
   }
 
-  export type ServiceUpdateManyWithoutEmployeesNestedInput = {
-    create?: XOR<ServiceCreateWithoutEmployeesInput, ServiceUncheckedCreateWithoutEmployeesInput> | ServiceCreateWithoutEmployeesInput[] | ServiceUncheckedCreateWithoutEmployeesInput[]
-    connectOrCreate?: ServiceCreateOrConnectWithoutEmployeesInput | ServiceCreateOrConnectWithoutEmployeesInput[]
-    upsert?: ServiceUpsertWithWhereUniqueWithoutEmployeesInput | ServiceUpsertWithWhereUniqueWithoutEmployeesInput[]
+  export type ServiceUpdateManyWithoutEmployeeNestedInput = {
+    create?: XOR<ServiceCreateWithoutEmployeeInput, ServiceUncheckedCreateWithoutEmployeeInput> | ServiceCreateWithoutEmployeeInput[] | ServiceUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutEmployeeInput | ServiceCreateOrConnectWithoutEmployeeInput[]
+    upsert?: ServiceUpsertWithWhereUniqueWithoutEmployeeInput | ServiceUpsertWithWhereUniqueWithoutEmployeeInput[]
+    createMany?: ServiceCreateManyEmployeeInputEnvelope
     set?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
     disconnect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
     delete?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
     connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
-    update?: ServiceUpdateWithWhereUniqueWithoutEmployeesInput | ServiceUpdateWithWhereUniqueWithoutEmployeesInput[]
-    updateMany?: ServiceUpdateManyWithWhereWithoutEmployeesInput | ServiceUpdateManyWithWhereWithoutEmployeesInput[]
+    update?: ServiceUpdateWithWhereUniqueWithoutEmployeeInput | ServiceUpdateWithWhereUniqueWithoutEmployeeInput[]
+    updateMany?: ServiceUpdateManyWithWhereWithoutEmployeeInput | ServiceUpdateManyWithWhereWithoutEmployeeInput[]
     deleteMany?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
   }
 
@@ -12171,16 +12242,17 @@ export namespace Prisma {
     deleteMany?: BlockedSlotScalarWhereInput | BlockedSlotScalarWhereInput[]
   }
 
-  export type ServiceUncheckedUpdateManyWithoutEmployeesNestedInput = {
-    create?: XOR<ServiceCreateWithoutEmployeesInput, ServiceUncheckedCreateWithoutEmployeesInput> | ServiceCreateWithoutEmployeesInput[] | ServiceUncheckedCreateWithoutEmployeesInput[]
-    connectOrCreate?: ServiceCreateOrConnectWithoutEmployeesInput | ServiceCreateOrConnectWithoutEmployeesInput[]
-    upsert?: ServiceUpsertWithWhereUniqueWithoutEmployeesInput | ServiceUpsertWithWhereUniqueWithoutEmployeesInput[]
+  export type ServiceUncheckedUpdateManyWithoutEmployeeNestedInput = {
+    create?: XOR<ServiceCreateWithoutEmployeeInput, ServiceUncheckedCreateWithoutEmployeeInput> | ServiceCreateWithoutEmployeeInput[] | ServiceUncheckedCreateWithoutEmployeeInput[]
+    connectOrCreate?: ServiceCreateOrConnectWithoutEmployeeInput | ServiceCreateOrConnectWithoutEmployeeInput[]
+    upsert?: ServiceUpsertWithWhereUniqueWithoutEmployeeInput | ServiceUpsertWithWhereUniqueWithoutEmployeeInput[]
+    createMany?: ServiceCreateManyEmployeeInputEnvelope
     set?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
     disconnect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
     delete?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
     connect?: ServiceWhereUniqueInput | ServiceWhereUniqueInput[]
-    update?: ServiceUpdateWithWhereUniqueWithoutEmployeesInput | ServiceUpdateWithWhereUniqueWithoutEmployeesInput[]
-    updateMany?: ServiceUpdateManyWithWhereWithoutEmployeesInput | ServiceUpdateManyWithWhereWithoutEmployeesInput[]
+    update?: ServiceUpdateWithWhereUniqueWithoutEmployeeInput | ServiceUpdateWithWhereUniqueWithoutEmployeeInput[]
+    updateMany?: ServiceUpdateManyWithWhereWithoutEmployeeInput | ServiceUpdateManyWithWhereWithoutEmployeeInput[]
     deleteMany?: ServiceScalarWhereInput | ServiceScalarWhereInput[]
   }
 
@@ -12226,16 +12298,16 @@ export namespace Prisma {
     deleteMany?: BlockedSlotScalarWhereInput | BlockedSlotScalarWhereInput[]
   }
 
+  export type EmployeeCreateNestedOneWithoutServicesInput = {
+    create?: XOR<EmployeeCreateWithoutServicesInput, EmployeeUncheckedCreateWithoutServicesInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutServicesInput
+    connect?: EmployeeWhereUniqueInput
+  }
+
   export type ClinicaCreateNestedOneWithoutServicesInput = {
     create?: XOR<ClinicaCreateWithoutServicesInput, ClinicaUncheckedCreateWithoutServicesInput>
     connectOrCreate?: ClinicaCreateOrConnectWithoutServicesInput
     connect?: ClinicaWhereUniqueInput
-  }
-
-  export type EmployeeCreateNestedManyWithoutServicesInput = {
-    create?: XOR<EmployeeCreateWithoutServicesInput, EmployeeUncheckedCreateWithoutServicesInput> | EmployeeCreateWithoutServicesInput[] | EmployeeUncheckedCreateWithoutServicesInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutServicesInput | EmployeeCreateOrConnectWithoutServicesInput[]
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
   }
 
   export type AppointmentCreateNestedManyWithoutServiceInput = {
@@ -12243,12 +12315,6 @@ export namespace Prisma {
     connectOrCreate?: AppointmentCreateOrConnectWithoutServiceInput | AppointmentCreateOrConnectWithoutServiceInput[]
     createMany?: AppointmentCreateManyServiceInputEnvelope
     connect?: AppointmentWhereUniqueInput | AppointmentWhereUniqueInput[]
-  }
-
-  export type EmployeeUncheckedCreateNestedManyWithoutServicesInput = {
-    create?: XOR<EmployeeCreateWithoutServicesInput, EmployeeUncheckedCreateWithoutServicesInput> | EmployeeCreateWithoutServicesInput[] | EmployeeUncheckedCreateWithoutServicesInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutServicesInput | EmployeeCreateOrConnectWithoutServicesInput[]
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
   }
 
   export type AppointmentUncheckedCreateNestedManyWithoutServiceInput = {
@@ -12266,27 +12332,30 @@ export namespace Prisma {
     divide?: Decimal | DecimalJsLike | number | string
   }
 
-  export type ClinicaUpdateOneWithoutServicesNestedInput = {
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type EmployeeUpdateOneWithoutServicesNestedInput = {
+    create?: XOR<EmployeeCreateWithoutServicesInput, EmployeeUncheckedCreateWithoutServicesInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutServicesInput
+    upsert?: EmployeeUpsertWithoutServicesInput
+    disconnect?: EmployeeWhereInput | boolean
+    delete?: EmployeeWhereInput | boolean
+    connect?: EmployeeWhereUniqueInput
+    update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutServicesInput, EmployeeUpdateWithoutServicesInput>, EmployeeUncheckedUpdateWithoutServicesInput>
+  }
+
+  export type ClinicaUpdateOneRequiredWithoutServicesNestedInput = {
     create?: XOR<ClinicaCreateWithoutServicesInput, ClinicaUncheckedCreateWithoutServicesInput>
     connectOrCreate?: ClinicaCreateOrConnectWithoutServicesInput
     upsert?: ClinicaUpsertWithoutServicesInput
-    disconnect?: ClinicaWhereInput | boolean
-    delete?: ClinicaWhereInput | boolean
     connect?: ClinicaWhereUniqueInput
     update?: XOR<XOR<ClinicaUpdateToOneWithWhereWithoutServicesInput, ClinicaUpdateWithoutServicesInput>, ClinicaUncheckedUpdateWithoutServicesInput>
-  }
-
-  export type EmployeeUpdateManyWithoutServicesNestedInput = {
-    create?: XOR<EmployeeCreateWithoutServicesInput, EmployeeUncheckedCreateWithoutServicesInput> | EmployeeCreateWithoutServicesInput[] | EmployeeUncheckedCreateWithoutServicesInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutServicesInput | EmployeeCreateOrConnectWithoutServicesInput[]
-    upsert?: EmployeeUpsertWithWhereUniqueWithoutServicesInput | EmployeeUpsertWithWhereUniqueWithoutServicesInput[]
-    set?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    disconnect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    delete?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    update?: EmployeeUpdateWithWhereUniqueWithoutServicesInput | EmployeeUpdateWithWhereUniqueWithoutServicesInput[]
-    updateMany?: EmployeeUpdateManyWithWhereWithoutServicesInput | EmployeeUpdateManyWithWhereWithoutServicesInput[]
-    deleteMany?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
   }
 
   export type AppointmentUpdateManyWithoutServiceNestedInput = {
@@ -12303,19 +12372,6 @@ export namespace Prisma {
     deleteMany?: AppointmentScalarWhereInput | AppointmentScalarWhereInput[]
   }
 
-  export type EmployeeUncheckedUpdateManyWithoutServicesNestedInput = {
-    create?: XOR<EmployeeCreateWithoutServicesInput, EmployeeUncheckedCreateWithoutServicesInput> | EmployeeCreateWithoutServicesInput[] | EmployeeUncheckedCreateWithoutServicesInput[]
-    connectOrCreate?: EmployeeCreateOrConnectWithoutServicesInput | EmployeeCreateOrConnectWithoutServicesInput[]
-    upsert?: EmployeeUpsertWithWhereUniqueWithoutServicesInput | EmployeeUpsertWithWhereUniqueWithoutServicesInput[]
-    set?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    disconnect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    delete?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    connect?: EmployeeWhereUniqueInput | EmployeeWhereUniqueInput[]
-    update?: EmployeeUpdateWithWhereUniqueWithoutServicesInput | EmployeeUpdateWithWhereUniqueWithoutServicesInput[]
-    updateMany?: EmployeeUpdateManyWithWhereWithoutServicesInput | EmployeeUpdateManyWithWhereWithoutServicesInput[]
-    deleteMany?: EmployeeScalarWhereInput | EmployeeScalarWhereInput[]
-  }
-
   export type AppointmentUncheckedUpdateManyWithoutServiceNestedInput = {
     create?: XOR<AppointmentCreateWithoutServiceInput, AppointmentUncheckedCreateWithoutServiceInput> | AppointmentCreateWithoutServiceInput[] | AppointmentUncheckedCreateWithoutServiceInput[]
     connectOrCreate?: AppointmentCreateOrConnectWithoutServiceInput | AppointmentCreateOrConnectWithoutServiceInput[]
@@ -12330,9 +12386,41 @@ export namespace Prisma {
     deleteMany?: AppointmentScalarWhereInput | AppointmentScalarWhereInput[]
   }
 
-  export type ServiceCreateNestedOneWithoutAppointmentInput = {
-    create?: XOR<ServiceCreateWithoutAppointmentInput, ServiceUncheckedCreateWithoutAppointmentInput>
-    connectOrCreate?: ServiceCreateOrConnectWithoutAppointmentInput
+  export type EmployeeCreateNestedOneWithoutAvailabilitiesInput = {
+    create?: XOR<EmployeeCreateWithoutAvailabilitiesInput, EmployeeUncheckedCreateWithoutAvailabilitiesInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutAvailabilitiesInput
+    connect?: EmployeeWhereUniqueInput
+  }
+
+  export type EmployeeUpdateOneWithoutAvailabilitiesNestedInput = {
+    create?: XOR<EmployeeCreateWithoutAvailabilitiesInput, EmployeeUncheckedCreateWithoutAvailabilitiesInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutAvailabilitiesInput
+    upsert?: EmployeeUpsertWithoutAvailabilitiesInput
+    disconnect?: EmployeeWhereInput | boolean
+    delete?: EmployeeWhereInput | boolean
+    connect?: EmployeeWhereUniqueInput
+    update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutAvailabilitiesInput, EmployeeUpdateWithoutAvailabilitiesInput>, EmployeeUncheckedUpdateWithoutAvailabilitiesInput>
+  }
+
+  export type EmployeeCreateNestedOneWithoutBlockedslotsInput = {
+    create?: XOR<EmployeeCreateWithoutBlockedslotsInput, EmployeeUncheckedCreateWithoutBlockedslotsInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutBlockedslotsInput
+    connect?: EmployeeWhereUniqueInput
+  }
+
+  export type EmployeeUpdateOneWithoutBlockedslotsNestedInput = {
+    create?: XOR<EmployeeCreateWithoutBlockedslotsInput, EmployeeUncheckedCreateWithoutBlockedslotsInput>
+    connectOrCreate?: EmployeeCreateOrConnectWithoutBlockedslotsInput
+    upsert?: EmployeeUpsertWithoutBlockedslotsInput
+    disconnect?: EmployeeWhereInput | boolean
+    delete?: EmployeeWhereInput | boolean
+    connect?: EmployeeWhereUniqueInput
+    update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutBlockedslotsInput, EmployeeUpdateWithoutBlockedslotsInput>, EmployeeUncheckedUpdateWithoutBlockedslotsInput>
+  }
+
+  export type ServiceCreateNestedOneWithoutAppointmentsInput = {
+    create?: XOR<ServiceCreateWithoutAppointmentsInput, ServiceUncheckedCreateWithoutAppointmentsInput>
+    connectOrCreate?: ServiceCreateOrConnectWithoutAppointmentsInput
     connect?: ServiceWhereUniqueInput
   }
 
@@ -12352,14 +12440,14 @@ export namespace Prisma {
     set?: $Enums.AppointmentStatus
   }
 
-  export type ServiceUpdateOneWithoutAppointmentNestedInput = {
-    create?: XOR<ServiceCreateWithoutAppointmentInput, ServiceUncheckedCreateWithoutAppointmentInput>
-    connectOrCreate?: ServiceCreateOrConnectWithoutAppointmentInput
-    upsert?: ServiceUpsertWithoutAppointmentInput
+  export type ServiceUpdateOneWithoutAppointmentsNestedInput = {
+    create?: XOR<ServiceCreateWithoutAppointmentsInput, ServiceUncheckedCreateWithoutAppointmentsInput>
+    connectOrCreate?: ServiceCreateOrConnectWithoutAppointmentsInput
+    upsert?: ServiceUpsertWithoutAppointmentsInput
     disconnect?: ServiceWhereInput | boolean
     delete?: ServiceWhereInput | boolean
     connect?: ServiceWhereUniqueInput
-    update?: XOR<XOR<ServiceUpdateToOneWithWhereWithoutAppointmentInput, ServiceUpdateWithoutAppointmentInput>, ServiceUncheckedUpdateWithoutAppointmentInput>
+    update?: XOR<XOR<ServiceUpdateToOneWithWhereWithoutAppointmentsInput, ServiceUpdateWithoutAppointmentsInput>, ServiceUncheckedUpdateWithoutAppointmentsInput>
   }
 
   export type EmployeeUpdateOneWithoutAppointmentNestedInput = {
@@ -12380,42 +12468,6 @@ export namespace Prisma {
     delete?: ClinicaWhereInput | boolean
     connect?: ClinicaWhereUniqueInput
     update?: XOR<XOR<ClinicaUpdateToOneWithWhereWithoutAppointmentInput, ClinicaUpdateWithoutAppointmentInput>, ClinicaUncheckedUpdateWithoutAppointmentInput>
-  }
-
-  export type EmployeeCreateNestedOneWithoutAvailabilitiesInput = {
-    create?: XOR<EmployeeCreateWithoutAvailabilitiesInput, EmployeeUncheckedCreateWithoutAvailabilitiesInput>
-    connectOrCreate?: EmployeeCreateOrConnectWithoutAvailabilitiesInput
-    connect?: EmployeeWhereUniqueInput
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type EmployeeUpdateOneRequiredWithoutAvailabilitiesNestedInput = {
-    create?: XOR<EmployeeCreateWithoutAvailabilitiesInput, EmployeeUncheckedCreateWithoutAvailabilitiesInput>
-    connectOrCreate?: EmployeeCreateOrConnectWithoutAvailabilitiesInput
-    upsert?: EmployeeUpsertWithoutAvailabilitiesInput
-    connect?: EmployeeWhereUniqueInput
-    update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutAvailabilitiesInput, EmployeeUpdateWithoutAvailabilitiesInput>, EmployeeUncheckedUpdateWithoutAvailabilitiesInput>
-  }
-
-  export type EmployeeCreateNestedOneWithoutBlockedslotsInput = {
-    create?: XOR<EmployeeCreateWithoutBlockedslotsInput, EmployeeUncheckedCreateWithoutBlockedslotsInput>
-    connectOrCreate?: EmployeeCreateOrConnectWithoutBlockedslotsInput
-    connect?: EmployeeWhereUniqueInput
-  }
-
-  export type EmployeeUpdateOneRequiredWithoutBlockedslotsNestedInput = {
-    create?: XOR<EmployeeCreateWithoutBlockedslotsInput, EmployeeUncheckedCreateWithoutBlockedslotsInput>
-    connectOrCreate?: EmployeeCreateOrConnectWithoutBlockedslotsInput
-    upsert?: EmployeeUpsertWithoutBlockedslotsInput
-    connect?: EmployeeWhereUniqueInput
-    update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutBlockedslotsInput, EmployeeUpdateWithoutBlockedslotsInput>, EmployeeUncheckedUpdateWithoutBlockedslotsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -12584,23 +12636,6 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
-  export type NestedEnumAppointmentStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.AppointmentStatus | EnumAppointmentStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.AppointmentStatus[] | ListEnumAppointmentStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.AppointmentStatus[] | ListEnumAppointmentStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumAppointmentStatusFilter<$PrismaModel> | $Enums.AppointmentStatus
-  }
-
-  export type NestedEnumAppointmentStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.AppointmentStatus | EnumAppointmentStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.AppointmentStatus[] | ListEnumAppointmentStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.AppointmentStatus[] | ListEnumAppointmentStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumAppointmentStatusWithAggregatesFilter<$PrismaModel> | $Enums.AppointmentStatus
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumAppointmentStatusFilter<$PrismaModel>
-    _max?: NestedEnumAppointmentStatusFilter<$PrismaModel>
-  }
-
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -12626,6 +12661,23 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedEnumAppointmentStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.AppointmentStatus | EnumAppointmentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AppointmentStatus[] | ListEnumAppointmentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AppointmentStatus[] | ListEnumAppointmentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAppointmentStatusFilter<$PrismaModel> | $Enums.AppointmentStatus
+  }
+
+  export type NestedEnumAppointmentStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AppointmentStatus | EnumAppointmentStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.AppointmentStatus[] | ListEnumAppointmentStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AppointmentStatus[] | ListEnumAppointmentStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumAppointmentStatusWithAggregatesFilter<$PrismaModel> | $Enums.AppointmentStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAppointmentStatusFilter<$PrismaModel>
+    _max?: NestedEnumAppointmentStatusFilter<$PrismaModel>
   }
 
   export type ClinicaCreateWithoutUserInput = {
@@ -12733,7 +12785,7 @@ export namespace Prisma {
     role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
-    services?: ServiceCreateNestedManyWithoutEmployeesInput
+    services?: ServiceCreateNestedManyWithoutEmployeeInput
     Appointment?: AppointmentCreateNestedManyWithoutEmployeeInput
     availabilities?: AvailabilityCreateNestedManyWithoutEmployeeInput
     blockedslots?: BlockedSlotCreateNestedManyWithoutEmployeeInput
@@ -12748,7 +12800,7 @@ export namespace Prisma {
     role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
-    services?: ServiceUncheckedCreateNestedManyWithoutEmployeesInput
+    services?: ServiceUncheckedCreateNestedManyWithoutEmployeeInput
     Appointment?: AppointmentUncheckedCreateNestedManyWithoutEmployeeInput
     availabilities?: AvailabilityUncheckedCreateNestedManyWithoutEmployeeInput
     blockedslots?: BlockedSlotUncheckedCreateNestedManyWithoutEmployeeInput
@@ -12769,10 +12821,11 @@ export namespace Prisma {
     name: string
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
+    duration: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    employees?: EmployeeCreateNestedManyWithoutServicesInput
-    Appointment?: AppointmentCreateNestedManyWithoutServiceInput
+    employee?: EmployeeCreateNestedOneWithoutServicesInput
+    appointments?: AppointmentCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateWithoutClinicaInput = {
@@ -12780,10 +12833,11 @@ export namespace Prisma {
     name: string
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
+    duration: number
+    employee_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    employees?: EmployeeUncheckedCreateNestedManyWithoutServicesInput
-    Appointment?: AppointmentUncheckedCreateNestedManyWithoutServiceInput
+    appointments?: AppointmentUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceCreateOrConnectWithoutClinicaInput = {
@@ -12807,7 +12861,7 @@ export namespace Prisma {
     customerPhone: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    service?: ServiceCreateNestedOneWithoutAppointmentInput
+    service?: ServiceCreateNestedOneWithoutAppointmentsInput
     employee?: EmployeeCreateNestedOneWithoutAppointmentInput
   }
 
@@ -12924,7 +12978,9 @@ export namespace Prisma {
     name?: StringFilter<"Service"> | string
     description?: StringNullableFilter<"Service"> | string | null
     price?: DecimalFilter<"Service"> | Decimal | DecimalJsLike | number | string
-    clinica_id?: StringNullableFilter<"Service"> | string | null
+    duration?: IntFilter<"Service"> | number
+    employee_id?: StringNullableFilter<"Service"> | string | null
+    clinica_id?: StringFilter<"Service"> | string
     createdAt?: DateTimeFilter<"Service"> | Date | string
     updatedAt?: DateTimeFilter<"Service"> | Date | string
   }
@@ -12964,31 +13020,38 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Appointment"> | Date | string
   }
 
-  export type ServiceCreateWithoutEmployeesInput = {
+  export type ServiceCreateWithoutEmployeeInput = {
     id?: string
     name: string
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
+    duration: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    clinica?: ClinicaCreateNestedOneWithoutServicesInput
-    Appointment?: AppointmentCreateNestedManyWithoutServiceInput
+    clinica: ClinicaCreateNestedOneWithoutServicesInput
+    appointments?: AppointmentCreateNestedManyWithoutServiceInput
   }
 
-  export type ServiceUncheckedCreateWithoutEmployeesInput = {
+  export type ServiceUncheckedCreateWithoutEmployeeInput = {
     id?: string
     name: string
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
-    clinica_id?: string | null
+    duration: number
+    clinica_id: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    Appointment?: AppointmentUncheckedCreateNestedManyWithoutServiceInput
+    appointments?: AppointmentUncheckedCreateNestedManyWithoutServiceInput
   }
 
-  export type ServiceCreateOrConnectWithoutEmployeesInput = {
+  export type ServiceCreateOrConnectWithoutEmployeeInput = {
     where: ServiceWhereUniqueInput
-    create: XOR<ServiceCreateWithoutEmployeesInput, ServiceUncheckedCreateWithoutEmployeesInput>
+    create: XOR<ServiceCreateWithoutEmployeeInput, ServiceUncheckedCreateWithoutEmployeeInput>
+  }
+
+  export type ServiceCreateManyEmployeeInputEnvelope = {
+    data: ServiceCreateManyEmployeeInput | ServiceCreateManyEmployeeInput[]
+    skipDuplicates?: boolean
   }
 
   export type ClinicaCreateWithoutEmployeesInput = {
@@ -13035,7 +13098,7 @@ export namespace Prisma {
     customerPhone: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    service?: ServiceCreateNestedOneWithoutAppointmentInput
+    service?: ServiceCreateNestedOneWithoutAppointmentsInput
     clinica?: ClinicaCreateNestedOneWithoutAppointmentInput
   }
 
@@ -13124,20 +13187,20 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ServiceUpsertWithWhereUniqueWithoutEmployeesInput = {
+  export type ServiceUpsertWithWhereUniqueWithoutEmployeeInput = {
     where: ServiceWhereUniqueInput
-    update: XOR<ServiceUpdateWithoutEmployeesInput, ServiceUncheckedUpdateWithoutEmployeesInput>
-    create: XOR<ServiceCreateWithoutEmployeesInput, ServiceUncheckedCreateWithoutEmployeesInput>
+    update: XOR<ServiceUpdateWithoutEmployeeInput, ServiceUncheckedUpdateWithoutEmployeeInput>
+    create: XOR<ServiceCreateWithoutEmployeeInput, ServiceUncheckedCreateWithoutEmployeeInput>
   }
 
-  export type ServiceUpdateWithWhereUniqueWithoutEmployeesInput = {
+  export type ServiceUpdateWithWhereUniqueWithoutEmployeeInput = {
     where: ServiceWhereUniqueInput
-    data: XOR<ServiceUpdateWithoutEmployeesInput, ServiceUncheckedUpdateWithoutEmployeesInput>
+    data: XOR<ServiceUpdateWithoutEmployeeInput, ServiceUncheckedUpdateWithoutEmployeeInput>
   }
 
-  export type ServiceUpdateManyWithWhereWithoutEmployeesInput = {
+  export type ServiceUpdateManyWithWhereWithoutEmployeeInput = {
     where: ServiceScalarWhereInput
-    data: XOR<ServiceUpdateManyMutationInput, ServiceUncheckedUpdateManyWithoutEmployeesInput>
+    data: XOR<ServiceUpdateManyMutationInput, ServiceUncheckedUpdateManyWithoutEmployeeInput>
   }
 
   export type ClinicaUpsertWithoutEmployeesInput = {
@@ -13216,7 +13279,7 @@ export namespace Prisma {
     OR?: AvailabilityScalarWhereInput[]
     NOT?: AvailabilityScalarWhereInput | AvailabilityScalarWhereInput[]
     id?: StringFilter<"Availability"> | string
-    employee_id?: StringFilter<"Availability"> | string
+    employee_id?: StringNullableFilter<"Availability"> | string | null
     dayOfWeek?: IntFilter<"Availability"> | number
     startTime?: DateTimeFilter<"Availability"> | Date | string
     endTime?: DateTimeFilter<"Availability"> | Date | string
@@ -13246,46 +13309,13 @@ export namespace Prisma {
     OR?: BlockedSlotScalarWhereInput[]
     NOT?: BlockedSlotScalarWhereInput | BlockedSlotScalarWhereInput[]
     id?: StringFilter<"BlockedSlot"> | string
-    employee_id?: StringFilter<"BlockedSlot"> | string
+    employee_id?: StringNullableFilter<"BlockedSlot"> | string | null
     date?: DateTimeFilter<"BlockedSlot"> | Date | string
     startTime?: DateTimeFilter<"BlockedSlot"> | Date | string
     endTime?: DateTimeFilter<"BlockedSlot"> | Date | string
     reason?: StringNullableFilter<"BlockedSlot"> | string | null
     createdAt?: DateTimeFilter<"BlockedSlot"> | Date | string
     updatedAt?: DateTimeFilter<"BlockedSlot"> | Date | string
-  }
-
-  export type ClinicaCreateWithoutServicesInput = {
-    id?: string
-    name: string
-    slug: string
-    contact: string
-    address: string
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    user?: UserCreateNestedOneWithoutClinicasInput
-    employees?: EmployeeCreateNestedManyWithoutClinicaInput
-    Appointment?: AppointmentCreateNestedManyWithoutClinicaInput
-  }
-
-  export type ClinicaUncheckedCreateWithoutServicesInput = {
-    id?: string
-    name: string
-    slug: string
-    contact: string
-    address: string
-    isActive?: boolean
-    user_id?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    employees?: EmployeeUncheckedCreateNestedManyWithoutClinicaInput
-    Appointment?: AppointmentUncheckedCreateNestedManyWithoutClinicaInput
-  }
-
-  export type ClinicaCreateOrConnectWithoutServicesInput = {
-    where: ClinicaWhereUniqueInput
-    create: XOR<ClinicaCreateWithoutServicesInput, ClinicaUncheckedCreateWithoutServicesInput>
   }
 
   export type EmployeeCreateWithoutServicesInput = {
@@ -13321,6 +13351,39 @@ export namespace Prisma {
   export type EmployeeCreateOrConnectWithoutServicesInput = {
     where: EmployeeWhereUniqueInput
     create: XOR<EmployeeCreateWithoutServicesInput, EmployeeUncheckedCreateWithoutServicesInput>
+  }
+
+  export type ClinicaCreateWithoutServicesInput = {
+    id?: string
+    name: string
+    slug: string
+    contact: string
+    address: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user?: UserCreateNestedOneWithoutClinicasInput
+    employees?: EmployeeCreateNestedManyWithoutClinicaInput
+    Appointment?: AppointmentCreateNestedManyWithoutClinicaInput
+  }
+
+  export type ClinicaUncheckedCreateWithoutServicesInput = {
+    id?: string
+    name: string
+    slug: string
+    contact: string
+    address: string
+    isActive?: boolean
+    user_id?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    employees?: EmployeeUncheckedCreateNestedManyWithoutClinicaInput
+    Appointment?: AppointmentUncheckedCreateNestedManyWithoutClinicaInput
+  }
+
+  export type ClinicaCreateOrConnectWithoutServicesInput = {
+    where: ClinicaWhereUniqueInput
+    create: XOR<ClinicaCreateWithoutServicesInput, ClinicaUncheckedCreateWithoutServicesInput>
   }
 
   export type AppointmentCreateWithoutServiceInput = {
@@ -13363,6 +13426,47 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type EmployeeUpsertWithoutServicesInput = {
+    update: XOR<EmployeeUpdateWithoutServicesInput, EmployeeUncheckedUpdateWithoutServicesInput>
+    create: XOR<EmployeeCreateWithoutServicesInput, EmployeeUncheckedCreateWithoutServicesInput>
+    where?: EmployeeWhereInput
+  }
+
+  export type EmployeeUpdateToOneWithWhereWithoutServicesInput = {
+    where?: EmployeeWhereInput
+    data: XOR<EmployeeUpdateWithoutServicesInput, EmployeeUncheckedUpdateWithoutServicesInput>
+  }
+
+  export type EmployeeUpdateWithoutServicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    speciality?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clinica?: ClinicaUpdateOneWithoutEmployeesNestedInput
+    Appointment?: AppointmentUpdateManyWithoutEmployeeNestedInput
+    availabilities?: AvailabilityUpdateManyWithoutEmployeeNestedInput
+    blockedslots?: BlockedSlotUpdateManyWithoutEmployeeNestedInput
+  }
+
+  export type EmployeeUncheckedUpdateWithoutServicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    speciality?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    clinica_id?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Appointment?: AppointmentUncheckedUpdateManyWithoutEmployeeNestedInput
+    availabilities?: AvailabilityUncheckedUpdateManyWithoutEmployeeNestedInput
+    blockedslots?: BlockedSlotUncheckedUpdateManyWithoutEmployeeNestedInput
+  }
+
   export type ClinicaUpsertWithoutServicesInput = {
     update: XOR<ClinicaUpdateWithoutServicesInput, ClinicaUncheckedUpdateWithoutServicesInput>
     create: XOR<ClinicaCreateWithoutServicesInput, ClinicaUncheckedCreateWithoutServicesInput>
@@ -13402,22 +13506,6 @@ export namespace Prisma {
     Appointment?: AppointmentUncheckedUpdateManyWithoutClinicaNestedInput
   }
 
-  export type EmployeeUpsertWithWhereUniqueWithoutServicesInput = {
-    where: EmployeeWhereUniqueInput
-    update: XOR<EmployeeUpdateWithoutServicesInput, EmployeeUncheckedUpdateWithoutServicesInput>
-    create: XOR<EmployeeCreateWithoutServicesInput, EmployeeUncheckedCreateWithoutServicesInput>
-  }
-
-  export type EmployeeUpdateWithWhereUniqueWithoutServicesInput = {
-    where: EmployeeWhereUniqueInput
-    data: XOR<EmployeeUpdateWithoutServicesInput, EmployeeUncheckedUpdateWithoutServicesInput>
-  }
-
-  export type EmployeeUpdateManyWithWhereWithoutServicesInput = {
-    where: EmployeeScalarWhereInput
-    data: XOR<EmployeeUpdateManyMutationInput, EmployeeUncheckedUpdateManyWithoutServicesInput>
-  }
-
   export type AppointmentUpsertWithWhereUniqueWithoutServiceInput = {
     where: AppointmentWhereUniqueInput
     update: XOR<AppointmentUpdateWithoutServiceInput, AppointmentUncheckedUpdateWithoutServiceInput>
@@ -13434,31 +13522,185 @@ export namespace Prisma {
     data: XOR<AppointmentUpdateManyMutationInput, AppointmentUncheckedUpdateManyWithoutServiceInput>
   }
 
-  export type ServiceCreateWithoutAppointmentInput = {
+  export type EmployeeCreateWithoutAvailabilitiesInput = {
     id?: string
     name: string
-    description?: string | null
-    price: Decimal | DecimalJsLike | number | string
+    speciality: string
+    email: string
+    password: string
+    role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
-    clinica?: ClinicaCreateNestedOneWithoutServicesInput
-    employees?: EmployeeCreateNestedManyWithoutServicesInput
+    services?: ServiceCreateNestedManyWithoutEmployeeInput
+    clinica?: ClinicaCreateNestedOneWithoutEmployeesInput
+    Appointment?: AppointmentCreateNestedManyWithoutEmployeeInput
+    blockedslots?: BlockedSlotCreateNestedManyWithoutEmployeeInput
   }
 
-  export type ServiceUncheckedCreateWithoutAppointmentInput = {
+  export type EmployeeUncheckedCreateWithoutAvailabilitiesInput = {
     id?: string
     name: string
-    description?: string | null
-    price: Decimal | DecimalJsLike | number | string
+    speciality: string
+    email: string
+    password: string
+    role?: $Enums.Role
     clinica_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    employees?: EmployeeUncheckedCreateNestedManyWithoutServicesInput
+    services?: ServiceUncheckedCreateNestedManyWithoutEmployeeInput
+    Appointment?: AppointmentUncheckedCreateNestedManyWithoutEmployeeInput
+    blockedslots?: BlockedSlotUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
-  export type ServiceCreateOrConnectWithoutAppointmentInput = {
+  export type EmployeeCreateOrConnectWithoutAvailabilitiesInput = {
+    where: EmployeeWhereUniqueInput
+    create: XOR<EmployeeCreateWithoutAvailabilitiesInput, EmployeeUncheckedCreateWithoutAvailabilitiesInput>
+  }
+
+  export type EmployeeUpsertWithoutAvailabilitiesInput = {
+    update: XOR<EmployeeUpdateWithoutAvailabilitiesInput, EmployeeUncheckedUpdateWithoutAvailabilitiesInput>
+    create: XOR<EmployeeCreateWithoutAvailabilitiesInput, EmployeeUncheckedCreateWithoutAvailabilitiesInput>
+    where?: EmployeeWhereInput
+  }
+
+  export type EmployeeUpdateToOneWithWhereWithoutAvailabilitiesInput = {
+    where?: EmployeeWhereInput
+    data: XOR<EmployeeUpdateWithoutAvailabilitiesInput, EmployeeUncheckedUpdateWithoutAvailabilitiesInput>
+  }
+
+  export type EmployeeUpdateWithoutAvailabilitiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    speciality?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    services?: ServiceUpdateManyWithoutEmployeeNestedInput
+    clinica?: ClinicaUpdateOneWithoutEmployeesNestedInput
+    Appointment?: AppointmentUpdateManyWithoutEmployeeNestedInput
+    blockedslots?: BlockedSlotUpdateManyWithoutEmployeeNestedInput
+  }
+
+  export type EmployeeUncheckedUpdateWithoutAvailabilitiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    speciality?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    clinica_id?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    services?: ServiceUncheckedUpdateManyWithoutEmployeeNestedInput
+    Appointment?: AppointmentUncheckedUpdateManyWithoutEmployeeNestedInput
+    blockedslots?: BlockedSlotUncheckedUpdateManyWithoutEmployeeNestedInput
+  }
+
+  export type EmployeeCreateWithoutBlockedslotsInput = {
+    id?: string
+    name: string
+    speciality: string
+    email: string
+    password: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    services?: ServiceCreateNestedManyWithoutEmployeeInput
+    clinica?: ClinicaCreateNestedOneWithoutEmployeesInput
+    Appointment?: AppointmentCreateNestedManyWithoutEmployeeInput
+    availabilities?: AvailabilityCreateNestedManyWithoutEmployeeInput
+  }
+
+  export type EmployeeUncheckedCreateWithoutBlockedslotsInput = {
+    id?: string
+    name: string
+    speciality: string
+    email: string
+    password: string
+    role?: $Enums.Role
+    clinica_id?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    services?: ServiceUncheckedCreateNestedManyWithoutEmployeeInput
+    Appointment?: AppointmentUncheckedCreateNestedManyWithoutEmployeeInput
+    availabilities?: AvailabilityUncheckedCreateNestedManyWithoutEmployeeInput
+  }
+
+  export type EmployeeCreateOrConnectWithoutBlockedslotsInput = {
+    where: EmployeeWhereUniqueInput
+    create: XOR<EmployeeCreateWithoutBlockedslotsInput, EmployeeUncheckedCreateWithoutBlockedslotsInput>
+  }
+
+  export type EmployeeUpsertWithoutBlockedslotsInput = {
+    update: XOR<EmployeeUpdateWithoutBlockedslotsInput, EmployeeUncheckedUpdateWithoutBlockedslotsInput>
+    create: XOR<EmployeeCreateWithoutBlockedslotsInput, EmployeeUncheckedCreateWithoutBlockedslotsInput>
+    where?: EmployeeWhereInput
+  }
+
+  export type EmployeeUpdateToOneWithWhereWithoutBlockedslotsInput = {
+    where?: EmployeeWhereInput
+    data: XOR<EmployeeUpdateWithoutBlockedslotsInput, EmployeeUncheckedUpdateWithoutBlockedslotsInput>
+  }
+
+  export type EmployeeUpdateWithoutBlockedslotsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    speciality?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    services?: ServiceUpdateManyWithoutEmployeeNestedInput
+    clinica?: ClinicaUpdateOneWithoutEmployeesNestedInput
+    Appointment?: AppointmentUpdateManyWithoutEmployeeNestedInput
+    availabilities?: AvailabilityUpdateManyWithoutEmployeeNestedInput
+  }
+
+  export type EmployeeUncheckedUpdateWithoutBlockedslotsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    speciality?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    clinica_id?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    services?: ServiceUncheckedUpdateManyWithoutEmployeeNestedInput
+    Appointment?: AppointmentUncheckedUpdateManyWithoutEmployeeNestedInput
+    availabilities?: AvailabilityUncheckedUpdateManyWithoutEmployeeNestedInput
+  }
+
+  export type ServiceCreateWithoutAppointmentsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    price: Decimal | DecimalJsLike | number | string
+    duration: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    employee?: EmployeeCreateNestedOneWithoutServicesInput
+    clinica: ClinicaCreateNestedOneWithoutServicesInput
+  }
+
+  export type ServiceUncheckedCreateWithoutAppointmentsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    price: Decimal | DecimalJsLike | number | string
+    duration: number
+    employee_id?: string | null
+    clinica_id: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ServiceCreateOrConnectWithoutAppointmentsInput = {
     where: ServiceWhereUniqueInput
-    create: XOR<ServiceCreateWithoutAppointmentInput, ServiceUncheckedCreateWithoutAppointmentInput>
+    create: XOR<ServiceCreateWithoutAppointmentsInput, ServiceUncheckedCreateWithoutAppointmentsInput>
   }
 
   export type EmployeeCreateWithoutAppointmentInput = {
@@ -13470,7 +13712,7 @@ export namespace Prisma {
     role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
-    services?: ServiceCreateNestedManyWithoutEmployeesInput
+    services?: ServiceCreateNestedManyWithoutEmployeeInput
     clinica?: ClinicaCreateNestedOneWithoutEmployeesInput
     availabilities?: AvailabilityCreateNestedManyWithoutEmployeeInput
     blockedslots?: BlockedSlotCreateNestedManyWithoutEmployeeInput
@@ -13486,7 +13728,7 @@ export namespace Prisma {
     clinica_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    services?: ServiceUncheckedCreateNestedManyWithoutEmployeesInput
+    services?: ServiceUncheckedCreateNestedManyWithoutEmployeeInput
     availabilities?: AvailabilityUncheckedCreateNestedManyWithoutEmployeeInput
     blockedslots?: BlockedSlotUncheckedCreateNestedManyWithoutEmployeeInput
   }
@@ -13529,37 +13771,39 @@ export namespace Prisma {
     create: XOR<ClinicaCreateWithoutAppointmentInput, ClinicaUncheckedCreateWithoutAppointmentInput>
   }
 
-  export type ServiceUpsertWithoutAppointmentInput = {
-    update: XOR<ServiceUpdateWithoutAppointmentInput, ServiceUncheckedUpdateWithoutAppointmentInput>
-    create: XOR<ServiceCreateWithoutAppointmentInput, ServiceUncheckedCreateWithoutAppointmentInput>
+  export type ServiceUpsertWithoutAppointmentsInput = {
+    update: XOR<ServiceUpdateWithoutAppointmentsInput, ServiceUncheckedUpdateWithoutAppointmentsInput>
+    create: XOR<ServiceCreateWithoutAppointmentsInput, ServiceUncheckedCreateWithoutAppointmentsInput>
     where?: ServiceWhereInput
   }
 
-  export type ServiceUpdateToOneWithWhereWithoutAppointmentInput = {
+  export type ServiceUpdateToOneWithWhereWithoutAppointmentsInput = {
     where?: ServiceWhereInput
-    data: XOR<ServiceUpdateWithoutAppointmentInput, ServiceUncheckedUpdateWithoutAppointmentInput>
+    data: XOR<ServiceUpdateWithoutAppointmentsInput, ServiceUncheckedUpdateWithoutAppointmentsInput>
   }
 
-  export type ServiceUpdateWithoutAppointmentInput = {
+  export type ServiceUpdateWithoutAppointmentsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    clinica?: ClinicaUpdateOneWithoutServicesNestedInput
-    employees?: EmployeeUpdateManyWithoutServicesNestedInput
+    employee?: EmployeeUpdateOneWithoutServicesNestedInput
+    clinica?: ClinicaUpdateOneRequiredWithoutServicesNestedInput
   }
 
-  export type ServiceUncheckedUpdateWithoutAppointmentInput = {
+  export type ServiceUncheckedUpdateWithoutAppointmentsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    clinica_id?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    employee_id?: NullableStringFieldUpdateOperationsInput | string | null
+    clinica_id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employees?: EmployeeUncheckedUpdateManyWithoutServicesNestedInput
   }
 
   export type EmployeeUpsertWithoutAppointmentInput = {
@@ -13582,7 +13826,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    services?: ServiceUpdateManyWithoutEmployeesNestedInput
+    services?: ServiceUpdateManyWithoutEmployeeNestedInput
     clinica?: ClinicaUpdateOneWithoutEmployeesNestedInput
     availabilities?: AvailabilityUpdateManyWithoutEmployeeNestedInput
     blockedslots?: BlockedSlotUpdateManyWithoutEmployeeNestedInput
@@ -13598,7 +13842,7 @@ export namespace Prisma {
     clinica_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    services?: ServiceUncheckedUpdateManyWithoutEmployeesNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutEmployeeNestedInput
     availabilities?: AvailabilityUncheckedUpdateManyWithoutEmployeeNestedInput
     blockedslots?: BlockedSlotUncheckedUpdateManyWithoutEmployeeNestedInput
   }
@@ -13640,158 +13884,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employees?: EmployeeUncheckedUpdateManyWithoutClinicaNestedInput
     services?: ServiceUncheckedUpdateManyWithoutClinicaNestedInput
-  }
-
-  export type EmployeeCreateWithoutAvailabilitiesInput = {
-    id?: string
-    name: string
-    speciality: string
-    email: string
-    password: string
-    role?: $Enums.Role
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    services?: ServiceCreateNestedManyWithoutEmployeesInput
-    clinica?: ClinicaCreateNestedOneWithoutEmployeesInput
-    Appointment?: AppointmentCreateNestedManyWithoutEmployeeInput
-    blockedslots?: BlockedSlotCreateNestedManyWithoutEmployeeInput
-  }
-
-  export type EmployeeUncheckedCreateWithoutAvailabilitiesInput = {
-    id?: string
-    name: string
-    speciality: string
-    email: string
-    password: string
-    role?: $Enums.Role
-    clinica_id?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    services?: ServiceUncheckedCreateNestedManyWithoutEmployeesInput
-    Appointment?: AppointmentUncheckedCreateNestedManyWithoutEmployeeInput
-    blockedslots?: BlockedSlotUncheckedCreateNestedManyWithoutEmployeeInput
-  }
-
-  export type EmployeeCreateOrConnectWithoutAvailabilitiesInput = {
-    where: EmployeeWhereUniqueInput
-    create: XOR<EmployeeCreateWithoutAvailabilitiesInput, EmployeeUncheckedCreateWithoutAvailabilitiesInput>
-  }
-
-  export type EmployeeUpsertWithoutAvailabilitiesInput = {
-    update: XOR<EmployeeUpdateWithoutAvailabilitiesInput, EmployeeUncheckedUpdateWithoutAvailabilitiesInput>
-    create: XOR<EmployeeCreateWithoutAvailabilitiesInput, EmployeeUncheckedCreateWithoutAvailabilitiesInput>
-    where?: EmployeeWhereInput
-  }
-
-  export type EmployeeUpdateToOneWithWhereWithoutAvailabilitiesInput = {
-    where?: EmployeeWhereInput
-    data: XOR<EmployeeUpdateWithoutAvailabilitiesInput, EmployeeUncheckedUpdateWithoutAvailabilitiesInput>
-  }
-
-  export type EmployeeUpdateWithoutAvailabilitiesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    speciality?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    services?: ServiceUpdateManyWithoutEmployeesNestedInput
-    clinica?: ClinicaUpdateOneWithoutEmployeesNestedInput
-    Appointment?: AppointmentUpdateManyWithoutEmployeeNestedInput
-    blockedslots?: BlockedSlotUpdateManyWithoutEmployeeNestedInput
-  }
-
-  export type EmployeeUncheckedUpdateWithoutAvailabilitiesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    speciality?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    clinica_id?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    services?: ServiceUncheckedUpdateManyWithoutEmployeesNestedInput
-    Appointment?: AppointmentUncheckedUpdateManyWithoutEmployeeNestedInput
-    blockedslots?: BlockedSlotUncheckedUpdateManyWithoutEmployeeNestedInput
-  }
-
-  export type EmployeeCreateWithoutBlockedslotsInput = {
-    id?: string
-    name: string
-    speciality: string
-    email: string
-    password: string
-    role?: $Enums.Role
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    services?: ServiceCreateNestedManyWithoutEmployeesInput
-    clinica?: ClinicaCreateNestedOneWithoutEmployeesInput
-    Appointment?: AppointmentCreateNestedManyWithoutEmployeeInput
-    availabilities?: AvailabilityCreateNestedManyWithoutEmployeeInput
-  }
-
-  export type EmployeeUncheckedCreateWithoutBlockedslotsInput = {
-    id?: string
-    name: string
-    speciality: string
-    email: string
-    password: string
-    role?: $Enums.Role
-    clinica_id?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    services?: ServiceUncheckedCreateNestedManyWithoutEmployeesInput
-    Appointment?: AppointmentUncheckedCreateNestedManyWithoutEmployeeInput
-    availabilities?: AvailabilityUncheckedCreateNestedManyWithoutEmployeeInput
-  }
-
-  export type EmployeeCreateOrConnectWithoutBlockedslotsInput = {
-    where: EmployeeWhereUniqueInput
-    create: XOR<EmployeeCreateWithoutBlockedslotsInput, EmployeeUncheckedCreateWithoutBlockedslotsInput>
-  }
-
-  export type EmployeeUpsertWithoutBlockedslotsInput = {
-    update: XOR<EmployeeUpdateWithoutBlockedslotsInput, EmployeeUncheckedUpdateWithoutBlockedslotsInput>
-    create: XOR<EmployeeCreateWithoutBlockedslotsInput, EmployeeUncheckedCreateWithoutBlockedslotsInput>
-    where?: EmployeeWhereInput
-  }
-
-  export type EmployeeUpdateToOneWithWhereWithoutBlockedslotsInput = {
-    where?: EmployeeWhereInput
-    data: XOR<EmployeeUpdateWithoutBlockedslotsInput, EmployeeUncheckedUpdateWithoutBlockedslotsInput>
-  }
-
-  export type EmployeeUpdateWithoutBlockedslotsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    speciality?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    services?: ServiceUpdateManyWithoutEmployeesNestedInput
-    clinica?: ClinicaUpdateOneWithoutEmployeesNestedInput
-    Appointment?: AppointmentUpdateManyWithoutEmployeeNestedInput
-    availabilities?: AvailabilityUpdateManyWithoutEmployeeNestedInput
-  }
-
-  export type EmployeeUncheckedUpdateWithoutBlockedslotsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    speciality?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    clinica_id?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    services?: ServiceUncheckedUpdateManyWithoutEmployeesNestedInput
-    Appointment?: AppointmentUncheckedUpdateManyWithoutEmployeeNestedInput
-    availabilities?: AvailabilityUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type ClinicaCreateManyUserInput = {
@@ -13860,6 +13952,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
+    duration: number
+    employee_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -13888,7 +13982,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    services?: ServiceUpdateManyWithoutEmployeesNestedInput
+    services?: ServiceUpdateManyWithoutEmployeeNestedInput
     Appointment?: AppointmentUpdateManyWithoutEmployeeNestedInput
     availabilities?: AvailabilityUpdateManyWithoutEmployeeNestedInput
     blockedslots?: BlockedSlotUpdateManyWithoutEmployeeNestedInput
@@ -13903,7 +13997,7 @@ export namespace Prisma {
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    services?: ServiceUncheckedUpdateManyWithoutEmployeesNestedInput
+    services?: ServiceUncheckedUpdateManyWithoutEmployeeNestedInput
     Appointment?: AppointmentUncheckedUpdateManyWithoutEmployeeNestedInput
     availabilities?: AvailabilityUncheckedUpdateManyWithoutEmployeeNestedInput
     blockedslots?: BlockedSlotUncheckedUpdateManyWithoutEmployeeNestedInput
@@ -13925,10 +14019,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employees?: EmployeeUpdateManyWithoutServicesNestedInput
-    Appointment?: AppointmentUpdateManyWithoutServiceNestedInput
+    employee?: EmployeeUpdateOneWithoutServicesNestedInput
+    appointments?: AppointmentUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateWithoutClinicaInput = {
@@ -13936,10 +14031,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: IntFieldUpdateOperationsInput | number
+    employee_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employees?: EmployeeUncheckedUpdateManyWithoutServicesNestedInput
-    Appointment?: AppointmentUncheckedUpdateManyWithoutServiceNestedInput
+    appointments?: AppointmentUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateManyWithoutClinicaInput = {
@@ -13947,6 +14043,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: IntFieldUpdateOperationsInput | number
+    employee_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13962,7 +14060,7 @@ export namespace Prisma {
     customerPhone?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    service?: ServiceUpdateOneWithoutAppointmentNestedInput
+    service?: ServiceUpdateOneWithoutAppointmentsNestedInput
     employee?: EmployeeUpdateOneWithoutAppointmentNestedInput
   }
 
@@ -13994,6 +14092,17 @@ export namespace Prisma {
     employee_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ServiceCreateManyEmployeeInput = {
+    id?: string
+    name: string
+    description?: string | null
+    price: Decimal | DecimalJsLike | number | string
+    duration: number
+    clinica_id: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AppointmentCreateManyEmployeeInput = {
@@ -14031,34 +14140,37 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type ServiceUpdateWithoutEmployeesInput = {
+  export type ServiceUpdateWithoutEmployeeInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    clinica?: ClinicaUpdateOneWithoutServicesNestedInput
-    Appointment?: AppointmentUpdateManyWithoutServiceNestedInput
+    clinica?: ClinicaUpdateOneRequiredWithoutServicesNestedInput
+    appointments?: AppointmentUpdateManyWithoutServiceNestedInput
   }
 
-  export type ServiceUncheckedUpdateWithoutEmployeesInput = {
+  export type ServiceUncheckedUpdateWithoutEmployeeInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    clinica_id?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    clinica_id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Appointment?: AppointmentUncheckedUpdateManyWithoutServiceNestedInput
+    appointments?: AppointmentUncheckedUpdateManyWithoutServiceNestedInput
   }
 
-  export type ServiceUncheckedUpdateManyWithoutEmployeesInput = {
+  export type ServiceUncheckedUpdateManyWithoutEmployeeInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    clinica_id?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    clinica_id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14074,7 +14186,7 @@ export namespace Prisma {
     customerPhone?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    service?: ServiceUpdateOneWithoutAppointmentNestedInput
+    service?: ServiceUpdateOneWithoutAppointmentsNestedInput
     clinica?: ClinicaUpdateOneWithoutAppointmentNestedInput
   }
 
@@ -14181,48 +14293,6 @@ export namespace Prisma {
     clinica_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-  }
-
-  export type EmployeeUpdateWithoutServicesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    speciality?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    clinica?: ClinicaUpdateOneWithoutEmployeesNestedInput
-    Appointment?: AppointmentUpdateManyWithoutEmployeeNestedInput
-    availabilities?: AvailabilityUpdateManyWithoutEmployeeNestedInput
-    blockedslots?: BlockedSlotUpdateManyWithoutEmployeeNestedInput
-  }
-
-  export type EmployeeUncheckedUpdateWithoutServicesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    speciality?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    clinica_id?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    Appointment?: AppointmentUncheckedUpdateManyWithoutEmployeeNestedInput
-    availabilities?: AvailabilityUncheckedUpdateManyWithoutEmployeeNestedInput
-    blockedslots?: BlockedSlotUncheckedUpdateManyWithoutEmployeeNestedInput
-  }
-
-  export type EmployeeUncheckedUpdateManyWithoutServicesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    speciality?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    clinica_id?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AppointmentUpdateWithoutServiceInput = {

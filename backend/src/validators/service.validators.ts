@@ -3,6 +3,8 @@ import {z} from 'zod'
 
 import { Decimal } from "@prisma/client/runtime/library";
 
+
+
 export const updateServiceSchema = z.object({
     name: z.string().min(5).max(64).trim().optional(),
     description: z.string().min(10).max(256).trim().optional(),
@@ -13,6 +15,7 @@ export const updateServiceSchema = z.object({
       { message: "Price must be a number" }
     )
     .transform((val: string | undefined) => (val !== undefined ? new Decimal(val) : undefined)),
+    duration: z.number().optional()
 })
 
 export const createServiceSchema = z.object({
@@ -24,4 +27,5 @@ export const createServiceSchema = z.object({
     { message: "Price must be a number" }
     )
     .transform((val: string) => new Decimal(val)),
+    duration: z.number()
 })

@@ -160,21 +160,7 @@ exports.Prisma.ServiceScalarFieldEnum = {
   name: 'name',
   description: 'description',
   price: 'price',
-  clinica_id: 'clinica_id',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
-exports.Prisma.AppointmentScalarFieldEnum = {
-  id: 'id',
-  start: 'start',
-  end: 'end',
-  status: 'status',
-  customerName: 'customerName',
-  customerEmail: 'customerEmail',
-  customerCPF: 'customerCPF',
-  customerPhone: 'customerPhone',
-  service_id: 'service_id',
+  duration: 'duration',
   employee_id: 'employee_id',
   clinica_id: 'clinica_id',
   createdAt: 'createdAt',
@@ -199,6 +185,22 @@ exports.Prisma.BlockedSlotScalarFieldEnum = {
   startTime: 'startTime',
   endTime: 'endTime',
   reason: 'reason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AppointmentScalarFieldEnum = {
+  id: 'id',
+  start: 'start',
+  end: 'end',
+  status: 'status',
+  customerName: 'customerName',
+  customerEmail: 'customerEmail',
+  customerCPF: 'customerCPF',
+  customerPhone: 'customerPhone',
+  service_id: 'service_id',
+  employee_id: 'employee_id',
+  clinica_id: 'clinica_id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -237,9 +239,9 @@ exports.Prisma.ModelName = {
   Clinica: 'Clinica',
   Employee: 'Employee',
   Service: 'Service',
-  Appointment: 'Appointment',
   Availability: 'Availability',
-  BlockedSlot: 'BlockedSlot'
+  BlockedSlot: 'BlockedSlot',
+  Appointment: 'Appointment'
 };
 
 /**

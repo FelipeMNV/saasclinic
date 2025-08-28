@@ -5,6 +5,7 @@ import {prisma as p} from '../models/prisma.ts'
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../config/env.ts";
 
+
 const api = supertest(app)
 
 const _plans = [
@@ -56,6 +57,7 @@ roles.forEach(role =>{
                     name: 'serviceTest',
                     description: 'descriptionTest',
                     price: '10',
+                    duration: 10,
                     clinica_id: clinic.id
                 }
             })
@@ -74,6 +76,7 @@ roles.forEach(role =>{
                 name: 'serviceTest2',
                 description: 'descriptionTest2',
                 price: '10',
+                duration: 1,
                 clinica_id: clinica_id
             }
             const expectedStatus = ([Role.USER, Role.SUPERADMIN, Role.MANAGER]as Role[]).includes(role) ? 201 : 403
@@ -154,6 +157,7 @@ describe('Service Error test',()=>{
                     name: 'serviceTest',
                     description: 'descriptionTest',
                     price: '10',
+                    duration: 1,
                     clinica_id: clinic.id
                 }
             })
@@ -172,6 +176,7 @@ describe('Service Error test',()=>{
                     name: '',
                     description: '',
                     price: '10',
+                    duration: 1,
                     clinica_id
                 }
             })
@@ -183,13 +188,14 @@ describe('Service Error test',()=>{
                     .expect(400)
     })
     test("Error to update a service", async ()=>{
-        const updateService = await p.service.create({
-                data:{
+        const updateService ={ 
+                
                     name: '',
                     description: 'aa',
                     price: '10',
-                }
-            })
+                    duration: 10}
+                
+            
 
             await api
                     .put(`/service/update/${slug}/${id}`)
@@ -199,64 +205,6 @@ describe('Service Error test',()=>{
     })
 })
 
-
-describe("Intruder test", () =>{
-    let token: string;
-    let clinica_id: string;
-    let slug: string;
-    let id: string;
-    beforeEach(async ()=>{
-            await p.service.deleteMany({})
-            await p.user.deleteMany({})
-            await p.clinica.deleteMany({})
-            const user = await p.user.create({
-                data:{
-                    name: 'userTest',
-                    email: 'emailteste@gmail.com',
-                    password: 'senhateste',
-                    plan: 'PRO',
-                    role: 'USER'
-                }
-            })
-
-            const intruder = await p.user.create({
-                data:{
-                    name: 'userTest',
-                    email: 'emailteste@gmail.com',
-                    password: 'senhateste',
-                    plan: 'PRO',
-                    role: 'USER'
-                }
-            })
-
-            const clinic = await p.clinica.create({
-                data:{
-                    name: 'clinica teste',
-                    slug: 'clinicaTeste',
-                    contact: 'contatoTeste',
-                    address: 'addressTeste',
-                    user_id: user.id
-                }
-            })
-
-            const service = await p.service.create({
-                data:{
-                    name: 'serviceTest',
-                    description: 'descriptionTest',
-                    price: '10',
-                    clinica_id: clinic.id
-                }
-            })
-            token = jwt.sign(
-                  { id: user.id, name: user.name, role: user.role, plan: user.plan, clinica_id: clinic.id },
-                    JWT_SECRET,
-                    { expiresIn: '7d' }
-                  );
-            clinica_id = clinic.id
-            slug = clinic.slug
-            id = service.id
-    })
-})
 
 afterAll(async () => {
   await p.$disconnect();

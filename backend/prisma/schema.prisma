@@ -55,7 +55,7 @@ model Employee {
   email       String        @unique
   password    String
   role        Role          @default(EMPLOYEE)
-  services    Service[]     @relation("EmployeeServices") 
+  services    Service[]     
   clinica_id  String?
   clinica     Clinica?      @relation(fields: [clinica_id], references: [id])
   createdAt   DateTime      @default(now())
@@ -70,14 +70,56 @@ model Service {
   name        String        
   description String?
   price       Decimal
-  clinica_id  String?
-  clinica     Clinica?      @relation(fields: [clinica_id], references: [id])
-  employees   Employee[]    @relation("EmployeeServices") 
-  Appointment Appointment[]
+  duration    Int 
+
+  employee_id String?
+  employee    Employee?      @relation(fields: [employee_id], references: [id])
+
+  clinica_id  String
+  clinica     Clinica  @relation(fields: [clinica_id], references: [id])
+
+  appointments Appointment[]
+
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
 }
 
+
+model Availability {
+  id          String   @id @default(uuid())
+  employee_id String?
+  employee    Employee? @relation(fields: [employee_id], references: [id])
+
+  dayOfWeek   Int      // 0=domingo ... 6=sábado
+  startTime   DateTime @db.Time
+  endTime     DateTime @db.Time
+  slotDuration Int     // minutos
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model BlockedSlot {
+  id          String   @id @default(uuid())
+  employee_id String?
+  employee    Employee? @relation(fields: [employee_id], references: [id])
+
+  date        DateTime
+  startTime   DateTime @db.Time
+  endTime     DateTime @db.Time
+  reason      String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  RETURN
+  COMPLETED
+  CANCELLED
+}
 model Appointment {
   id     String            @id @default(uuid())
   start   DateTime
@@ -100,40 +142,4 @@ model Appointment {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
-
-model Availability {
-  id          String   @id @default(uuid())
-  employee_id String
-  employee    Employee @relation(fields: [employee_id], references: [id])
-
-  dayOfWeek   Int      // 0=domingo ... 6=sábado
-  startTime   DateTime @db.Time
-  endTime     DateTime @db.Time
-  slotDuration Int     // minutos
-
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-model BlockedSlot {
-  id          String   @id @default(uuid())
-  employee_id String
-  employee    Employee @relation(fields: [employee_id], references: [id])
-
-  date        DateTime
-  startTime   DateTime @db.Time
-  endTime     DateTime @db.Time
-  reason      String?
-
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-enum AppointmentStatus {
-  PENDING
-  CONFIRMED
-  RETURN
-  COMPLETED
-  CANCELLED
 }
