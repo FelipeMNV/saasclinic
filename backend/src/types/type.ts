@@ -1,0 +1,4 @@
+export enum Type {
+    INDIVIDUAL = 'INDIVIDUAL',
+    COLLECTIVE = 'COLLECTIVE'
+}

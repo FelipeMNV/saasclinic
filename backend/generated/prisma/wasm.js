@@ -161,6 +161,8 @@ exports.Prisma.ServiceScalarFieldEnum = {
   description: 'description',
   price: 'price',
   duration: 'duration',
+  type: 'type',
+  capacity: 'capacity',
   employee_id: 'employee_id',
   clinica_id: 'clinica_id',
   createdAt: 'createdAt',
@@ -169,7 +171,7 @@ exports.Prisma.ServiceScalarFieldEnum = {
 
 exports.Prisma.AvailabilityScalarFieldEnum = {
   id: 'id',
-  employee_id: 'employee_id',
+  service_id: 'service_id',
   dayOfWeek: 'dayOfWeek',
   startTime: 'startTime',
   endTime: 'endTime',
@@ -180,7 +182,7 @@ exports.Prisma.AvailabilityScalarFieldEnum = {
 
 exports.Prisma.BlockedSlotScalarFieldEnum = {
   id: 'id',
-  employee_id: 'employee_id',
+  service_id: 'service_id',
   date: 'date',
   startTime: 'startTime',
   endTime: 'endTime',
@@ -224,6 +226,11 @@ exports.Role = exports.$Enums.Role = {
   USER: 'USER',
   MANAGER: 'MANAGER',
   EMPLOYEE: 'EMPLOYEE'
+};
+
+exports.Type = exports.$Enums.Type = {
+  INDIVIDUAL: 'INDIVIDUAL',
+  COLLECTIVE: 'COLLECTIVE'
 };
 
 exports.AppointmentStatus = exports.$Enums.AppointmentStatus = {

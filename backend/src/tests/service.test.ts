@@ -8,11 +8,6 @@ import { JWT_SECRET } from "../config/env.ts";
 
 const api = supertest(app)
 
-const _plans = [
-  { name: 'BASIC', limit: 1 },
-  { name: 'PRO', limit: 3 },
-  { name: 'ENTERPRISE', limit: 10 },
-];
 const roles: Role[] = [Role.SUPERADMIN,Role.USER,Role.MANAGER, Role.EMPLOYEE]
 
 
@@ -58,6 +53,8 @@ roles.forEach(role =>{
                     description: 'descriptionTest',
                     price: '10',
                     duration: 10,
+                    type: 'INDIVIDUAL',
+                    capacity: 1,
                     clinica_id: clinic.id
                 }
             })
@@ -77,6 +74,8 @@ roles.forEach(role =>{
                 description: 'descriptionTest2',
                 price: '10',
                 duration: 1,
+                type: 'INDIVIDUAL',
+                capacity: 1,
                 clinica_id: clinica_id
             }
             const expectedStatus = ([Role.USER, Role.SUPERADMIN, Role.MANAGER]as Role[]).includes(role) ? 201 : 403
@@ -158,6 +157,8 @@ describe('Service Error test',()=>{
                     description: 'descriptionTest',
                     price: '10',
                     duration: 1,
+                    type: 'INDIVIDUAL',
+                    capacity: 1,
                     clinica_id: clinic.id
                 }
             })
@@ -177,6 +178,8 @@ describe('Service Error test',()=>{
                     description: '',
                     price: '10',
                     duration: 1,
+                    type: 'INDIVIDUAL',
+                    capacity: 1,
                     clinica_id
                 }
             })
@@ -189,11 +192,13 @@ describe('Service Error test',()=>{
     })
     test("Error to update a service", async ()=>{
         const updateService ={ 
-                
                     name: '',
                     description: 'aa',
                     price: '10',
-                    duration: 10}
+                    duration: 10,
+                    type: 'INDIVIDUAL',
+                    capacity: 1,
+                }
                 
             
 

@@ -61,8 +61,12 @@ model Employee {
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   Appointment Appointment[]
-  availabilities Availability[]
-  blockedslots   BlockedSlot[]
+
+}
+
+enum Type {
+  INDIVIDUAL
+  COLLECTIVE
 }
 
 model Service {
@@ -70,7 +74,9 @@ model Service {
   name        String        
   description String?
   price       Decimal
-  duration    Int 
+  duration    Int
+  type        Type
+  capacity    Int
 
   employee_id String?
   employee    Employee?      @relation(fields: [employee_id], references: [id])
@@ -79,16 +85,19 @@ model Service {
   clinica     Clinica  @relation(fields: [clinica_id], references: [id])
 
   appointments Appointment[]
+  availabilities Availability[]
+  blockedslots   BlockedSlot[]
 
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
 }
 
 
+
 model Availability {
   id          String   @id @default(uuid())
-  employee_id String?
-  employee    Employee? @relation(fields: [employee_id], references: [id])
+  service_id  String?
+  service     Service? @relation(fields: [service_id], references: [id])
 
   dayOfWeek   Int      // 0=domingo ... 6=sábado
   startTime   DateTime @db.Time
@@ -101,8 +110,8 @@ model Availability {
 
 model BlockedSlot {
   id          String   @id @default(uuid())
-  employee_id String?
-  employee    Employee? @relation(fields: [employee_id], references: [id])
+  service_id  String?
+  service     Service? @relation(fields: [service_id], references: [id])
 
   date        DateTime
   startTime   DateTime @db.Time

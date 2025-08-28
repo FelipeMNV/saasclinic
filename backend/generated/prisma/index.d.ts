@@ -63,6 +63,14 @@ export namespace $Enums {
 export type Role = (typeof Role)[keyof typeof Role]
 
 
+export const Type: {
+  INDIVIDUAL: 'INDIVIDUAL',
+  COLLECTIVE: 'COLLECTIVE'
+};
+
+export type Type = (typeof Type)[keyof typeof Type]
+
+
 export const AppointmentStatus: {
   PENDING: 'PENDING',
   CONFIRMED: 'CONFIRMED',
@@ -78,6 +86,10 @@ export type AppointmentStatus = (typeof AppointmentStatus)[keyof typeof Appointm
 export type Role = $Enums.Role
 
 export const Role: typeof $Enums.Role
+
+export type Type = $Enums.Type
+
+export const Type: typeof $Enums.Type
 
 export type AppointmentStatus = $Enums.AppointmentStatus
 
@@ -1544,15 +1556,11 @@ export namespace Prisma {
   export type EmployeeCountOutputType = {
     services: number
     Appointment: number
-    availabilities: number
-    blockedslots: number
   }
 
   export type EmployeeCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     services?: boolean | EmployeeCountOutputTypeCountServicesArgs
     Appointment?: boolean | EmployeeCountOutputTypeCountAppointmentArgs
-    availabilities?: boolean | EmployeeCountOutputTypeCountAvailabilitiesArgs
-    blockedslots?: boolean | EmployeeCountOutputTypeCountBlockedslotsArgs
   }
 
   // Custom InputTypes
@@ -1580,20 +1588,6 @@ export namespace Prisma {
     where?: AppointmentWhereInput
   }
 
-  /**
-   * EmployeeCountOutputType without action
-   */
-  export type EmployeeCountOutputTypeCountAvailabilitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AvailabilityWhereInput
-  }
-
-  /**
-   * EmployeeCountOutputType without action
-   */
-  export type EmployeeCountOutputTypeCountBlockedslotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: BlockedSlotWhereInput
-  }
-
 
   /**
    * Count Type ServiceCountOutputType
@@ -1601,10 +1595,14 @@ export namespace Prisma {
 
   export type ServiceCountOutputType = {
     appointments: number
+    availabilities: number
+    blockedslots: number
   }
 
   export type ServiceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     appointments?: boolean | ServiceCountOutputTypeCountAppointmentsArgs
+    availabilities?: boolean | ServiceCountOutputTypeCountAvailabilitiesArgs
+    blockedslots?: boolean | ServiceCountOutputTypeCountBlockedslotsArgs
   }
 
   // Custom InputTypes
@@ -1623,6 +1621,20 @@ export namespace Prisma {
    */
   export type ServiceCountOutputTypeCountAppointmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AppointmentWhereInput
+  }
+
+  /**
+   * ServiceCountOutputType without action
+   */
+  export type ServiceCountOutputTypeCountAvailabilitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AvailabilityWhereInput
+  }
+
+  /**
+   * ServiceCountOutputType without action
+   */
+  export type ServiceCountOutputTypeCountBlockedslotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BlockedSlotWhereInput
   }
 
 
@@ -4153,8 +4165,6 @@ export namespace Prisma {
     services?: boolean | Employee$servicesArgs<ExtArgs>
     clinica?: boolean | Employee$clinicaArgs<ExtArgs>
     Appointment?: boolean | Employee$AppointmentArgs<ExtArgs>
-    availabilities?: boolean | Employee$availabilitiesArgs<ExtArgs>
-    blockedslots?: boolean | Employee$blockedslotsArgs<ExtArgs>
     _count?: boolean | EmployeeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["employee"]>
 
@@ -4201,8 +4211,6 @@ export namespace Prisma {
     services?: boolean | Employee$servicesArgs<ExtArgs>
     clinica?: boolean | Employee$clinicaArgs<ExtArgs>
     Appointment?: boolean | Employee$AppointmentArgs<ExtArgs>
-    availabilities?: boolean | Employee$availabilitiesArgs<ExtArgs>
-    blockedslots?: boolean | Employee$blockedslotsArgs<ExtArgs>
     _count?: boolean | EmployeeCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type EmployeeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4218,8 +4226,6 @@ export namespace Prisma {
       services: Prisma.$ServicePayload<ExtArgs>[]
       clinica: Prisma.$ClinicaPayload<ExtArgs> | null
       Appointment: Prisma.$AppointmentPayload<ExtArgs>[]
-      availabilities: Prisma.$AvailabilityPayload<ExtArgs>[]
-      blockedslots: Prisma.$BlockedSlotPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4628,8 +4634,6 @@ export namespace Prisma {
     services<T extends Employee$servicesArgs<ExtArgs> = {}>(args?: Subset<T, Employee$servicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     clinica<T extends Employee$clinicaArgs<ExtArgs> = {}>(args?: Subset<T, Employee$clinicaArgs<ExtArgs>>): Prisma__ClinicaClient<$Result.GetResult<Prisma.$ClinicaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     Appointment<T extends Employee$AppointmentArgs<ExtArgs> = {}>(args?: Subset<T, Employee$AppointmentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    availabilities<T extends Employee$availabilitiesArgs<ExtArgs> = {}>(args?: Subset<T, Employee$availabilitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    blockedslots<T extends Employee$blockedslotsArgs<ExtArgs> = {}>(args?: Subset<T, Employee$blockedslotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlockedSlotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5131,54 +5135,6 @@ export namespace Prisma {
   }
 
   /**
-   * Employee.availabilities
-   */
-  export type Employee$availabilitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Availability
-     */
-    select?: AvailabilitySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Availability
-     */
-    omit?: AvailabilityOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: AvailabilityInclude<ExtArgs> | null
-    where?: AvailabilityWhereInput
-    orderBy?: AvailabilityOrderByWithRelationInput | AvailabilityOrderByWithRelationInput[]
-    cursor?: AvailabilityWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: AvailabilityScalarFieldEnum | AvailabilityScalarFieldEnum[]
-  }
-
-  /**
-   * Employee.blockedslots
-   */
-  export type Employee$blockedslotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the BlockedSlot
-     */
-    select?: BlockedSlotSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the BlockedSlot
-     */
-    omit?: BlockedSlotOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: BlockedSlotInclude<ExtArgs> | null
-    where?: BlockedSlotWhereInput
-    orderBy?: BlockedSlotOrderByWithRelationInput | BlockedSlotOrderByWithRelationInput[]
-    cursor?: BlockedSlotWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: BlockedSlotScalarFieldEnum | BlockedSlotScalarFieldEnum[]
-  }
-
-  /**
    * Employee without action
    */
   export type EmployeeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5212,11 +5168,13 @@ export namespace Prisma {
   export type ServiceAvgAggregateOutputType = {
     price: Decimal | null
     duration: number | null
+    capacity: number | null
   }
 
   export type ServiceSumAggregateOutputType = {
     price: Decimal | null
     duration: number | null
+    capacity: number | null
   }
 
   export type ServiceMinAggregateOutputType = {
@@ -5225,6 +5183,8 @@ export namespace Prisma {
     description: string | null
     price: Decimal | null
     duration: number | null
+    type: $Enums.Type | null
+    capacity: number | null
     employee_id: string | null
     clinica_id: string | null
     createdAt: Date | null
@@ -5237,6 +5197,8 @@ export namespace Prisma {
     description: string | null
     price: Decimal | null
     duration: number | null
+    type: $Enums.Type | null
+    capacity: number | null
     employee_id: string | null
     clinica_id: string | null
     createdAt: Date | null
@@ -5249,6 +5211,8 @@ export namespace Prisma {
     description: number
     price: number
     duration: number
+    type: number
+    capacity: number
     employee_id: number
     clinica_id: number
     createdAt: number
@@ -5260,11 +5224,13 @@ export namespace Prisma {
   export type ServiceAvgAggregateInputType = {
     price?: true
     duration?: true
+    capacity?: true
   }
 
   export type ServiceSumAggregateInputType = {
     price?: true
     duration?: true
+    capacity?: true
   }
 
   export type ServiceMinAggregateInputType = {
@@ -5273,6 +5239,8 @@ export namespace Prisma {
     description?: true
     price?: true
     duration?: true
+    type?: true
+    capacity?: true
     employee_id?: true
     clinica_id?: true
     createdAt?: true
@@ -5285,6 +5253,8 @@ export namespace Prisma {
     description?: true
     price?: true
     duration?: true
+    type?: true
+    capacity?: true
     employee_id?: true
     clinica_id?: true
     createdAt?: true
@@ -5297,6 +5267,8 @@ export namespace Prisma {
     description?: true
     price?: true
     duration?: true
+    type?: true
+    capacity?: true
     employee_id?: true
     clinica_id?: true
     createdAt?: true
@@ -5396,6 +5368,8 @@ export namespace Prisma {
     description: string | null
     price: Decimal
     duration: number
+    type: $Enums.Type
+    capacity: number
     employee_id: string | null
     clinica_id: string
     createdAt: Date
@@ -5427,6 +5401,8 @@ export namespace Prisma {
     description?: boolean
     price?: boolean
     duration?: boolean
+    type?: boolean
+    capacity?: boolean
     employee_id?: boolean
     clinica_id?: boolean
     createdAt?: boolean
@@ -5434,6 +5410,8 @@ export namespace Prisma {
     employee?: boolean | Service$employeeArgs<ExtArgs>
     clinica?: boolean | ClinicaDefaultArgs<ExtArgs>
     appointments?: boolean | Service$appointmentsArgs<ExtArgs>
+    availabilities?: boolean | Service$availabilitiesArgs<ExtArgs>
+    blockedslots?: boolean | Service$blockedslotsArgs<ExtArgs>
     _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["service"]>
 
@@ -5443,6 +5421,8 @@ export namespace Prisma {
     description?: boolean
     price?: boolean
     duration?: boolean
+    type?: boolean
+    capacity?: boolean
     employee_id?: boolean
     clinica_id?: boolean
     createdAt?: boolean
@@ -5457,6 +5437,8 @@ export namespace Prisma {
     description?: boolean
     price?: boolean
     duration?: boolean
+    type?: boolean
+    capacity?: boolean
     employee_id?: boolean
     clinica_id?: boolean
     createdAt?: boolean
@@ -5471,17 +5453,21 @@ export namespace Prisma {
     description?: boolean
     price?: boolean
     duration?: boolean
+    type?: boolean
+    capacity?: boolean
     employee_id?: boolean
     clinica_id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ServiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "price" | "duration" | "employee_id" | "clinica_id" | "createdAt" | "updatedAt", ExtArgs["result"]["service"]>
+  export type ServiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "price" | "duration" | "type" | "capacity" | "employee_id" | "clinica_id" | "createdAt" | "updatedAt", ExtArgs["result"]["service"]>
   export type ServiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     employee?: boolean | Service$employeeArgs<ExtArgs>
     clinica?: boolean | ClinicaDefaultArgs<ExtArgs>
     appointments?: boolean | Service$appointmentsArgs<ExtArgs>
+    availabilities?: boolean | Service$availabilitiesArgs<ExtArgs>
+    blockedslots?: boolean | Service$blockedslotsArgs<ExtArgs>
     _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ServiceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5499,6 +5485,8 @@ export namespace Prisma {
       employee: Prisma.$EmployeePayload<ExtArgs> | null
       clinica: Prisma.$ClinicaPayload<ExtArgs>
       appointments: Prisma.$AppointmentPayload<ExtArgs>[]
+      availabilities: Prisma.$AvailabilityPayload<ExtArgs>[]
+      blockedslots: Prisma.$BlockedSlotPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5506,6 +5494,8 @@ export namespace Prisma {
       description: string | null
       price: Prisma.Decimal
       duration: number
+      type: $Enums.Type
+      capacity: number
       employee_id: string | null
       clinica_id: string
       createdAt: Date
@@ -5907,6 +5897,8 @@ export namespace Prisma {
     employee<T extends Service$employeeArgs<ExtArgs> = {}>(args?: Subset<T, Service$employeeArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     clinica<T extends ClinicaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ClinicaDefaultArgs<ExtArgs>>): Prisma__ClinicaClient<$Result.GetResult<Prisma.$ClinicaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     appointments<T extends Service$appointmentsArgs<ExtArgs> = {}>(args?: Subset<T, Service$appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    availabilities<T extends Service$availabilitiesArgs<ExtArgs> = {}>(args?: Subset<T, Service$availabilitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    blockedslots<T extends Service$blockedslotsArgs<ExtArgs> = {}>(args?: Subset<T, Service$blockedslotsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BlockedSlotPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5941,6 +5933,8 @@ export namespace Prisma {
     readonly description: FieldRef<"Service", 'String'>
     readonly price: FieldRef<"Service", 'Decimal'>
     readonly duration: FieldRef<"Service", 'Int'>
+    readonly type: FieldRef<"Service", 'Type'>
+    readonly capacity: FieldRef<"Service", 'Int'>
     readonly employee_id: FieldRef<"Service", 'String'>
     readonly clinica_id: FieldRef<"Service", 'String'>
     readonly createdAt: FieldRef<"Service", 'DateTime'>
@@ -6384,6 +6378,54 @@ export namespace Prisma {
   }
 
   /**
+   * Service.availabilities
+   */
+  export type Service$availabilitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Availability
+     */
+    select?: AvailabilitySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Availability
+     */
+    omit?: AvailabilityOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AvailabilityInclude<ExtArgs> | null
+    where?: AvailabilityWhereInput
+    orderBy?: AvailabilityOrderByWithRelationInput | AvailabilityOrderByWithRelationInput[]
+    cursor?: AvailabilityWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AvailabilityScalarFieldEnum | AvailabilityScalarFieldEnum[]
+  }
+
+  /**
+   * Service.blockedslots
+   */
+  export type Service$blockedslotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BlockedSlot
+     */
+    select?: BlockedSlotSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BlockedSlot
+     */
+    omit?: BlockedSlotOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BlockedSlotInclude<ExtArgs> | null
+    where?: BlockedSlotWhereInput
+    orderBy?: BlockedSlotOrderByWithRelationInput | BlockedSlotOrderByWithRelationInput[]
+    cursor?: BlockedSlotWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BlockedSlotScalarFieldEnum | BlockedSlotScalarFieldEnum[]
+  }
+
+  /**
    * Service without action
    */
   export type ServiceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6426,7 +6468,7 @@ export namespace Prisma {
 
   export type AvailabilityMinAggregateOutputType = {
     id: string | null
-    employee_id: string | null
+    service_id: string | null
     dayOfWeek: number | null
     startTime: Date | null
     endTime: Date | null
@@ -6437,7 +6479,7 @@ export namespace Prisma {
 
   export type AvailabilityMaxAggregateOutputType = {
     id: string | null
-    employee_id: string | null
+    service_id: string | null
     dayOfWeek: number | null
     startTime: Date | null
     endTime: Date | null
@@ -6448,7 +6490,7 @@ export namespace Prisma {
 
   export type AvailabilityCountAggregateOutputType = {
     id: number
-    employee_id: number
+    service_id: number
     dayOfWeek: number
     startTime: number
     endTime: number
@@ -6471,7 +6513,7 @@ export namespace Prisma {
 
   export type AvailabilityMinAggregateInputType = {
     id?: true
-    employee_id?: true
+    service_id?: true
     dayOfWeek?: true
     startTime?: true
     endTime?: true
@@ -6482,7 +6524,7 @@ export namespace Prisma {
 
   export type AvailabilityMaxAggregateInputType = {
     id?: true
-    employee_id?: true
+    service_id?: true
     dayOfWeek?: true
     startTime?: true
     endTime?: true
@@ -6493,7 +6535,7 @@ export namespace Prisma {
 
   export type AvailabilityCountAggregateInputType = {
     id?: true
-    employee_id?: true
+    service_id?: true
     dayOfWeek?: true
     startTime?: true
     endTime?: true
@@ -6591,7 +6633,7 @@ export namespace Prisma {
 
   export type AvailabilityGroupByOutputType = {
     id: string
-    employee_id: string | null
+    service_id: string | null
     dayOfWeek: number
     startTime: Date
     endTime: Date
@@ -6621,43 +6663,43 @@ export namespace Prisma {
 
   export type AvailabilitySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    employee_id?: boolean
+    service_id?: boolean
     dayOfWeek?: boolean
     startTime?: boolean
     endTime?: boolean
     slotDuration?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    employee?: boolean | Availability$employeeArgs<ExtArgs>
+    service?: boolean | Availability$serviceArgs<ExtArgs>
   }, ExtArgs["result"]["availability"]>
 
   export type AvailabilitySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    employee_id?: boolean
+    service_id?: boolean
     dayOfWeek?: boolean
     startTime?: boolean
     endTime?: boolean
     slotDuration?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    employee?: boolean | Availability$employeeArgs<ExtArgs>
+    service?: boolean | Availability$serviceArgs<ExtArgs>
   }, ExtArgs["result"]["availability"]>
 
   export type AvailabilitySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    employee_id?: boolean
+    service_id?: boolean
     dayOfWeek?: boolean
     startTime?: boolean
     endTime?: boolean
     slotDuration?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    employee?: boolean | Availability$employeeArgs<ExtArgs>
+    service?: boolean | Availability$serviceArgs<ExtArgs>
   }, ExtArgs["result"]["availability"]>
 
   export type AvailabilitySelectScalar = {
     id?: boolean
-    employee_id?: boolean
+    service_id?: boolean
     dayOfWeek?: boolean
     startTime?: boolean
     endTime?: boolean
@@ -6666,25 +6708,25 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type AvailabilityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "employee_id" | "dayOfWeek" | "startTime" | "endTime" | "slotDuration" | "createdAt" | "updatedAt", ExtArgs["result"]["availability"]>
+  export type AvailabilityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "service_id" | "dayOfWeek" | "startTime" | "endTime" | "slotDuration" | "createdAt" | "updatedAt", ExtArgs["result"]["availability"]>
   export type AvailabilityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    employee?: boolean | Availability$employeeArgs<ExtArgs>
+    service?: boolean | Availability$serviceArgs<ExtArgs>
   }
   export type AvailabilityIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    employee?: boolean | Availability$employeeArgs<ExtArgs>
+    service?: boolean | Availability$serviceArgs<ExtArgs>
   }
   export type AvailabilityIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    employee?: boolean | Availability$employeeArgs<ExtArgs>
+    service?: boolean | Availability$serviceArgs<ExtArgs>
   }
 
   export type $AvailabilityPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Availability"
     objects: {
-      employee: Prisma.$EmployeePayload<ExtArgs> | null
+      service: Prisma.$ServicePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      employee_id: string | null
+      service_id: string | null
       dayOfWeek: number
       startTime: Date
       endTime: Date
@@ -7085,7 +7127,7 @@ export namespace Prisma {
    */
   export interface Prisma__AvailabilityClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    employee<T extends Availability$employeeArgs<ExtArgs> = {}>(args?: Subset<T, Availability$employeeArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    service<T extends Availability$serviceArgs<ExtArgs> = {}>(args?: Subset<T, Availability$serviceArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7116,7 +7158,7 @@ export namespace Prisma {
    */
   interface AvailabilityFieldRefs {
     readonly id: FieldRef<"Availability", 'String'>
-    readonly employee_id: FieldRef<"Availability", 'String'>
+    readonly service_id: FieldRef<"Availability", 'String'>
     readonly dayOfWeek: FieldRef<"Availability", 'Int'>
     readonly startTime: FieldRef<"Availability", 'DateTime'>
     readonly endTime: FieldRef<"Availability", 'DateTime'>
@@ -7519,22 +7561,22 @@ export namespace Prisma {
   }
 
   /**
-   * Availability.employee
+   * Availability.service
    */
-  export type Availability$employeeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Availability$serviceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Employee
+     * Select specific fields to fetch from the Service
      */
-    select?: EmployeeSelect<ExtArgs> | null
+    select?: ServiceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Employee
+     * Omit specific fields from the Service
      */
-    omit?: EmployeeOmit<ExtArgs> | null
+    omit?: ServiceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: EmployeeInclude<ExtArgs> | null
-    where?: EmployeeWhereInput
+    include?: ServiceInclude<ExtArgs> | null
+    where?: ServiceWhereInput
   }
 
   /**
@@ -7568,7 +7610,7 @@ export namespace Prisma {
 
   export type BlockedSlotMinAggregateOutputType = {
     id: string | null
-    employee_id: string | null
+    service_id: string | null
     date: Date | null
     startTime: Date | null
     endTime: Date | null
@@ -7579,7 +7621,7 @@ export namespace Prisma {
 
   export type BlockedSlotMaxAggregateOutputType = {
     id: string | null
-    employee_id: string | null
+    service_id: string | null
     date: Date | null
     startTime: Date | null
     endTime: Date | null
@@ -7590,7 +7632,7 @@ export namespace Prisma {
 
   export type BlockedSlotCountAggregateOutputType = {
     id: number
-    employee_id: number
+    service_id: number
     date: number
     startTime: number
     endTime: number
@@ -7603,7 +7645,7 @@ export namespace Prisma {
 
   export type BlockedSlotMinAggregateInputType = {
     id?: true
-    employee_id?: true
+    service_id?: true
     date?: true
     startTime?: true
     endTime?: true
@@ -7614,7 +7656,7 @@ export namespace Prisma {
 
   export type BlockedSlotMaxAggregateInputType = {
     id?: true
-    employee_id?: true
+    service_id?: true
     date?: true
     startTime?: true
     endTime?: true
@@ -7625,7 +7667,7 @@ export namespace Prisma {
 
   export type BlockedSlotCountAggregateInputType = {
     id?: true
-    employee_id?: true
+    service_id?: true
     date?: true
     startTime?: true
     endTime?: true
@@ -7709,7 +7751,7 @@ export namespace Prisma {
 
   export type BlockedSlotGroupByOutputType = {
     id: string
-    employee_id: string | null
+    service_id: string | null
     date: Date
     startTime: Date
     endTime: Date
@@ -7737,43 +7779,43 @@ export namespace Prisma {
 
   export type BlockedSlotSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    employee_id?: boolean
+    service_id?: boolean
     date?: boolean
     startTime?: boolean
     endTime?: boolean
     reason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    employee?: boolean | BlockedSlot$employeeArgs<ExtArgs>
+    service?: boolean | BlockedSlot$serviceArgs<ExtArgs>
   }, ExtArgs["result"]["blockedSlot"]>
 
   export type BlockedSlotSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    employee_id?: boolean
+    service_id?: boolean
     date?: boolean
     startTime?: boolean
     endTime?: boolean
     reason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    employee?: boolean | BlockedSlot$employeeArgs<ExtArgs>
+    service?: boolean | BlockedSlot$serviceArgs<ExtArgs>
   }, ExtArgs["result"]["blockedSlot"]>
 
   export type BlockedSlotSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    employee_id?: boolean
+    service_id?: boolean
     date?: boolean
     startTime?: boolean
     endTime?: boolean
     reason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    employee?: boolean | BlockedSlot$employeeArgs<ExtArgs>
+    service?: boolean | BlockedSlot$serviceArgs<ExtArgs>
   }, ExtArgs["result"]["blockedSlot"]>
 
   export type BlockedSlotSelectScalar = {
     id?: boolean
-    employee_id?: boolean
+    service_id?: boolean
     date?: boolean
     startTime?: boolean
     endTime?: boolean
@@ -7782,25 +7824,25 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type BlockedSlotOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "employee_id" | "date" | "startTime" | "endTime" | "reason" | "createdAt" | "updatedAt", ExtArgs["result"]["blockedSlot"]>
+  export type BlockedSlotOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "service_id" | "date" | "startTime" | "endTime" | "reason" | "createdAt" | "updatedAt", ExtArgs["result"]["blockedSlot"]>
   export type BlockedSlotInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    employee?: boolean | BlockedSlot$employeeArgs<ExtArgs>
+    service?: boolean | BlockedSlot$serviceArgs<ExtArgs>
   }
   export type BlockedSlotIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    employee?: boolean | BlockedSlot$employeeArgs<ExtArgs>
+    service?: boolean | BlockedSlot$serviceArgs<ExtArgs>
   }
   export type BlockedSlotIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    employee?: boolean | BlockedSlot$employeeArgs<ExtArgs>
+    service?: boolean | BlockedSlot$serviceArgs<ExtArgs>
   }
 
   export type $BlockedSlotPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "BlockedSlot"
     objects: {
-      employee: Prisma.$EmployeePayload<ExtArgs> | null
+      service: Prisma.$ServicePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      employee_id: string | null
+      service_id: string | null
       date: Date
       startTime: Date
       endTime: Date
@@ -8201,7 +8243,7 @@ export namespace Prisma {
    */
   export interface Prisma__BlockedSlotClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    employee<T extends BlockedSlot$employeeArgs<ExtArgs> = {}>(args?: Subset<T, BlockedSlot$employeeArgs<ExtArgs>>): Prisma__EmployeeClient<$Result.GetResult<Prisma.$EmployeePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    service<T extends BlockedSlot$serviceArgs<ExtArgs> = {}>(args?: Subset<T, BlockedSlot$serviceArgs<ExtArgs>>): Prisma__ServiceClient<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8232,7 +8274,7 @@ export namespace Prisma {
    */
   interface BlockedSlotFieldRefs {
     readonly id: FieldRef<"BlockedSlot", 'String'>
-    readonly employee_id: FieldRef<"BlockedSlot", 'String'>
+    readonly service_id: FieldRef<"BlockedSlot", 'String'>
     readonly date: FieldRef<"BlockedSlot", 'DateTime'>
     readonly startTime: FieldRef<"BlockedSlot", 'DateTime'>
     readonly endTime: FieldRef<"BlockedSlot", 'DateTime'>
@@ -8635,22 +8677,22 @@ export namespace Prisma {
   }
 
   /**
-   * BlockedSlot.employee
+   * BlockedSlot.service
    */
-  export type BlockedSlot$employeeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type BlockedSlot$serviceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Employee
+     * Select specific fields to fetch from the Service
      */
-    select?: EmployeeSelect<ExtArgs> | null
+    select?: ServiceSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Employee
+     * Omit specific fields from the Service
      */
-    omit?: EmployeeOmit<ExtArgs> | null
+    omit?: ServiceOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: EmployeeInclude<ExtArgs> | null
-    where?: EmployeeWhereInput
+    include?: ServiceInclude<ExtArgs> | null
+    where?: ServiceWhereInput
   }
 
   /**
@@ -9971,6 +10013,8 @@ export namespace Prisma {
     description: 'description',
     price: 'price',
     duration: 'duration',
+    type: 'type',
+    capacity: 'capacity',
     employee_id: 'employee_id',
     clinica_id: 'clinica_id',
     createdAt: 'createdAt',
@@ -9982,7 +10026,7 @@ export namespace Prisma {
 
   export const AvailabilityScalarFieldEnum: {
     id: 'id',
-    employee_id: 'employee_id',
+    service_id: 'service_id',
     dayOfWeek: 'dayOfWeek',
     startTime: 'startTime',
     endTime: 'endTime',
@@ -9996,7 +10040,7 @@ export namespace Prisma {
 
   export const BlockedSlotScalarFieldEnum: {
     id: 'id',
-    employee_id: 'employee_id',
+    service_id: 'service_id',
     date: 'date',
     startTime: 'startTime',
     endTime: 'endTime',
@@ -10130,6 +10174,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Type'
+   */
+  export type EnumTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Type'>
+    
+
+
+  /**
+   * Reference to a field of type 'Type[]'
+   */
+  export type ListEnumTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Type[]'>
     
 
 
@@ -10334,8 +10392,6 @@ export namespace Prisma {
     services?: ServiceListRelationFilter
     clinica?: XOR<ClinicaNullableScalarRelationFilter, ClinicaWhereInput> | null
     Appointment?: AppointmentListRelationFilter
-    availabilities?: AvailabilityListRelationFilter
-    blockedslots?: BlockedSlotListRelationFilter
   }
 
   export type EmployeeOrderByWithRelationInput = {
@@ -10351,8 +10407,6 @@ export namespace Prisma {
     services?: ServiceOrderByRelationAggregateInput
     clinica?: ClinicaOrderByWithRelationInput
     Appointment?: AppointmentOrderByRelationAggregateInput
-    availabilities?: AvailabilityOrderByRelationAggregateInput
-    blockedslots?: BlockedSlotOrderByRelationAggregateInput
   }
 
   export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
@@ -10371,8 +10425,6 @@ export namespace Prisma {
     services?: ServiceListRelationFilter
     clinica?: XOR<ClinicaNullableScalarRelationFilter, ClinicaWhereInput> | null
     Appointment?: AppointmentListRelationFilter
-    availabilities?: AvailabilityListRelationFilter
-    blockedslots?: BlockedSlotListRelationFilter
   }, "id" | "email">
 
   export type EmployeeOrderByWithAggregationInput = {
@@ -10414,6 +10466,8 @@ export namespace Prisma {
     description?: StringNullableFilter<"Service"> | string | null
     price?: DecimalFilter<"Service"> | Decimal | DecimalJsLike | number | string
     duration?: IntFilter<"Service"> | number
+    type?: EnumTypeFilter<"Service"> | $Enums.Type
+    capacity?: IntFilter<"Service"> | number
     employee_id?: StringNullableFilter<"Service"> | string | null
     clinica_id?: StringFilter<"Service"> | string
     createdAt?: DateTimeFilter<"Service"> | Date | string
@@ -10421,6 +10475,8 @@ export namespace Prisma {
     employee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
     clinica?: XOR<ClinicaScalarRelationFilter, ClinicaWhereInput>
     appointments?: AppointmentListRelationFilter
+    availabilities?: AvailabilityListRelationFilter
+    blockedslots?: BlockedSlotListRelationFilter
   }
 
   export type ServiceOrderByWithRelationInput = {
@@ -10429,6 +10485,8 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     price?: SortOrder
     duration?: SortOrder
+    type?: SortOrder
+    capacity?: SortOrder
     employee_id?: SortOrderInput | SortOrder
     clinica_id?: SortOrder
     createdAt?: SortOrder
@@ -10436,6 +10494,8 @@ export namespace Prisma {
     employee?: EmployeeOrderByWithRelationInput
     clinica?: ClinicaOrderByWithRelationInput
     appointments?: AppointmentOrderByRelationAggregateInput
+    availabilities?: AvailabilityOrderByRelationAggregateInput
+    blockedslots?: BlockedSlotOrderByRelationAggregateInput
   }
 
   export type ServiceWhereUniqueInput = Prisma.AtLeast<{
@@ -10447,6 +10507,8 @@ export namespace Prisma {
     description?: StringNullableFilter<"Service"> | string | null
     price?: DecimalFilter<"Service"> | Decimal | DecimalJsLike | number | string
     duration?: IntFilter<"Service"> | number
+    type?: EnumTypeFilter<"Service"> | $Enums.Type
+    capacity?: IntFilter<"Service"> | number
     employee_id?: StringNullableFilter<"Service"> | string | null
     clinica_id?: StringFilter<"Service"> | string
     createdAt?: DateTimeFilter<"Service"> | Date | string
@@ -10454,6 +10516,8 @@ export namespace Prisma {
     employee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
     clinica?: XOR<ClinicaScalarRelationFilter, ClinicaWhereInput>
     appointments?: AppointmentListRelationFilter
+    availabilities?: AvailabilityListRelationFilter
+    blockedslots?: BlockedSlotListRelationFilter
   }, "id">
 
   export type ServiceOrderByWithAggregationInput = {
@@ -10462,6 +10526,8 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     price?: SortOrder
     duration?: SortOrder
+    type?: SortOrder
+    capacity?: SortOrder
     employee_id?: SortOrderInput | SortOrder
     clinica_id?: SortOrder
     createdAt?: SortOrder
@@ -10482,6 +10548,8 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"Service"> | string | null
     price?: DecimalWithAggregatesFilter<"Service"> | Decimal | DecimalJsLike | number | string
     duration?: IntWithAggregatesFilter<"Service"> | number
+    type?: EnumTypeWithAggregatesFilter<"Service"> | $Enums.Type
+    capacity?: IntWithAggregatesFilter<"Service"> | number
     employee_id?: StringNullableWithAggregatesFilter<"Service"> | string | null
     clinica_id?: StringWithAggregatesFilter<"Service"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Service"> | Date | string
@@ -10493,26 +10561,26 @@ export namespace Prisma {
     OR?: AvailabilityWhereInput[]
     NOT?: AvailabilityWhereInput | AvailabilityWhereInput[]
     id?: StringFilter<"Availability"> | string
-    employee_id?: StringNullableFilter<"Availability"> | string | null
+    service_id?: StringNullableFilter<"Availability"> | string | null
     dayOfWeek?: IntFilter<"Availability"> | number
     startTime?: DateTimeFilter<"Availability"> | Date | string
     endTime?: DateTimeFilter<"Availability"> | Date | string
     slotDuration?: IntFilter<"Availability"> | number
     createdAt?: DateTimeFilter<"Availability"> | Date | string
     updatedAt?: DateTimeFilter<"Availability"> | Date | string
-    employee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
+    service?: XOR<ServiceNullableScalarRelationFilter, ServiceWhereInput> | null
   }
 
   export type AvailabilityOrderByWithRelationInput = {
     id?: SortOrder
-    employee_id?: SortOrderInput | SortOrder
+    service_id?: SortOrderInput | SortOrder
     dayOfWeek?: SortOrder
     startTime?: SortOrder
     endTime?: SortOrder
     slotDuration?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    employee?: EmployeeOrderByWithRelationInput
+    service?: ServiceOrderByWithRelationInput
   }
 
   export type AvailabilityWhereUniqueInput = Prisma.AtLeast<{
@@ -10520,19 +10588,19 @@ export namespace Prisma {
     AND?: AvailabilityWhereInput | AvailabilityWhereInput[]
     OR?: AvailabilityWhereInput[]
     NOT?: AvailabilityWhereInput | AvailabilityWhereInput[]
-    employee_id?: StringNullableFilter<"Availability"> | string | null
+    service_id?: StringNullableFilter<"Availability"> | string | null
     dayOfWeek?: IntFilter<"Availability"> | number
     startTime?: DateTimeFilter<"Availability"> | Date | string
     endTime?: DateTimeFilter<"Availability"> | Date | string
     slotDuration?: IntFilter<"Availability"> | number
     createdAt?: DateTimeFilter<"Availability"> | Date | string
     updatedAt?: DateTimeFilter<"Availability"> | Date | string
-    employee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
+    service?: XOR<ServiceNullableScalarRelationFilter, ServiceWhereInput> | null
   }, "id">
 
   export type AvailabilityOrderByWithAggregationInput = {
     id?: SortOrder
-    employee_id?: SortOrderInput | SortOrder
+    service_id?: SortOrderInput | SortOrder
     dayOfWeek?: SortOrder
     startTime?: SortOrder
     endTime?: SortOrder
@@ -10551,7 +10619,7 @@ export namespace Prisma {
     OR?: AvailabilityScalarWhereWithAggregatesInput[]
     NOT?: AvailabilityScalarWhereWithAggregatesInput | AvailabilityScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Availability"> | string
-    employee_id?: StringNullableWithAggregatesFilter<"Availability"> | string | null
+    service_id?: StringNullableWithAggregatesFilter<"Availability"> | string | null
     dayOfWeek?: IntWithAggregatesFilter<"Availability"> | number
     startTime?: DateTimeWithAggregatesFilter<"Availability"> | Date | string
     endTime?: DateTimeWithAggregatesFilter<"Availability"> | Date | string
@@ -10565,26 +10633,26 @@ export namespace Prisma {
     OR?: BlockedSlotWhereInput[]
     NOT?: BlockedSlotWhereInput | BlockedSlotWhereInput[]
     id?: StringFilter<"BlockedSlot"> | string
-    employee_id?: StringNullableFilter<"BlockedSlot"> | string | null
+    service_id?: StringNullableFilter<"BlockedSlot"> | string | null
     date?: DateTimeFilter<"BlockedSlot"> | Date | string
     startTime?: DateTimeFilter<"BlockedSlot"> | Date | string
     endTime?: DateTimeFilter<"BlockedSlot"> | Date | string
     reason?: StringNullableFilter<"BlockedSlot"> | string | null
     createdAt?: DateTimeFilter<"BlockedSlot"> | Date | string
     updatedAt?: DateTimeFilter<"BlockedSlot"> | Date | string
-    employee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
+    service?: XOR<ServiceNullableScalarRelationFilter, ServiceWhereInput> | null
   }
 
   export type BlockedSlotOrderByWithRelationInput = {
     id?: SortOrder
-    employee_id?: SortOrderInput | SortOrder
+    service_id?: SortOrderInput | SortOrder
     date?: SortOrder
     startTime?: SortOrder
     endTime?: SortOrder
     reason?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    employee?: EmployeeOrderByWithRelationInput
+    service?: ServiceOrderByWithRelationInput
   }
 
   export type BlockedSlotWhereUniqueInput = Prisma.AtLeast<{
@@ -10592,19 +10660,19 @@ export namespace Prisma {
     AND?: BlockedSlotWhereInput | BlockedSlotWhereInput[]
     OR?: BlockedSlotWhereInput[]
     NOT?: BlockedSlotWhereInput | BlockedSlotWhereInput[]
-    employee_id?: StringNullableFilter<"BlockedSlot"> | string | null
+    service_id?: StringNullableFilter<"BlockedSlot"> | string | null
     date?: DateTimeFilter<"BlockedSlot"> | Date | string
     startTime?: DateTimeFilter<"BlockedSlot"> | Date | string
     endTime?: DateTimeFilter<"BlockedSlot"> | Date | string
     reason?: StringNullableFilter<"BlockedSlot"> | string | null
     createdAt?: DateTimeFilter<"BlockedSlot"> | Date | string
     updatedAt?: DateTimeFilter<"BlockedSlot"> | Date | string
-    employee?: XOR<EmployeeNullableScalarRelationFilter, EmployeeWhereInput> | null
+    service?: XOR<ServiceNullableScalarRelationFilter, ServiceWhereInput> | null
   }, "id">
 
   export type BlockedSlotOrderByWithAggregationInput = {
     id?: SortOrder
-    employee_id?: SortOrderInput | SortOrder
+    service_id?: SortOrderInput | SortOrder
     date?: SortOrder
     startTime?: SortOrder
     endTime?: SortOrder
@@ -10621,7 +10689,7 @@ export namespace Prisma {
     OR?: BlockedSlotScalarWhereWithAggregatesInput[]
     NOT?: BlockedSlotScalarWhereWithAggregatesInput | BlockedSlotScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"BlockedSlot"> | string
-    employee_id?: StringNullableWithAggregatesFilter<"BlockedSlot"> | string | null
+    service_id?: StringNullableWithAggregatesFilter<"BlockedSlot"> | string | null
     date?: DateTimeWithAggregatesFilter<"BlockedSlot"> | Date | string
     startTime?: DateTimeWithAggregatesFilter<"BlockedSlot"> | Date | string
     endTime?: DateTimeWithAggregatesFilter<"BlockedSlot"> | Date | string
@@ -10919,8 +10987,6 @@ export namespace Prisma {
     services?: ServiceCreateNestedManyWithoutEmployeeInput
     clinica?: ClinicaCreateNestedOneWithoutEmployeesInput
     Appointment?: AppointmentCreateNestedManyWithoutEmployeeInput
-    availabilities?: AvailabilityCreateNestedManyWithoutEmployeeInput
-    blockedslots?: BlockedSlotCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateInput = {
@@ -10935,8 +11001,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     services?: ServiceUncheckedCreateNestedManyWithoutEmployeeInput
     Appointment?: AppointmentUncheckedCreateNestedManyWithoutEmployeeInput
-    availabilities?: AvailabilityUncheckedCreateNestedManyWithoutEmployeeInput
-    blockedslots?: BlockedSlotUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUpdateInput = {
@@ -10951,8 +11015,6 @@ export namespace Prisma {
     services?: ServiceUpdateManyWithoutEmployeeNestedInput
     clinica?: ClinicaUpdateOneWithoutEmployeesNestedInput
     Appointment?: AppointmentUpdateManyWithoutEmployeeNestedInput
-    availabilities?: AvailabilityUpdateManyWithoutEmployeeNestedInput
-    blockedslots?: BlockedSlotUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateInput = {
@@ -10967,8 +11029,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     services?: ServiceUncheckedUpdateManyWithoutEmployeeNestedInput
     Appointment?: AppointmentUncheckedUpdateManyWithoutEmployeeNestedInput
-    availabilities?: AvailabilityUncheckedUpdateManyWithoutEmployeeNestedInput
-    blockedslots?: BlockedSlotUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeCreateManyInput = {
@@ -11012,11 +11072,15 @@ export namespace Prisma {
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
     duration: number
+    type: $Enums.Type
+    capacity: number
     createdAt?: Date | string
     updatedAt?: Date | string
     employee?: EmployeeCreateNestedOneWithoutServicesInput
     clinica: ClinicaCreateNestedOneWithoutServicesInput
     appointments?: AppointmentCreateNestedManyWithoutServiceInput
+    availabilities?: AvailabilityCreateNestedManyWithoutServiceInput
+    blockedslots?: BlockedSlotCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateInput = {
@@ -11025,11 +11089,15 @@ export namespace Prisma {
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
     duration: number
+    type: $Enums.Type
+    capacity: number
     employee_id?: string | null
     clinica_id: string
     createdAt?: Date | string
     updatedAt?: Date | string
     appointments?: AppointmentUncheckedCreateNestedManyWithoutServiceInput
+    availabilities?: AvailabilityUncheckedCreateNestedManyWithoutServiceInput
+    blockedslots?: BlockedSlotUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUpdateInput = {
@@ -11038,11 +11106,15 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
+    capacity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employee?: EmployeeUpdateOneWithoutServicesNestedInput
     clinica?: ClinicaUpdateOneRequiredWithoutServicesNestedInput
     appointments?: AppointmentUpdateManyWithoutServiceNestedInput
+    availabilities?: AvailabilityUpdateManyWithoutServiceNestedInput
+    blockedslots?: BlockedSlotUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateInput = {
@@ -11051,11 +11123,15 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
+    capacity?: IntFieldUpdateOperationsInput | number
     employee_id?: NullableStringFieldUpdateOperationsInput | string | null
     clinica_id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointments?: AppointmentUncheckedUpdateManyWithoutServiceNestedInput
+    availabilities?: AvailabilityUncheckedUpdateManyWithoutServiceNestedInput
+    blockedslots?: BlockedSlotUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceCreateManyInput = {
@@ -11064,6 +11140,8 @@ export namespace Prisma {
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
     duration: number
+    type: $Enums.Type
+    capacity: number
     employee_id?: string | null
     clinica_id: string
     createdAt?: Date | string
@@ -11076,6 +11154,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
+    capacity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11086,6 +11166,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
+    capacity?: IntFieldUpdateOperationsInput | number
     employee_id?: NullableStringFieldUpdateOperationsInput | string | null
     clinica_id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11100,12 +11182,12 @@ export namespace Prisma {
     slotDuration: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    employee?: EmployeeCreateNestedOneWithoutAvailabilitiesInput
+    service?: ServiceCreateNestedOneWithoutAvailabilitiesInput
   }
 
   export type AvailabilityUncheckedCreateInput = {
     id?: string
-    employee_id?: string | null
+    service_id?: string | null
     dayOfWeek: number
     startTime: Date | string
     endTime: Date | string
@@ -11122,12 +11204,12 @@ export namespace Prisma {
     slotDuration?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employee?: EmployeeUpdateOneWithoutAvailabilitiesNestedInput
+    service?: ServiceUpdateOneWithoutAvailabilitiesNestedInput
   }
 
   export type AvailabilityUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    employee_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
     dayOfWeek?: IntFieldUpdateOperationsInput | number
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11138,7 +11220,7 @@ export namespace Prisma {
 
   export type AvailabilityCreateManyInput = {
     id?: string
-    employee_id?: string | null
+    service_id?: string | null
     dayOfWeek: number
     startTime: Date | string
     endTime: Date | string
@@ -11159,7 +11241,7 @@ export namespace Prisma {
 
   export type AvailabilityUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    employee_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
     dayOfWeek?: IntFieldUpdateOperationsInput | number
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11176,12 +11258,12 @@ export namespace Prisma {
     reason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    employee?: EmployeeCreateNestedOneWithoutBlockedslotsInput
+    service?: ServiceCreateNestedOneWithoutBlockedslotsInput
   }
 
   export type BlockedSlotUncheckedCreateInput = {
     id?: string
-    employee_id?: string | null
+    service_id?: string | null
     date: Date | string
     startTime: Date | string
     endTime: Date | string
@@ -11198,12 +11280,12 @@ export namespace Prisma {
     reason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    employee?: EmployeeUpdateOneWithoutBlockedslotsNestedInput
+    service?: ServiceUpdateOneWithoutBlockedslotsNestedInput
   }
 
   export type BlockedSlotUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    employee_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11214,7 +11296,7 @@ export namespace Prisma {
 
   export type BlockedSlotCreateManyInput = {
     id?: string
-    employee_id?: string | null
+    service_id?: string | null
     date: Date | string
     startTime: Date | string
     endTime: Date | string
@@ -11235,7 +11317,7 @@ export namespace Prisma {
 
   export type BlockedSlotUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    employee_id?: NullableStringFieldUpdateOperationsInput | string | null
+    service_id?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     startTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endTime?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11598,26 +11680,6 @@ export namespace Prisma {
     isNot?: ClinicaWhereInput | null
   }
 
-  export type AvailabilityListRelationFilter = {
-    every?: AvailabilityWhereInput
-    some?: AvailabilityWhereInput
-    none?: AvailabilityWhereInput
-  }
-
-  export type BlockedSlotListRelationFilter = {
-    every?: BlockedSlotWhereInput
-    some?: BlockedSlotWhereInput
-    none?: BlockedSlotWhereInput
-  }
-
-  export type AvailabilityOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type BlockedSlotOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type EmployeeCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -11676,6 +11738,13 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type EnumTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.Type | EnumTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.Type[] | ListEnumTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Type[] | ListEnumTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeFilter<$PrismaModel> | $Enums.Type
+  }
+
   export type EmployeeNullableScalarRelationFilter = {
     is?: EmployeeWhereInput | null
     isNot?: EmployeeWhereInput | null
@@ -11686,12 +11755,34 @@ export namespace Prisma {
     isNot?: ClinicaWhereInput
   }
 
+  export type AvailabilityListRelationFilter = {
+    every?: AvailabilityWhereInput
+    some?: AvailabilityWhereInput
+    none?: AvailabilityWhereInput
+  }
+
+  export type BlockedSlotListRelationFilter = {
+    every?: BlockedSlotWhereInput
+    some?: BlockedSlotWhereInput
+    none?: BlockedSlotWhereInput
+  }
+
+  export type AvailabilityOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BlockedSlotOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type ServiceCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
     price?: SortOrder
     duration?: SortOrder
+    type?: SortOrder
+    capacity?: SortOrder
     employee_id?: SortOrder
     clinica_id?: SortOrder
     createdAt?: SortOrder
@@ -11701,6 +11792,7 @@ export namespace Prisma {
   export type ServiceAvgOrderByAggregateInput = {
     price?: SortOrder
     duration?: SortOrder
+    capacity?: SortOrder
   }
 
   export type ServiceMaxOrderByAggregateInput = {
@@ -11709,6 +11801,8 @@ export namespace Prisma {
     description?: SortOrder
     price?: SortOrder
     duration?: SortOrder
+    type?: SortOrder
+    capacity?: SortOrder
     employee_id?: SortOrder
     clinica_id?: SortOrder
     createdAt?: SortOrder
@@ -11721,6 +11815,8 @@ export namespace Prisma {
     description?: SortOrder
     price?: SortOrder
     duration?: SortOrder
+    type?: SortOrder
+    capacity?: SortOrder
     employee_id?: SortOrder
     clinica_id?: SortOrder
     createdAt?: SortOrder
@@ -11730,6 +11826,7 @@ export namespace Prisma {
   export type ServiceSumOrderByAggregateInput = {
     price?: SortOrder
     duration?: SortOrder
+    capacity?: SortOrder
   }
 
   export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -11764,9 +11861,24 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type EnumTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Type | EnumTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.Type[] | ListEnumTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Type[] | ListEnumTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeWithAggregatesFilter<$PrismaModel> | $Enums.Type
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTypeFilter<$PrismaModel>
+    _max?: NestedEnumTypeFilter<$PrismaModel>
+  }
+
+  export type ServiceNullableScalarRelationFilter = {
+    is?: ServiceWhereInput | null
+    isNot?: ServiceWhereInput | null
+  }
+
   export type AvailabilityCountOrderByAggregateInput = {
     id?: SortOrder
-    employee_id?: SortOrder
+    service_id?: SortOrder
     dayOfWeek?: SortOrder
     startTime?: SortOrder
     endTime?: SortOrder
@@ -11782,7 +11894,7 @@ export namespace Prisma {
 
   export type AvailabilityMaxOrderByAggregateInput = {
     id?: SortOrder
-    employee_id?: SortOrder
+    service_id?: SortOrder
     dayOfWeek?: SortOrder
     startTime?: SortOrder
     endTime?: SortOrder
@@ -11793,7 +11905,7 @@ export namespace Prisma {
 
   export type AvailabilityMinOrderByAggregateInput = {
     id?: SortOrder
-    employee_id?: SortOrder
+    service_id?: SortOrder
     dayOfWeek?: SortOrder
     startTime?: SortOrder
     endTime?: SortOrder
@@ -11809,7 +11921,7 @@ export namespace Prisma {
 
   export type BlockedSlotCountOrderByAggregateInput = {
     id?: SortOrder
-    employee_id?: SortOrder
+    service_id?: SortOrder
     date?: SortOrder
     startTime?: SortOrder
     endTime?: SortOrder
@@ -11820,7 +11932,7 @@ export namespace Prisma {
 
   export type BlockedSlotMaxOrderByAggregateInput = {
     id?: SortOrder
-    employee_id?: SortOrder
+    service_id?: SortOrder
     date?: SortOrder
     startTime?: SortOrder
     endTime?: SortOrder
@@ -11831,7 +11943,7 @@ export namespace Prisma {
 
   export type BlockedSlotMinOrderByAggregateInput = {
     id?: SortOrder
-    employee_id?: SortOrder
+    service_id?: SortOrder
     date?: SortOrder
     startTime?: SortOrder
     endTime?: SortOrder
@@ -11845,11 +11957,6 @@ export namespace Prisma {
     in?: $Enums.AppointmentStatus[] | ListEnumAppointmentStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.AppointmentStatus[] | ListEnumAppointmentStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumAppointmentStatusFilter<$PrismaModel> | $Enums.AppointmentStatus
-  }
-
-  export type ServiceNullableScalarRelationFilter = {
-    is?: ServiceWhereInput | null
-    isNot?: ServiceWhereInput | null
   }
 
   export type AppointmentCountOrderByAggregateInput = {
@@ -12134,20 +12241,6 @@ export namespace Prisma {
     connect?: AppointmentWhereUniqueInput | AppointmentWhereUniqueInput[]
   }
 
-  export type AvailabilityCreateNestedManyWithoutEmployeeInput = {
-    create?: XOR<AvailabilityCreateWithoutEmployeeInput, AvailabilityUncheckedCreateWithoutEmployeeInput> | AvailabilityCreateWithoutEmployeeInput[] | AvailabilityUncheckedCreateWithoutEmployeeInput[]
-    connectOrCreate?: AvailabilityCreateOrConnectWithoutEmployeeInput | AvailabilityCreateOrConnectWithoutEmployeeInput[]
-    createMany?: AvailabilityCreateManyEmployeeInputEnvelope
-    connect?: AvailabilityWhereUniqueInput | AvailabilityWhereUniqueInput[]
-  }
-
-  export type BlockedSlotCreateNestedManyWithoutEmployeeInput = {
-    create?: XOR<BlockedSlotCreateWithoutEmployeeInput, BlockedSlotUncheckedCreateWithoutEmployeeInput> | BlockedSlotCreateWithoutEmployeeInput[] | BlockedSlotUncheckedCreateWithoutEmployeeInput[]
-    connectOrCreate?: BlockedSlotCreateOrConnectWithoutEmployeeInput | BlockedSlotCreateOrConnectWithoutEmployeeInput[]
-    createMany?: BlockedSlotCreateManyEmployeeInputEnvelope
-    connect?: BlockedSlotWhereUniqueInput | BlockedSlotWhereUniqueInput[]
-  }
-
   export type ServiceUncheckedCreateNestedManyWithoutEmployeeInput = {
     create?: XOR<ServiceCreateWithoutEmployeeInput, ServiceUncheckedCreateWithoutEmployeeInput> | ServiceCreateWithoutEmployeeInput[] | ServiceUncheckedCreateWithoutEmployeeInput[]
     connectOrCreate?: ServiceCreateOrConnectWithoutEmployeeInput | ServiceCreateOrConnectWithoutEmployeeInput[]
@@ -12160,20 +12253,6 @@ export namespace Prisma {
     connectOrCreate?: AppointmentCreateOrConnectWithoutEmployeeInput | AppointmentCreateOrConnectWithoutEmployeeInput[]
     createMany?: AppointmentCreateManyEmployeeInputEnvelope
     connect?: AppointmentWhereUniqueInput | AppointmentWhereUniqueInput[]
-  }
-
-  export type AvailabilityUncheckedCreateNestedManyWithoutEmployeeInput = {
-    create?: XOR<AvailabilityCreateWithoutEmployeeInput, AvailabilityUncheckedCreateWithoutEmployeeInput> | AvailabilityCreateWithoutEmployeeInput[] | AvailabilityUncheckedCreateWithoutEmployeeInput[]
-    connectOrCreate?: AvailabilityCreateOrConnectWithoutEmployeeInput | AvailabilityCreateOrConnectWithoutEmployeeInput[]
-    createMany?: AvailabilityCreateManyEmployeeInputEnvelope
-    connect?: AvailabilityWhereUniqueInput | AvailabilityWhereUniqueInput[]
-  }
-
-  export type BlockedSlotUncheckedCreateNestedManyWithoutEmployeeInput = {
-    create?: XOR<BlockedSlotCreateWithoutEmployeeInput, BlockedSlotUncheckedCreateWithoutEmployeeInput> | BlockedSlotCreateWithoutEmployeeInput[] | BlockedSlotUncheckedCreateWithoutEmployeeInput[]
-    connectOrCreate?: BlockedSlotCreateOrConnectWithoutEmployeeInput | BlockedSlotCreateOrConnectWithoutEmployeeInput[]
-    createMany?: BlockedSlotCreateManyEmployeeInputEnvelope
-    connect?: BlockedSlotWhereUniqueInput | BlockedSlotWhereUniqueInput[]
   }
 
   export type ServiceUpdateManyWithoutEmployeeNestedInput = {
@@ -12214,34 +12293,6 @@ export namespace Prisma {
     deleteMany?: AppointmentScalarWhereInput | AppointmentScalarWhereInput[]
   }
 
-  export type AvailabilityUpdateManyWithoutEmployeeNestedInput = {
-    create?: XOR<AvailabilityCreateWithoutEmployeeInput, AvailabilityUncheckedCreateWithoutEmployeeInput> | AvailabilityCreateWithoutEmployeeInput[] | AvailabilityUncheckedCreateWithoutEmployeeInput[]
-    connectOrCreate?: AvailabilityCreateOrConnectWithoutEmployeeInput | AvailabilityCreateOrConnectWithoutEmployeeInput[]
-    upsert?: AvailabilityUpsertWithWhereUniqueWithoutEmployeeInput | AvailabilityUpsertWithWhereUniqueWithoutEmployeeInput[]
-    createMany?: AvailabilityCreateManyEmployeeInputEnvelope
-    set?: AvailabilityWhereUniqueInput | AvailabilityWhereUniqueInput[]
-    disconnect?: AvailabilityWhereUniqueInput | AvailabilityWhereUniqueInput[]
-    delete?: AvailabilityWhereUniqueInput | AvailabilityWhereUniqueInput[]
-    connect?: AvailabilityWhereUniqueInput | AvailabilityWhereUniqueInput[]
-    update?: AvailabilityUpdateWithWhereUniqueWithoutEmployeeInput | AvailabilityUpdateWithWhereUniqueWithoutEmployeeInput[]
-    updateMany?: AvailabilityUpdateManyWithWhereWithoutEmployeeInput | AvailabilityUpdateManyWithWhereWithoutEmployeeInput[]
-    deleteMany?: AvailabilityScalarWhereInput | AvailabilityScalarWhereInput[]
-  }
-
-  export type BlockedSlotUpdateManyWithoutEmployeeNestedInput = {
-    create?: XOR<BlockedSlotCreateWithoutEmployeeInput, BlockedSlotUncheckedCreateWithoutEmployeeInput> | BlockedSlotCreateWithoutEmployeeInput[] | BlockedSlotUncheckedCreateWithoutEmployeeInput[]
-    connectOrCreate?: BlockedSlotCreateOrConnectWithoutEmployeeInput | BlockedSlotCreateOrConnectWithoutEmployeeInput[]
-    upsert?: BlockedSlotUpsertWithWhereUniqueWithoutEmployeeInput | BlockedSlotUpsertWithWhereUniqueWithoutEmployeeInput[]
-    createMany?: BlockedSlotCreateManyEmployeeInputEnvelope
-    set?: BlockedSlotWhereUniqueInput | BlockedSlotWhereUniqueInput[]
-    disconnect?: BlockedSlotWhereUniqueInput | BlockedSlotWhereUniqueInput[]
-    delete?: BlockedSlotWhereUniqueInput | BlockedSlotWhereUniqueInput[]
-    connect?: BlockedSlotWhereUniqueInput | BlockedSlotWhereUniqueInput[]
-    update?: BlockedSlotUpdateWithWhereUniqueWithoutEmployeeInput | BlockedSlotUpdateWithWhereUniqueWithoutEmployeeInput[]
-    updateMany?: BlockedSlotUpdateManyWithWhereWithoutEmployeeInput | BlockedSlotUpdateManyWithWhereWithoutEmployeeInput[]
-    deleteMany?: BlockedSlotScalarWhereInput | BlockedSlotScalarWhereInput[]
-  }
-
   export type ServiceUncheckedUpdateManyWithoutEmployeeNestedInput = {
     create?: XOR<ServiceCreateWithoutEmployeeInput, ServiceUncheckedCreateWithoutEmployeeInput> | ServiceCreateWithoutEmployeeInput[] | ServiceUncheckedCreateWithoutEmployeeInput[]
     connectOrCreate?: ServiceCreateOrConnectWithoutEmployeeInput | ServiceCreateOrConnectWithoutEmployeeInput[]
@@ -12270,34 +12321,6 @@ export namespace Prisma {
     deleteMany?: AppointmentScalarWhereInput | AppointmentScalarWhereInput[]
   }
 
-  export type AvailabilityUncheckedUpdateManyWithoutEmployeeNestedInput = {
-    create?: XOR<AvailabilityCreateWithoutEmployeeInput, AvailabilityUncheckedCreateWithoutEmployeeInput> | AvailabilityCreateWithoutEmployeeInput[] | AvailabilityUncheckedCreateWithoutEmployeeInput[]
-    connectOrCreate?: AvailabilityCreateOrConnectWithoutEmployeeInput | AvailabilityCreateOrConnectWithoutEmployeeInput[]
-    upsert?: AvailabilityUpsertWithWhereUniqueWithoutEmployeeInput | AvailabilityUpsertWithWhereUniqueWithoutEmployeeInput[]
-    createMany?: AvailabilityCreateManyEmployeeInputEnvelope
-    set?: AvailabilityWhereUniqueInput | AvailabilityWhereUniqueInput[]
-    disconnect?: AvailabilityWhereUniqueInput | AvailabilityWhereUniqueInput[]
-    delete?: AvailabilityWhereUniqueInput | AvailabilityWhereUniqueInput[]
-    connect?: AvailabilityWhereUniqueInput | AvailabilityWhereUniqueInput[]
-    update?: AvailabilityUpdateWithWhereUniqueWithoutEmployeeInput | AvailabilityUpdateWithWhereUniqueWithoutEmployeeInput[]
-    updateMany?: AvailabilityUpdateManyWithWhereWithoutEmployeeInput | AvailabilityUpdateManyWithWhereWithoutEmployeeInput[]
-    deleteMany?: AvailabilityScalarWhereInput | AvailabilityScalarWhereInput[]
-  }
-
-  export type BlockedSlotUncheckedUpdateManyWithoutEmployeeNestedInput = {
-    create?: XOR<BlockedSlotCreateWithoutEmployeeInput, BlockedSlotUncheckedCreateWithoutEmployeeInput> | BlockedSlotCreateWithoutEmployeeInput[] | BlockedSlotUncheckedCreateWithoutEmployeeInput[]
-    connectOrCreate?: BlockedSlotCreateOrConnectWithoutEmployeeInput | BlockedSlotCreateOrConnectWithoutEmployeeInput[]
-    upsert?: BlockedSlotUpsertWithWhereUniqueWithoutEmployeeInput | BlockedSlotUpsertWithWhereUniqueWithoutEmployeeInput[]
-    createMany?: BlockedSlotCreateManyEmployeeInputEnvelope
-    set?: BlockedSlotWhereUniqueInput | BlockedSlotWhereUniqueInput[]
-    disconnect?: BlockedSlotWhereUniqueInput | BlockedSlotWhereUniqueInput[]
-    delete?: BlockedSlotWhereUniqueInput | BlockedSlotWhereUniqueInput[]
-    connect?: BlockedSlotWhereUniqueInput | BlockedSlotWhereUniqueInput[]
-    update?: BlockedSlotUpdateWithWhereUniqueWithoutEmployeeInput | BlockedSlotUpdateWithWhereUniqueWithoutEmployeeInput[]
-    updateMany?: BlockedSlotUpdateManyWithWhereWithoutEmployeeInput | BlockedSlotUpdateManyWithWhereWithoutEmployeeInput[]
-    deleteMany?: BlockedSlotScalarWhereInput | BlockedSlotScalarWhereInput[]
-  }
-
   export type EmployeeCreateNestedOneWithoutServicesInput = {
     create?: XOR<EmployeeCreateWithoutServicesInput, EmployeeUncheckedCreateWithoutServicesInput>
     connectOrCreate?: EmployeeCreateOrConnectWithoutServicesInput
@@ -12317,11 +12340,39 @@ export namespace Prisma {
     connect?: AppointmentWhereUniqueInput | AppointmentWhereUniqueInput[]
   }
 
+  export type AvailabilityCreateNestedManyWithoutServiceInput = {
+    create?: XOR<AvailabilityCreateWithoutServiceInput, AvailabilityUncheckedCreateWithoutServiceInput> | AvailabilityCreateWithoutServiceInput[] | AvailabilityUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: AvailabilityCreateOrConnectWithoutServiceInput | AvailabilityCreateOrConnectWithoutServiceInput[]
+    createMany?: AvailabilityCreateManyServiceInputEnvelope
+    connect?: AvailabilityWhereUniqueInput | AvailabilityWhereUniqueInput[]
+  }
+
+  export type BlockedSlotCreateNestedManyWithoutServiceInput = {
+    create?: XOR<BlockedSlotCreateWithoutServiceInput, BlockedSlotUncheckedCreateWithoutServiceInput> | BlockedSlotCreateWithoutServiceInput[] | BlockedSlotUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: BlockedSlotCreateOrConnectWithoutServiceInput | BlockedSlotCreateOrConnectWithoutServiceInput[]
+    createMany?: BlockedSlotCreateManyServiceInputEnvelope
+    connect?: BlockedSlotWhereUniqueInput | BlockedSlotWhereUniqueInput[]
+  }
+
   export type AppointmentUncheckedCreateNestedManyWithoutServiceInput = {
     create?: XOR<AppointmentCreateWithoutServiceInput, AppointmentUncheckedCreateWithoutServiceInput> | AppointmentCreateWithoutServiceInput[] | AppointmentUncheckedCreateWithoutServiceInput[]
     connectOrCreate?: AppointmentCreateOrConnectWithoutServiceInput | AppointmentCreateOrConnectWithoutServiceInput[]
     createMany?: AppointmentCreateManyServiceInputEnvelope
     connect?: AppointmentWhereUniqueInput | AppointmentWhereUniqueInput[]
+  }
+
+  export type AvailabilityUncheckedCreateNestedManyWithoutServiceInput = {
+    create?: XOR<AvailabilityCreateWithoutServiceInput, AvailabilityUncheckedCreateWithoutServiceInput> | AvailabilityCreateWithoutServiceInput[] | AvailabilityUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: AvailabilityCreateOrConnectWithoutServiceInput | AvailabilityCreateOrConnectWithoutServiceInput[]
+    createMany?: AvailabilityCreateManyServiceInputEnvelope
+    connect?: AvailabilityWhereUniqueInput | AvailabilityWhereUniqueInput[]
+  }
+
+  export type BlockedSlotUncheckedCreateNestedManyWithoutServiceInput = {
+    create?: XOR<BlockedSlotCreateWithoutServiceInput, BlockedSlotUncheckedCreateWithoutServiceInput> | BlockedSlotCreateWithoutServiceInput[] | BlockedSlotUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: BlockedSlotCreateOrConnectWithoutServiceInput | BlockedSlotCreateOrConnectWithoutServiceInput[]
+    createMany?: BlockedSlotCreateManyServiceInputEnvelope
+    connect?: BlockedSlotWhereUniqueInput | BlockedSlotWhereUniqueInput[]
   }
 
   export type DecimalFieldUpdateOperationsInput = {
@@ -12338,6 +12389,10 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type EnumTypeFieldUpdateOperationsInput = {
+    set?: $Enums.Type
   }
 
   export type EmployeeUpdateOneWithoutServicesNestedInput = {
@@ -12372,6 +12427,34 @@ export namespace Prisma {
     deleteMany?: AppointmentScalarWhereInput | AppointmentScalarWhereInput[]
   }
 
+  export type AvailabilityUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<AvailabilityCreateWithoutServiceInput, AvailabilityUncheckedCreateWithoutServiceInput> | AvailabilityCreateWithoutServiceInput[] | AvailabilityUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: AvailabilityCreateOrConnectWithoutServiceInput | AvailabilityCreateOrConnectWithoutServiceInput[]
+    upsert?: AvailabilityUpsertWithWhereUniqueWithoutServiceInput | AvailabilityUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: AvailabilityCreateManyServiceInputEnvelope
+    set?: AvailabilityWhereUniqueInput | AvailabilityWhereUniqueInput[]
+    disconnect?: AvailabilityWhereUniqueInput | AvailabilityWhereUniqueInput[]
+    delete?: AvailabilityWhereUniqueInput | AvailabilityWhereUniqueInput[]
+    connect?: AvailabilityWhereUniqueInput | AvailabilityWhereUniqueInput[]
+    update?: AvailabilityUpdateWithWhereUniqueWithoutServiceInput | AvailabilityUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: AvailabilityUpdateManyWithWhereWithoutServiceInput | AvailabilityUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: AvailabilityScalarWhereInput | AvailabilityScalarWhereInput[]
+  }
+
+  export type BlockedSlotUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<BlockedSlotCreateWithoutServiceInput, BlockedSlotUncheckedCreateWithoutServiceInput> | BlockedSlotCreateWithoutServiceInput[] | BlockedSlotUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: BlockedSlotCreateOrConnectWithoutServiceInput | BlockedSlotCreateOrConnectWithoutServiceInput[]
+    upsert?: BlockedSlotUpsertWithWhereUniqueWithoutServiceInput | BlockedSlotUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: BlockedSlotCreateManyServiceInputEnvelope
+    set?: BlockedSlotWhereUniqueInput | BlockedSlotWhereUniqueInput[]
+    disconnect?: BlockedSlotWhereUniqueInput | BlockedSlotWhereUniqueInput[]
+    delete?: BlockedSlotWhereUniqueInput | BlockedSlotWhereUniqueInput[]
+    connect?: BlockedSlotWhereUniqueInput | BlockedSlotWhereUniqueInput[]
+    update?: BlockedSlotUpdateWithWhereUniqueWithoutServiceInput | BlockedSlotUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: BlockedSlotUpdateManyWithWhereWithoutServiceInput | BlockedSlotUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: BlockedSlotScalarWhereInput | BlockedSlotScalarWhereInput[]
+  }
+
   export type AppointmentUncheckedUpdateManyWithoutServiceNestedInput = {
     create?: XOR<AppointmentCreateWithoutServiceInput, AppointmentUncheckedCreateWithoutServiceInput> | AppointmentCreateWithoutServiceInput[] | AppointmentUncheckedCreateWithoutServiceInput[]
     connectOrCreate?: AppointmentCreateOrConnectWithoutServiceInput | AppointmentCreateOrConnectWithoutServiceInput[]
@@ -12386,36 +12469,64 @@ export namespace Prisma {
     deleteMany?: AppointmentScalarWhereInput | AppointmentScalarWhereInput[]
   }
 
-  export type EmployeeCreateNestedOneWithoutAvailabilitiesInput = {
-    create?: XOR<EmployeeCreateWithoutAvailabilitiesInput, EmployeeUncheckedCreateWithoutAvailabilitiesInput>
-    connectOrCreate?: EmployeeCreateOrConnectWithoutAvailabilitiesInput
-    connect?: EmployeeWhereUniqueInput
+  export type AvailabilityUncheckedUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<AvailabilityCreateWithoutServiceInput, AvailabilityUncheckedCreateWithoutServiceInput> | AvailabilityCreateWithoutServiceInput[] | AvailabilityUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: AvailabilityCreateOrConnectWithoutServiceInput | AvailabilityCreateOrConnectWithoutServiceInput[]
+    upsert?: AvailabilityUpsertWithWhereUniqueWithoutServiceInput | AvailabilityUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: AvailabilityCreateManyServiceInputEnvelope
+    set?: AvailabilityWhereUniqueInput | AvailabilityWhereUniqueInput[]
+    disconnect?: AvailabilityWhereUniqueInput | AvailabilityWhereUniqueInput[]
+    delete?: AvailabilityWhereUniqueInput | AvailabilityWhereUniqueInput[]
+    connect?: AvailabilityWhereUniqueInput | AvailabilityWhereUniqueInput[]
+    update?: AvailabilityUpdateWithWhereUniqueWithoutServiceInput | AvailabilityUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: AvailabilityUpdateManyWithWhereWithoutServiceInput | AvailabilityUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: AvailabilityScalarWhereInput | AvailabilityScalarWhereInput[]
   }
 
-  export type EmployeeUpdateOneWithoutAvailabilitiesNestedInput = {
-    create?: XOR<EmployeeCreateWithoutAvailabilitiesInput, EmployeeUncheckedCreateWithoutAvailabilitiesInput>
-    connectOrCreate?: EmployeeCreateOrConnectWithoutAvailabilitiesInput
-    upsert?: EmployeeUpsertWithoutAvailabilitiesInput
-    disconnect?: EmployeeWhereInput | boolean
-    delete?: EmployeeWhereInput | boolean
-    connect?: EmployeeWhereUniqueInput
-    update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutAvailabilitiesInput, EmployeeUpdateWithoutAvailabilitiesInput>, EmployeeUncheckedUpdateWithoutAvailabilitiesInput>
+  export type BlockedSlotUncheckedUpdateManyWithoutServiceNestedInput = {
+    create?: XOR<BlockedSlotCreateWithoutServiceInput, BlockedSlotUncheckedCreateWithoutServiceInput> | BlockedSlotCreateWithoutServiceInput[] | BlockedSlotUncheckedCreateWithoutServiceInput[]
+    connectOrCreate?: BlockedSlotCreateOrConnectWithoutServiceInput | BlockedSlotCreateOrConnectWithoutServiceInput[]
+    upsert?: BlockedSlotUpsertWithWhereUniqueWithoutServiceInput | BlockedSlotUpsertWithWhereUniqueWithoutServiceInput[]
+    createMany?: BlockedSlotCreateManyServiceInputEnvelope
+    set?: BlockedSlotWhereUniqueInput | BlockedSlotWhereUniqueInput[]
+    disconnect?: BlockedSlotWhereUniqueInput | BlockedSlotWhereUniqueInput[]
+    delete?: BlockedSlotWhereUniqueInput | BlockedSlotWhereUniqueInput[]
+    connect?: BlockedSlotWhereUniqueInput | BlockedSlotWhereUniqueInput[]
+    update?: BlockedSlotUpdateWithWhereUniqueWithoutServiceInput | BlockedSlotUpdateWithWhereUniqueWithoutServiceInput[]
+    updateMany?: BlockedSlotUpdateManyWithWhereWithoutServiceInput | BlockedSlotUpdateManyWithWhereWithoutServiceInput[]
+    deleteMany?: BlockedSlotScalarWhereInput | BlockedSlotScalarWhereInput[]
   }
 
-  export type EmployeeCreateNestedOneWithoutBlockedslotsInput = {
-    create?: XOR<EmployeeCreateWithoutBlockedslotsInput, EmployeeUncheckedCreateWithoutBlockedslotsInput>
-    connectOrCreate?: EmployeeCreateOrConnectWithoutBlockedslotsInput
-    connect?: EmployeeWhereUniqueInput
+  export type ServiceCreateNestedOneWithoutAvailabilitiesInput = {
+    create?: XOR<ServiceCreateWithoutAvailabilitiesInput, ServiceUncheckedCreateWithoutAvailabilitiesInput>
+    connectOrCreate?: ServiceCreateOrConnectWithoutAvailabilitiesInput
+    connect?: ServiceWhereUniqueInput
   }
 
-  export type EmployeeUpdateOneWithoutBlockedslotsNestedInput = {
-    create?: XOR<EmployeeCreateWithoutBlockedslotsInput, EmployeeUncheckedCreateWithoutBlockedslotsInput>
-    connectOrCreate?: EmployeeCreateOrConnectWithoutBlockedslotsInput
-    upsert?: EmployeeUpsertWithoutBlockedslotsInput
-    disconnect?: EmployeeWhereInput | boolean
-    delete?: EmployeeWhereInput | boolean
-    connect?: EmployeeWhereUniqueInput
-    update?: XOR<XOR<EmployeeUpdateToOneWithWhereWithoutBlockedslotsInput, EmployeeUpdateWithoutBlockedslotsInput>, EmployeeUncheckedUpdateWithoutBlockedslotsInput>
+  export type ServiceUpdateOneWithoutAvailabilitiesNestedInput = {
+    create?: XOR<ServiceCreateWithoutAvailabilitiesInput, ServiceUncheckedCreateWithoutAvailabilitiesInput>
+    connectOrCreate?: ServiceCreateOrConnectWithoutAvailabilitiesInput
+    upsert?: ServiceUpsertWithoutAvailabilitiesInput
+    disconnect?: ServiceWhereInput | boolean
+    delete?: ServiceWhereInput | boolean
+    connect?: ServiceWhereUniqueInput
+    update?: XOR<XOR<ServiceUpdateToOneWithWhereWithoutAvailabilitiesInput, ServiceUpdateWithoutAvailabilitiesInput>, ServiceUncheckedUpdateWithoutAvailabilitiesInput>
+  }
+
+  export type ServiceCreateNestedOneWithoutBlockedslotsInput = {
+    create?: XOR<ServiceCreateWithoutBlockedslotsInput, ServiceUncheckedCreateWithoutBlockedslotsInput>
+    connectOrCreate?: ServiceCreateOrConnectWithoutBlockedslotsInput
+    connect?: ServiceWhereUniqueInput
+  }
+
+  export type ServiceUpdateOneWithoutBlockedslotsNestedInput = {
+    create?: XOR<ServiceCreateWithoutBlockedslotsInput, ServiceUncheckedCreateWithoutBlockedslotsInput>
+    connectOrCreate?: ServiceCreateOrConnectWithoutBlockedslotsInput
+    upsert?: ServiceUpsertWithoutBlockedslotsInput
+    disconnect?: ServiceWhereInput | boolean
+    delete?: ServiceWhereInput | boolean
+    connect?: ServiceWhereUniqueInput
+    update?: XOR<XOR<ServiceUpdateToOneWithWhereWithoutBlockedslotsInput, ServiceUpdateWithoutBlockedslotsInput>, ServiceUncheckedUpdateWithoutBlockedslotsInput>
   }
 
   export type ServiceCreateNestedOneWithoutAppointmentsInput = {
@@ -12620,6 +12731,13 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
+  export type NestedEnumTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.Type | EnumTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.Type[] | ListEnumTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Type[] | ListEnumTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeFilter<$PrismaModel> | $Enums.Type
+  }
+
   export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -12661,6 +12779,16 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedEnumTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Type | EnumTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.Type[] | ListEnumTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Type[] | ListEnumTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTypeWithAggregatesFilter<$PrismaModel> | $Enums.Type
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTypeFilter<$PrismaModel>
+    _max?: NestedEnumTypeFilter<$PrismaModel>
   }
 
   export type NestedEnumAppointmentStatusFilter<$PrismaModel = never> = {
@@ -12787,8 +12915,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     services?: ServiceCreateNestedManyWithoutEmployeeInput
     Appointment?: AppointmentCreateNestedManyWithoutEmployeeInput
-    availabilities?: AvailabilityCreateNestedManyWithoutEmployeeInput
-    blockedslots?: BlockedSlotCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutClinicaInput = {
@@ -12802,8 +12928,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     services?: ServiceUncheckedCreateNestedManyWithoutEmployeeInput
     Appointment?: AppointmentUncheckedCreateNestedManyWithoutEmployeeInput
-    availabilities?: AvailabilityUncheckedCreateNestedManyWithoutEmployeeInput
-    blockedslots?: BlockedSlotUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeCreateOrConnectWithoutClinicaInput = {
@@ -12822,10 +12946,14 @@ export namespace Prisma {
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
     duration: number
+    type: $Enums.Type
+    capacity: number
     createdAt?: Date | string
     updatedAt?: Date | string
     employee?: EmployeeCreateNestedOneWithoutServicesInput
     appointments?: AppointmentCreateNestedManyWithoutServiceInput
+    availabilities?: AvailabilityCreateNestedManyWithoutServiceInput
+    blockedslots?: BlockedSlotCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateWithoutClinicaInput = {
@@ -12834,10 +12962,14 @@ export namespace Prisma {
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
     duration: number
+    type: $Enums.Type
+    capacity: number
     employee_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     appointments?: AppointmentUncheckedCreateNestedManyWithoutServiceInput
+    availabilities?: AvailabilityUncheckedCreateNestedManyWithoutServiceInput
+    blockedslots?: BlockedSlotUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceCreateOrConnectWithoutClinicaInput = {
@@ -12979,6 +13111,8 @@ export namespace Prisma {
     description?: StringNullableFilter<"Service"> | string | null
     price?: DecimalFilter<"Service"> | Decimal | DecimalJsLike | number | string
     duration?: IntFilter<"Service"> | number
+    type?: EnumTypeFilter<"Service"> | $Enums.Type
+    capacity?: IntFilter<"Service"> | number
     employee_id?: StringNullableFilter<"Service"> | string | null
     clinica_id?: StringFilter<"Service"> | string
     createdAt?: DateTimeFilter<"Service"> | Date | string
@@ -13026,10 +13160,14 @@ export namespace Prisma {
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
     duration: number
+    type: $Enums.Type
+    capacity: number
     createdAt?: Date | string
     updatedAt?: Date | string
     clinica: ClinicaCreateNestedOneWithoutServicesInput
     appointments?: AppointmentCreateNestedManyWithoutServiceInput
+    availabilities?: AvailabilityCreateNestedManyWithoutServiceInput
+    blockedslots?: BlockedSlotCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateWithoutEmployeeInput = {
@@ -13038,10 +13176,14 @@ export namespace Prisma {
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
     duration: number
+    type: $Enums.Type
+    capacity: number
     clinica_id: string
     createdAt?: Date | string
     updatedAt?: Date | string
     appointments?: AppointmentUncheckedCreateNestedManyWithoutServiceInput
+    availabilities?: AvailabilityUncheckedCreateNestedManyWithoutServiceInput
+    blockedslots?: BlockedSlotUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceCreateOrConnectWithoutEmployeeInput = {
@@ -13127,66 +13269,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type AvailabilityCreateWithoutEmployeeInput = {
-    id?: string
-    dayOfWeek: number
-    startTime: Date | string
-    endTime: Date | string
-    slotDuration: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type AvailabilityUncheckedCreateWithoutEmployeeInput = {
-    id?: string
-    dayOfWeek: number
-    startTime: Date | string
-    endTime: Date | string
-    slotDuration: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type AvailabilityCreateOrConnectWithoutEmployeeInput = {
-    where: AvailabilityWhereUniqueInput
-    create: XOR<AvailabilityCreateWithoutEmployeeInput, AvailabilityUncheckedCreateWithoutEmployeeInput>
-  }
-
-  export type AvailabilityCreateManyEmployeeInputEnvelope = {
-    data: AvailabilityCreateManyEmployeeInput | AvailabilityCreateManyEmployeeInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type BlockedSlotCreateWithoutEmployeeInput = {
-    id?: string
-    date: Date | string
-    startTime: Date | string
-    endTime: Date | string
-    reason?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type BlockedSlotUncheckedCreateWithoutEmployeeInput = {
-    id?: string
-    date: Date | string
-    startTime: Date | string
-    endTime: Date | string
-    reason?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type BlockedSlotCreateOrConnectWithoutEmployeeInput = {
-    where: BlockedSlotWhereUniqueInput
-    create: XOR<BlockedSlotCreateWithoutEmployeeInput, BlockedSlotUncheckedCreateWithoutEmployeeInput>
-  }
-
-  export type BlockedSlotCreateManyEmployeeInputEnvelope = {
-    data: BlockedSlotCreateManyEmployeeInput | BlockedSlotCreateManyEmployeeInput[]
-    skipDuplicates?: boolean
-  }
-
   export type ServiceUpsertWithWhereUniqueWithoutEmployeeInput = {
     where: ServiceWhereUniqueInput
     update: XOR<ServiceUpdateWithoutEmployeeInput, ServiceUncheckedUpdateWithoutEmployeeInput>
@@ -13258,66 +13340,6 @@ export namespace Prisma {
     data: XOR<AppointmentUpdateManyMutationInput, AppointmentUncheckedUpdateManyWithoutEmployeeInput>
   }
 
-  export type AvailabilityUpsertWithWhereUniqueWithoutEmployeeInput = {
-    where: AvailabilityWhereUniqueInput
-    update: XOR<AvailabilityUpdateWithoutEmployeeInput, AvailabilityUncheckedUpdateWithoutEmployeeInput>
-    create: XOR<AvailabilityCreateWithoutEmployeeInput, AvailabilityUncheckedCreateWithoutEmployeeInput>
-  }
-
-  export type AvailabilityUpdateWithWhereUniqueWithoutEmployeeInput = {
-    where: AvailabilityWhereUniqueInput
-    data: XOR<AvailabilityUpdateWithoutEmployeeInput, AvailabilityUncheckedUpdateWithoutEmployeeInput>
-  }
-
-  export type AvailabilityUpdateManyWithWhereWithoutEmployeeInput = {
-    where: AvailabilityScalarWhereInput
-    data: XOR<AvailabilityUpdateManyMutationInput, AvailabilityUncheckedUpdateManyWithoutEmployeeInput>
-  }
-
-  export type AvailabilityScalarWhereInput = {
-    AND?: AvailabilityScalarWhereInput | AvailabilityScalarWhereInput[]
-    OR?: AvailabilityScalarWhereInput[]
-    NOT?: AvailabilityScalarWhereInput | AvailabilityScalarWhereInput[]
-    id?: StringFilter<"Availability"> | string
-    employee_id?: StringNullableFilter<"Availability"> | string | null
-    dayOfWeek?: IntFilter<"Availability"> | number
-    startTime?: DateTimeFilter<"Availability"> | Date | string
-    endTime?: DateTimeFilter<"Availability"> | Date | string
-    slotDuration?: IntFilter<"Availability"> | number
-    createdAt?: DateTimeFilter<"Availability"> | Date | string
-    updatedAt?: DateTimeFilter<"Availability"> | Date | string
-  }
-
-  export type BlockedSlotUpsertWithWhereUniqueWithoutEmployeeInput = {
-    where: BlockedSlotWhereUniqueInput
-    update: XOR<BlockedSlotUpdateWithoutEmployeeInput, BlockedSlotUncheckedUpdateWithoutEmployeeInput>
-    create: XOR<BlockedSlotCreateWithoutEmployeeInput, BlockedSlotUncheckedCreateWithoutEmployeeInput>
-  }
-
-  export type BlockedSlotUpdateWithWhereUniqueWithoutEmployeeInput = {
-    where: BlockedSlotWhereUniqueInput
-    data: XOR<BlockedSlotUpdateWithoutEmployeeInput, BlockedSlotUncheckedUpdateWithoutEmployeeInput>
-  }
-
-  export type BlockedSlotUpdateManyWithWhereWithoutEmployeeInput = {
-    where: BlockedSlotScalarWhereInput
-    data: XOR<BlockedSlotUpdateManyMutationInput, BlockedSlotUncheckedUpdateManyWithoutEmployeeInput>
-  }
-
-  export type BlockedSlotScalarWhereInput = {
-    AND?: BlockedSlotScalarWhereInput | BlockedSlotScalarWhereInput[]
-    OR?: BlockedSlotScalarWhereInput[]
-    NOT?: BlockedSlotScalarWhereInput | BlockedSlotScalarWhereInput[]
-    id?: StringFilter<"BlockedSlot"> | string
-    employee_id?: StringNullableFilter<"BlockedSlot"> | string | null
-    date?: DateTimeFilter<"BlockedSlot"> | Date | string
-    startTime?: DateTimeFilter<"BlockedSlot"> | Date | string
-    endTime?: DateTimeFilter<"BlockedSlot"> | Date | string
-    reason?: StringNullableFilter<"BlockedSlot"> | string | null
-    createdAt?: DateTimeFilter<"BlockedSlot"> | Date | string
-    updatedAt?: DateTimeFilter<"BlockedSlot"> | Date | string
-  }
-
   export type EmployeeCreateWithoutServicesInput = {
     id?: string
     name: string
@@ -13329,8 +13351,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     clinica?: ClinicaCreateNestedOneWithoutEmployeesInput
     Appointment?: AppointmentCreateNestedManyWithoutEmployeeInput
-    availabilities?: AvailabilityCreateNestedManyWithoutEmployeeInput
-    blockedslots?: BlockedSlotCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutServicesInput = {
@@ -13344,8 +13364,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     Appointment?: AppointmentUncheckedCreateNestedManyWithoutEmployeeInput
-    availabilities?: AvailabilityUncheckedCreateNestedManyWithoutEmployeeInput
-    blockedslots?: BlockedSlotUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeCreateOrConnectWithoutServicesInput = {
@@ -13426,6 +13444,66 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AvailabilityCreateWithoutServiceInput = {
+    id?: string
+    dayOfWeek: number
+    startTime: Date | string
+    endTime: Date | string
+    slotDuration: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AvailabilityUncheckedCreateWithoutServiceInput = {
+    id?: string
+    dayOfWeek: number
+    startTime: Date | string
+    endTime: Date | string
+    slotDuration: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AvailabilityCreateOrConnectWithoutServiceInput = {
+    where: AvailabilityWhereUniqueInput
+    create: XOR<AvailabilityCreateWithoutServiceInput, AvailabilityUncheckedCreateWithoutServiceInput>
+  }
+
+  export type AvailabilityCreateManyServiceInputEnvelope = {
+    data: AvailabilityCreateManyServiceInput | AvailabilityCreateManyServiceInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BlockedSlotCreateWithoutServiceInput = {
+    id?: string
+    date: Date | string
+    startTime: Date | string
+    endTime: Date | string
+    reason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BlockedSlotUncheckedCreateWithoutServiceInput = {
+    id?: string
+    date: Date | string
+    startTime: Date | string
+    endTime: Date | string
+    reason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BlockedSlotCreateOrConnectWithoutServiceInput = {
+    where: BlockedSlotWhereUniqueInput
+    create: XOR<BlockedSlotCreateWithoutServiceInput, BlockedSlotUncheckedCreateWithoutServiceInput>
+  }
+
+  export type BlockedSlotCreateManyServiceInputEnvelope = {
+    data: BlockedSlotCreateManyServiceInput | BlockedSlotCreateManyServiceInput[]
+    skipDuplicates?: boolean
+  }
+
   export type EmployeeUpsertWithoutServicesInput = {
     update: XOR<EmployeeUpdateWithoutServicesInput, EmployeeUncheckedUpdateWithoutServicesInput>
     create: XOR<EmployeeCreateWithoutServicesInput, EmployeeUncheckedCreateWithoutServicesInput>
@@ -13448,8 +13526,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clinica?: ClinicaUpdateOneWithoutEmployeesNestedInput
     Appointment?: AppointmentUpdateManyWithoutEmployeeNestedInput
-    availabilities?: AvailabilityUpdateManyWithoutEmployeeNestedInput
-    blockedslots?: BlockedSlotUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutServicesInput = {
@@ -13463,8 +13539,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Appointment?: AppointmentUncheckedUpdateManyWithoutEmployeeNestedInput
-    availabilities?: AvailabilityUncheckedUpdateManyWithoutEmployeeNestedInput
-    blockedslots?: BlockedSlotUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type ClinicaUpsertWithoutServicesInput = {
@@ -13522,156 +13596,224 @@ export namespace Prisma {
     data: XOR<AppointmentUpdateManyMutationInput, AppointmentUncheckedUpdateManyWithoutServiceInput>
   }
 
-  export type EmployeeCreateWithoutAvailabilitiesInput = {
+  export type AvailabilityUpsertWithWhereUniqueWithoutServiceInput = {
+    where: AvailabilityWhereUniqueInput
+    update: XOR<AvailabilityUpdateWithoutServiceInput, AvailabilityUncheckedUpdateWithoutServiceInput>
+    create: XOR<AvailabilityCreateWithoutServiceInput, AvailabilityUncheckedCreateWithoutServiceInput>
+  }
+
+  export type AvailabilityUpdateWithWhereUniqueWithoutServiceInput = {
+    where: AvailabilityWhereUniqueInput
+    data: XOR<AvailabilityUpdateWithoutServiceInput, AvailabilityUncheckedUpdateWithoutServiceInput>
+  }
+
+  export type AvailabilityUpdateManyWithWhereWithoutServiceInput = {
+    where: AvailabilityScalarWhereInput
+    data: XOR<AvailabilityUpdateManyMutationInput, AvailabilityUncheckedUpdateManyWithoutServiceInput>
+  }
+
+  export type AvailabilityScalarWhereInput = {
+    AND?: AvailabilityScalarWhereInput | AvailabilityScalarWhereInput[]
+    OR?: AvailabilityScalarWhereInput[]
+    NOT?: AvailabilityScalarWhereInput | AvailabilityScalarWhereInput[]
+    id?: StringFilter<"Availability"> | string
+    service_id?: StringNullableFilter<"Availability"> | string | null
+    dayOfWeek?: IntFilter<"Availability"> | number
+    startTime?: DateTimeFilter<"Availability"> | Date | string
+    endTime?: DateTimeFilter<"Availability"> | Date | string
+    slotDuration?: IntFilter<"Availability"> | number
+    createdAt?: DateTimeFilter<"Availability"> | Date | string
+    updatedAt?: DateTimeFilter<"Availability"> | Date | string
+  }
+
+  export type BlockedSlotUpsertWithWhereUniqueWithoutServiceInput = {
+    where: BlockedSlotWhereUniqueInput
+    update: XOR<BlockedSlotUpdateWithoutServiceInput, BlockedSlotUncheckedUpdateWithoutServiceInput>
+    create: XOR<BlockedSlotCreateWithoutServiceInput, BlockedSlotUncheckedCreateWithoutServiceInput>
+  }
+
+  export type BlockedSlotUpdateWithWhereUniqueWithoutServiceInput = {
+    where: BlockedSlotWhereUniqueInput
+    data: XOR<BlockedSlotUpdateWithoutServiceInput, BlockedSlotUncheckedUpdateWithoutServiceInput>
+  }
+
+  export type BlockedSlotUpdateManyWithWhereWithoutServiceInput = {
+    where: BlockedSlotScalarWhereInput
+    data: XOR<BlockedSlotUpdateManyMutationInput, BlockedSlotUncheckedUpdateManyWithoutServiceInput>
+  }
+
+  export type BlockedSlotScalarWhereInput = {
+    AND?: BlockedSlotScalarWhereInput | BlockedSlotScalarWhereInput[]
+    OR?: BlockedSlotScalarWhereInput[]
+    NOT?: BlockedSlotScalarWhereInput | BlockedSlotScalarWhereInput[]
+    id?: StringFilter<"BlockedSlot"> | string
+    service_id?: StringNullableFilter<"BlockedSlot"> | string | null
+    date?: DateTimeFilter<"BlockedSlot"> | Date | string
+    startTime?: DateTimeFilter<"BlockedSlot"> | Date | string
+    endTime?: DateTimeFilter<"BlockedSlot"> | Date | string
+    reason?: StringNullableFilter<"BlockedSlot"> | string | null
+    createdAt?: DateTimeFilter<"BlockedSlot"> | Date | string
+    updatedAt?: DateTimeFilter<"BlockedSlot"> | Date | string
+  }
+
+  export type ServiceCreateWithoutAvailabilitiesInput = {
     id?: string
     name: string
-    speciality: string
-    email: string
-    password: string
-    role?: $Enums.Role
+    description?: string | null
+    price: Decimal | DecimalJsLike | number | string
+    duration: number
+    type: $Enums.Type
+    capacity: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    services?: ServiceCreateNestedManyWithoutEmployeeInput
-    clinica?: ClinicaCreateNestedOneWithoutEmployeesInput
-    Appointment?: AppointmentCreateNestedManyWithoutEmployeeInput
-    blockedslots?: BlockedSlotCreateNestedManyWithoutEmployeeInput
+    employee?: EmployeeCreateNestedOneWithoutServicesInput
+    clinica: ClinicaCreateNestedOneWithoutServicesInput
+    appointments?: AppointmentCreateNestedManyWithoutServiceInput
+    blockedslots?: BlockedSlotCreateNestedManyWithoutServiceInput
   }
 
-  export type EmployeeUncheckedCreateWithoutAvailabilitiesInput = {
+  export type ServiceUncheckedCreateWithoutAvailabilitiesInput = {
     id?: string
     name: string
-    speciality: string
-    email: string
-    password: string
-    role?: $Enums.Role
-    clinica_id?: string | null
+    description?: string | null
+    price: Decimal | DecimalJsLike | number | string
+    duration: number
+    type: $Enums.Type
+    capacity: number
+    employee_id?: string | null
+    clinica_id: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    services?: ServiceUncheckedCreateNestedManyWithoutEmployeeInput
-    Appointment?: AppointmentUncheckedCreateNestedManyWithoutEmployeeInput
-    blockedslots?: BlockedSlotUncheckedCreateNestedManyWithoutEmployeeInput
+    appointments?: AppointmentUncheckedCreateNestedManyWithoutServiceInput
+    blockedslots?: BlockedSlotUncheckedCreateNestedManyWithoutServiceInput
   }
 
-  export type EmployeeCreateOrConnectWithoutAvailabilitiesInput = {
-    where: EmployeeWhereUniqueInput
-    create: XOR<EmployeeCreateWithoutAvailabilitiesInput, EmployeeUncheckedCreateWithoutAvailabilitiesInput>
+  export type ServiceCreateOrConnectWithoutAvailabilitiesInput = {
+    where: ServiceWhereUniqueInput
+    create: XOR<ServiceCreateWithoutAvailabilitiesInput, ServiceUncheckedCreateWithoutAvailabilitiesInput>
   }
 
-  export type EmployeeUpsertWithoutAvailabilitiesInput = {
-    update: XOR<EmployeeUpdateWithoutAvailabilitiesInput, EmployeeUncheckedUpdateWithoutAvailabilitiesInput>
-    create: XOR<EmployeeCreateWithoutAvailabilitiesInput, EmployeeUncheckedCreateWithoutAvailabilitiesInput>
-    where?: EmployeeWhereInput
+  export type ServiceUpsertWithoutAvailabilitiesInput = {
+    update: XOR<ServiceUpdateWithoutAvailabilitiesInput, ServiceUncheckedUpdateWithoutAvailabilitiesInput>
+    create: XOR<ServiceCreateWithoutAvailabilitiesInput, ServiceUncheckedCreateWithoutAvailabilitiesInput>
+    where?: ServiceWhereInput
   }
 
-  export type EmployeeUpdateToOneWithWhereWithoutAvailabilitiesInput = {
-    where?: EmployeeWhereInput
-    data: XOR<EmployeeUpdateWithoutAvailabilitiesInput, EmployeeUncheckedUpdateWithoutAvailabilitiesInput>
+  export type ServiceUpdateToOneWithWhereWithoutAvailabilitiesInput = {
+    where?: ServiceWhereInput
+    data: XOR<ServiceUpdateWithoutAvailabilitiesInput, ServiceUncheckedUpdateWithoutAvailabilitiesInput>
   }
 
-  export type EmployeeUpdateWithoutAvailabilitiesInput = {
+  export type ServiceUpdateWithoutAvailabilitiesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    speciality?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
+    capacity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    services?: ServiceUpdateManyWithoutEmployeeNestedInput
-    clinica?: ClinicaUpdateOneWithoutEmployeesNestedInput
-    Appointment?: AppointmentUpdateManyWithoutEmployeeNestedInput
-    blockedslots?: BlockedSlotUpdateManyWithoutEmployeeNestedInput
+    employee?: EmployeeUpdateOneWithoutServicesNestedInput
+    clinica?: ClinicaUpdateOneRequiredWithoutServicesNestedInput
+    appointments?: AppointmentUpdateManyWithoutServiceNestedInput
+    blockedslots?: BlockedSlotUpdateManyWithoutServiceNestedInput
   }
 
-  export type EmployeeUncheckedUpdateWithoutAvailabilitiesInput = {
+  export type ServiceUncheckedUpdateWithoutAvailabilitiesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    speciality?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    clinica_id?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
+    capacity?: IntFieldUpdateOperationsInput | number
+    employee_id?: NullableStringFieldUpdateOperationsInput | string | null
+    clinica_id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    services?: ServiceUncheckedUpdateManyWithoutEmployeeNestedInput
-    Appointment?: AppointmentUncheckedUpdateManyWithoutEmployeeNestedInput
-    blockedslots?: BlockedSlotUncheckedUpdateManyWithoutEmployeeNestedInput
+    appointments?: AppointmentUncheckedUpdateManyWithoutServiceNestedInput
+    blockedslots?: BlockedSlotUncheckedUpdateManyWithoutServiceNestedInput
   }
 
-  export type EmployeeCreateWithoutBlockedslotsInput = {
+  export type ServiceCreateWithoutBlockedslotsInput = {
     id?: string
     name: string
-    speciality: string
-    email: string
-    password: string
-    role?: $Enums.Role
+    description?: string | null
+    price: Decimal | DecimalJsLike | number | string
+    duration: number
+    type: $Enums.Type
+    capacity: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    services?: ServiceCreateNestedManyWithoutEmployeeInput
-    clinica?: ClinicaCreateNestedOneWithoutEmployeesInput
-    Appointment?: AppointmentCreateNestedManyWithoutEmployeeInput
-    availabilities?: AvailabilityCreateNestedManyWithoutEmployeeInput
+    employee?: EmployeeCreateNestedOneWithoutServicesInput
+    clinica: ClinicaCreateNestedOneWithoutServicesInput
+    appointments?: AppointmentCreateNestedManyWithoutServiceInput
+    availabilities?: AvailabilityCreateNestedManyWithoutServiceInput
   }
 
-  export type EmployeeUncheckedCreateWithoutBlockedslotsInput = {
+  export type ServiceUncheckedCreateWithoutBlockedslotsInput = {
     id?: string
     name: string
-    speciality: string
-    email: string
-    password: string
-    role?: $Enums.Role
-    clinica_id?: string | null
+    description?: string | null
+    price: Decimal | DecimalJsLike | number | string
+    duration: number
+    type: $Enums.Type
+    capacity: number
+    employee_id?: string | null
+    clinica_id: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    services?: ServiceUncheckedCreateNestedManyWithoutEmployeeInput
-    Appointment?: AppointmentUncheckedCreateNestedManyWithoutEmployeeInput
-    availabilities?: AvailabilityUncheckedCreateNestedManyWithoutEmployeeInput
+    appointments?: AppointmentUncheckedCreateNestedManyWithoutServiceInput
+    availabilities?: AvailabilityUncheckedCreateNestedManyWithoutServiceInput
   }
 
-  export type EmployeeCreateOrConnectWithoutBlockedslotsInput = {
-    where: EmployeeWhereUniqueInput
-    create: XOR<EmployeeCreateWithoutBlockedslotsInput, EmployeeUncheckedCreateWithoutBlockedslotsInput>
+  export type ServiceCreateOrConnectWithoutBlockedslotsInput = {
+    where: ServiceWhereUniqueInput
+    create: XOR<ServiceCreateWithoutBlockedslotsInput, ServiceUncheckedCreateWithoutBlockedslotsInput>
   }
 
-  export type EmployeeUpsertWithoutBlockedslotsInput = {
-    update: XOR<EmployeeUpdateWithoutBlockedslotsInput, EmployeeUncheckedUpdateWithoutBlockedslotsInput>
-    create: XOR<EmployeeCreateWithoutBlockedslotsInput, EmployeeUncheckedCreateWithoutBlockedslotsInput>
-    where?: EmployeeWhereInput
+  export type ServiceUpsertWithoutBlockedslotsInput = {
+    update: XOR<ServiceUpdateWithoutBlockedslotsInput, ServiceUncheckedUpdateWithoutBlockedslotsInput>
+    create: XOR<ServiceCreateWithoutBlockedslotsInput, ServiceUncheckedCreateWithoutBlockedslotsInput>
+    where?: ServiceWhereInput
   }
 
-  export type EmployeeUpdateToOneWithWhereWithoutBlockedslotsInput = {
-    where?: EmployeeWhereInput
-    data: XOR<EmployeeUpdateWithoutBlockedslotsInput, EmployeeUncheckedUpdateWithoutBlockedslotsInput>
+  export type ServiceUpdateToOneWithWhereWithoutBlockedslotsInput = {
+    where?: ServiceWhereInput
+    data: XOR<ServiceUpdateWithoutBlockedslotsInput, ServiceUncheckedUpdateWithoutBlockedslotsInput>
   }
 
-  export type EmployeeUpdateWithoutBlockedslotsInput = {
+  export type ServiceUpdateWithoutBlockedslotsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    speciality?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
+    capacity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    services?: ServiceUpdateManyWithoutEmployeeNestedInput
-    clinica?: ClinicaUpdateOneWithoutEmployeesNestedInput
-    Appointment?: AppointmentUpdateManyWithoutEmployeeNestedInput
-    availabilities?: AvailabilityUpdateManyWithoutEmployeeNestedInput
+    employee?: EmployeeUpdateOneWithoutServicesNestedInput
+    clinica?: ClinicaUpdateOneRequiredWithoutServicesNestedInput
+    appointments?: AppointmentUpdateManyWithoutServiceNestedInput
+    availabilities?: AvailabilityUpdateManyWithoutServiceNestedInput
   }
 
-  export type EmployeeUncheckedUpdateWithoutBlockedslotsInput = {
+  export type ServiceUncheckedUpdateWithoutBlockedslotsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    speciality?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    clinica_id?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
+    capacity?: IntFieldUpdateOperationsInput | number
+    employee_id?: NullableStringFieldUpdateOperationsInput | string | null
+    clinica_id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    services?: ServiceUncheckedUpdateManyWithoutEmployeeNestedInput
-    Appointment?: AppointmentUncheckedUpdateManyWithoutEmployeeNestedInput
-    availabilities?: AvailabilityUncheckedUpdateManyWithoutEmployeeNestedInput
+    appointments?: AppointmentUncheckedUpdateManyWithoutServiceNestedInput
+    availabilities?: AvailabilityUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceCreateWithoutAppointmentsInput = {
@@ -13680,10 +13822,14 @@ export namespace Prisma {
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
     duration: number
+    type: $Enums.Type
+    capacity: number
     createdAt?: Date | string
     updatedAt?: Date | string
     employee?: EmployeeCreateNestedOneWithoutServicesInput
     clinica: ClinicaCreateNestedOneWithoutServicesInput
+    availabilities?: AvailabilityCreateNestedManyWithoutServiceInput
+    blockedslots?: BlockedSlotCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceUncheckedCreateWithoutAppointmentsInput = {
@@ -13692,10 +13838,14 @@ export namespace Prisma {
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
     duration: number
+    type: $Enums.Type
+    capacity: number
     employee_id?: string | null
     clinica_id: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    availabilities?: AvailabilityUncheckedCreateNestedManyWithoutServiceInput
+    blockedslots?: BlockedSlotUncheckedCreateNestedManyWithoutServiceInput
   }
 
   export type ServiceCreateOrConnectWithoutAppointmentsInput = {
@@ -13714,8 +13864,6 @@ export namespace Prisma {
     updatedAt?: Date | string
     services?: ServiceCreateNestedManyWithoutEmployeeInput
     clinica?: ClinicaCreateNestedOneWithoutEmployeesInput
-    availabilities?: AvailabilityCreateNestedManyWithoutEmployeeInput
-    blockedslots?: BlockedSlotCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeUncheckedCreateWithoutAppointmentInput = {
@@ -13729,8 +13877,6 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     services?: ServiceUncheckedCreateNestedManyWithoutEmployeeInput
-    availabilities?: AvailabilityUncheckedCreateNestedManyWithoutEmployeeInput
-    blockedslots?: BlockedSlotUncheckedCreateNestedManyWithoutEmployeeInput
   }
 
   export type EmployeeCreateOrConnectWithoutAppointmentInput = {
@@ -13788,10 +13934,14 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
+    capacity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employee?: EmployeeUpdateOneWithoutServicesNestedInput
     clinica?: ClinicaUpdateOneRequiredWithoutServicesNestedInput
+    availabilities?: AvailabilityUpdateManyWithoutServiceNestedInput
+    blockedslots?: BlockedSlotUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateWithoutAppointmentsInput = {
@@ -13800,10 +13950,14 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
+    capacity?: IntFieldUpdateOperationsInput | number
     employee_id?: NullableStringFieldUpdateOperationsInput | string | null
     clinica_id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    availabilities?: AvailabilityUncheckedUpdateManyWithoutServiceNestedInput
+    blockedslots?: BlockedSlotUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type EmployeeUpsertWithoutAppointmentInput = {
@@ -13828,8 +13982,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     services?: ServiceUpdateManyWithoutEmployeeNestedInput
     clinica?: ClinicaUpdateOneWithoutEmployeesNestedInput
-    availabilities?: AvailabilityUpdateManyWithoutEmployeeNestedInput
-    blockedslots?: BlockedSlotUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutAppointmentInput = {
@@ -13843,8 +13995,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     services?: ServiceUncheckedUpdateManyWithoutEmployeeNestedInput
-    availabilities?: AvailabilityUncheckedUpdateManyWithoutEmployeeNestedInput
-    blockedslots?: BlockedSlotUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type ClinicaUpsertWithoutAppointmentInput = {
@@ -13953,6 +14103,8 @@ export namespace Prisma {
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
     duration: number
+    type: $Enums.Type
+    capacity: number
     employee_id?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13984,8 +14136,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     services?: ServiceUpdateManyWithoutEmployeeNestedInput
     Appointment?: AppointmentUpdateManyWithoutEmployeeNestedInput
-    availabilities?: AvailabilityUpdateManyWithoutEmployeeNestedInput
-    blockedslots?: BlockedSlotUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateWithoutClinicaInput = {
@@ -13999,8 +14149,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     services?: ServiceUncheckedUpdateManyWithoutEmployeeNestedInput
     Appointment?: AppointmentUncheckedUpdateManyWithoutEmployeeNestedInput
-    availabilities?: AvailabilityUncheckedUpdateManyWithoutEmployeeNestedInput
-    blockedslots?: BlockedSlotUncheckedUpdateManyWithoutEmployeeNestedInput
   }
 
   export type EmployeeUncheckedUpdateManyWithoutClinicaInput = {
@@ -14020,10 +14168,14 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
+    capacity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     employee?: EmployeeUpdateOneWithoutServicesNestedInput
     appointments?: AppointmentUpdateManyWithoutServiceNestedInput
+    availabilities?: AvailabilityUpdateManyWithoutServiceNestedInput
+    blockedslots?: BlockedSlotUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateWithoutClinicaInput = {
@@ -14032,10 +14184,14 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
+    capacity?: IntFieldUpdateOperationsInput | number
     employee_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointments?: AppointmentUncheckedUpdateManyWithoutServiceNestedInput
+    availabilities?: AvailabilityUncheckedUpdateManyWithoutServiceNestedInput
+    blockedslots?: BlockedSlotUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateManyWithoutClinicaInput = {
@@ -14044,6 +14200,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
+    capacity?: IntFieldUpdateOperationsInput | number
     employee_id?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14100,6 +14258,8 @@ export namespace Prisma {
     description?: string | null
     price: Decimal | DecimalJsLike | number | string
     duration: number
+    type: $Enums.Type
+    capacity: number
     clinica_id: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -14120,36 +14280,20 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type AvailabilityCreateManyEmployeeInput = {
-    id?: string
-    dayOfWeek: number
-    startTime: Date | string
-    endTime: Date | string
-    slotDuration: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type BlockedSlotCreateManyEmployeeInput = {
-    id?: string
-    date: Date | string
-    startTime: Date | string
-    endTime: Date | string
-    reason?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
   export type ServiceUpdateWithoutEmployeeInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
+    capacity?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clinica?: ClinicaUpdateOneRequiredWithoutServicesNestedInput
     appointments?: AppointmentUpdateManyWithoutServiceNestedInput
+    availabilities?: AvailabilityUpdateManyWithoutServiceNestedInput
+    blockedslots?: BlockedSlotUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateWithoutEmployeeInput = {
@@ -14158,10 +14302,14 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
+    capacity?: IntFieldUpdateOperationsInput | number
     clinica_id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointments?: AppointmentUncheckedUpdateManyWithoutServiceNestedInput
+    availabilities?: AvailabilityUncheckedUpdateManyWithoutServiceNestedInput
+    blockedslots?: BlockedSlotUncheckedUpdateManyWithoutServiceNestedInput
   }
 
   export type ServiceUncheckedUpdateManyWithoutEmployeeInput = {
@@ -14170,6 +14318,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     duration?: IntFieldUpdateOperationsInput | number
+    type?: EnumTypeFieldUpdateOperationsInput | $Enums.Type
+    capacity?: IntFieldUpdateOperationsInput | number
     clinica_id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14220,66 +14370,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type AvailabilityUpdateWithoutEmployeeInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    dayOfWeek?: IntFieldUpdateOperationsInput | number
-    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    slotDuration?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AvailabilityUncheckedUpdateWithoutEmployeeInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    dayOfWeek?: IntFieldUpdateOperationsInput | number
-    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    slotDuration?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type AvailabilityUncheckedUpdateManyWithoutEmployeeInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    dayOfWeek?: IntFieldUpdateOperationsInput | number
-    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    slotDuration?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type BlockedSlotUpdateWithoutEmployeeInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    reason?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type BlockedSlotUncheckedUpdateWithoutEmployeeInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    reason?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type BlockedSlotUncheckedUpdateManyWithoutEmployeeInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    reason?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type AppointmentCreateManyServiceInput = {
     id?: string
     start: Date | string
@@ -14291,6 +14381,26 @@ export namespace Prisma {
     customerPhone: string
     employee_id?: string | null
     clinica_id?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AvailabilityCreateManyServiceInput = {
+    id?: string
+    dayOfWeek: number
+    startTime: Date | string
+    endTime: Date | string
+    slotDuration: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BlockedSlotCreateManyServiceInput = {
+    id?: string
+    date: Date | string
+    startTime: Date | string
+    endTime: Date | string
+    reason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14336,6 +14446,66 @@ export namespace Prisma {
     customerPhone?: StringFieldUpdateOperationsInput | string
     employee_id?: NullableStringFieldUpdateOperationsInput | string | null
     clinica_id?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AvailabilityUpdateWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    slotDuration?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AvailabilityUncheckedUpdateWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    slotDuration?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AvailabilityUncheckedUpdateManyWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    dayOfWeek?: IntFieldUpdateOperationsInput | number
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    slotDuration?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BlockedSlotUpdateWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BlockedSlotUncheckedUpdateWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BlockedSlotUncheckedUpdateManyWithoutServiceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
